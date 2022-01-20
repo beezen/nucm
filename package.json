@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/beezenD/clearlake"
+    "url": "git@github.com:beezen/nucm.git"
   },
   "author": "beezen",
   "keywords": [
     "nucm",
     "npm"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
     "commander": "^8.3.0",
