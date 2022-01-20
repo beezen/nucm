@@ -1,0 +1,27 @@
+{
+  "name": "nucm",
+  "version": "1.0.0",
+  "description": "Npm User Change Manager",
+  "main": "./bin/index.js",
+  "bin": {
+    "nucm": "./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beezenD/clearlake"
+  },
+  "author": "beezen",
+  "keywords": [
+    "nucm",
+    "npm"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "commander": "^8.3.0",
+    "fs-extra": "^10.0.0",
+    "ini": "^2.0.0",
+    "inquirer": "^8.2.0",
+    "os": "^0.1.2"
+  }
+}
