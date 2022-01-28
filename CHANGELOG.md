@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/beezen/nucm/compare/v1.1.0...v1.2.0) (2022-01-28)
+
+
+### Features
+
+* 添加账号显示默认脱敏处理 ([1cf37c2](https://github.com/beezen/nucm/commit/1cf37c2e41bab21f73a5b28d08ceb593ba576043))
+
 ## 1.1.0 (2022-01-24)
 
 
