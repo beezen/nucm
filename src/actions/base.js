@@ -1,21 +1,24 @@
 const ini = require("ini");
 const fs = require("fs-extra");
 const colors = require("colors");
-const { getLangMessage, line } = require("../utils/index");
+const { getLangMessage, line, desensitize } = require("../utils/index");
 const config = require("../index").getConfig(); // 基础配置
 
 /**
  * 获取用户列表
  */
-function getUserList() {
+function getUserList(options) {
   let npmAccountList = config.npmAccountList;
   let defaultLog = getLangMessage("MSG_getUserListDefaultLog");
   let userList = Object.keys(npmAccountList)
     .map((key) => {
+      let visibleToken = options.list
+        ? npmAccountList[key]["access-tokens"]
+        : desensitize(npmAccountList[key]["access-tokens"]); // 脱敏处理
       if (npmAccountList[key]["is-current"]) {
-        return colors.green(`* ${key} ${line(key, 10)} ${npmAccountList[key]["access-tokens"]}`);
+        return colors.green(`* ${key} ${line(key, 10)} ${visibleToken}`);
       }
-      return `  ${key} ${line(key, 10)} ${npmAccountList[key]["access-tokens"]}`;
+      return `  ${key} ${line(key, 10)} ${visibleToken}`;
     })
     .join("\n");
   console.log(userList || defaultLog.red);

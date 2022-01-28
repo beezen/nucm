@@ -18,9 +18,15 @@ $ npm install -g nucm
 ```bash
 $ nucm ls
 
-  beezend -- xxxxxxx
-  beezen --- xxxxxxx
-* beeze ---- xxxxxxx
+  beezend -- xxxxxx......xxxx
+  beezen --- xxxxxx......xxxx
+* beeze ---- xxxxxx......xxxx
+
+$ nucm ls -l
+
+  beezend -- xxxxxxxxxxxxxxxx
+  beezen --- xxxxxxxxxxxxxxxx
+* beeze ---- xxxxxxxxxxxxxxxx
 ```
 
 ```bash
@@ -50,7 +56,7 @@ Options:
   -h, --help                  display help for command
 
 Commands:
-  ls                          show account list
+  ls [options]                show account list
   use <name>                  switch account
   add <name> <access-tokens>  add account
   del <name>                  remove account

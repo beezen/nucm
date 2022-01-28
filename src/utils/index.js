@@ -11,7 +11,15 @@ function line(str, len) {
   return new Array(Math.max(2, len - str.length)).join("-");
 }
 
+/** 脱敏 */
+function desensitize(str) {
+  if (str.length <= 4) return str;
+  if (str.length <= 10) return `......${str.slice(-4)}`;
+  return `${str.slice(0, 6)}......${str.slice(-4)}`;
+}
+
 module.exports = {
   getLangMessage,
-  line
+  line,
+  desensitize
 };
