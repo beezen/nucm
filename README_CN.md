@@ -18,9 +18,15 @@ $ npm install -g nucm
 ```bash
 $ nucm ls
 
-  beezend -- xxxxxxx
-  beezen --- xxxxxxx
-* beeze ---- xxxxxxx
+  beezend -- xxxxxx......xxxx
+  beezen --- xxxxxx......xxxx
+* beeze ---- xxxxxx......xxxx
+
+$ nucm ls -l
+
+  beezend -- xxxxxxxxxxxxxxxx
+  beezen --- xxxxxxxxxxxxxxxx
+* beeze ---- xxxxxxxxxxxxxxxx
 ```
 
 ```bash
@@ -50,7 +56,7 @@ Options:
   -h, --help                  显示命令帮助
 
 Commands:
-  ls                          查看账号列表
+  ls [options]                查看账号列表
   use <name>                  切换账号
   add <name> <access-tokens>  添加账号
   del <name>                  移除账号

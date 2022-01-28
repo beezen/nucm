@@ -8,7 +8,11 @@ const pkg = require("../package.json");
 
 program.version(pkg.version, "-v,--version", getLangMessage("MSG_showVersion"));
 program.helpOption("-h, --help", getLangMessage("MSG_help"));
-program.command("ls").description(getLangMessage("MSG_accountList")).action(getUserList);
+program
+  .command("ls")
+  .option("-l,--list", getLangMessage("MSG_ls"))
+  .description(getLangMessage("MSG_accountList"))
+  .action(getUserList);
 program.command("use <name>").description(getLangMessage("MSG_switchAccount")).action(changeUser);
 program
   .command("add <name> <access-tokens>")

@@ -16,7 +16,8 @@ module.exports = {
     MSG_langChanged: "已切换到语言",
     MSG_init: "初始化",
     MSG_initSuccess: "nucm 初始化成功",
-    MSG_help: "显示命令帮助"
+    MSG_help: "显示命令帮助",
+    MSG_ls: "显示详细"
   },
   en: {
     MSG_showVersion: "show version",
@@ -38,6 +39,7 @@ module.exports = {
     MSG_langChanged: "Switched to language",
     MSG_init: "initialize",
     MSG_initSuccess: "nucm initialized successfully",
-    MSG_help: "display help for command"
+    MSG_help: "display help for command",
+    MSG_ls: "show detail"
   }
 };
