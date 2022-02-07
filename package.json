@@ -19,7 +19,13 @@
   "keywords": [
     "nucm",
     "npm",
-    "Access Tokens"
+    "nrm",
+    "access tokens",
+    "publish",
+    "user change",
+    "token",
+    "account",
+    "manager"
   ],
   "license": "MIT",
   "dependencies": {
@@ -29,6 +35,7 @@
     "fs-extra": "^10.0.0",
     "ini": "^2.0.0",
     "inquirer": "^8.2.0",
-    "os": "^0.1.2"
+    "os": "^0.1.2",
+    "shelljs": "^0.8.5"
   }
 }

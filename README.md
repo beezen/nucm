@@ -62,6 +62,7 @@ Commands:
   del <name>                  remove account
   localize <lang>             use localized languages
   install                     initialize
+  update [options]            updated version
   help [command]              display help for command
 ```
 

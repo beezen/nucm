@@ -62,6 +62,7 @@ Commands:
   del <name>                  移除账号
   localize <lang>             使用本地化语言
   install                     初始化
+  update [options]            更新版本
   help [command]              display help for command
 ```
 

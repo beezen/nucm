@@ -3,9 +3,7 @@ const ini = require("ini");
 const fs = require("fs-extra");
 const os = require("os");
 const colors = require("colors");
-
 const homedir = os.homedir(); // 用户目录
-
 // 配置文件地址
 const nucmrc_path = path.resolve(homedir, ".nucmrc");
 const npmrc_path = path.resolve(homedir, ".npmrc");
