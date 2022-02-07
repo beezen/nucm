@@ -17,7 +17,11 @@ module.exports = {
     MSG_init: "初始化",
     MSG_initSuccess: "nucm 初始化成功",
     MSG_help: "显示命令帮助",
-    MSG_ls: "显示详细"
+    MSG_ls: "显示详细",
+    MSG_update: "更新版本",
+    MSG_updateLatest: "当前已是最新版本",
+    MSG_updateSilent: "静默的",
+    MSG_updateTips: "存在可更新的版本。"
   },
   en: {
     MSG_showVersion: "show version",
@@ -40,6 +44,10 @@ module.exports = {
     MSG_init: "initialize",
     MSG_initSuccess: "nucm initialized successfully",
     MSG_help: "display help for command",
-    MSG_ls: "show detail"
+    MSG_ls: "show detail",
+    MSG_update: "updated version",
+    MSG_updateLatest: "The current version is already the latest version",
+    MSG_updateSilent: "silent",
+    MSG_updateTips: "It can be updated to the latest version."
   }
 };

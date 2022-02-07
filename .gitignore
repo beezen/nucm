@@ -1,6 +1,10 @@
 ## 生成文件
 /_*
 
+## lock 文件
+yarn.lock
+package-lock.json
+
 ## Node.js
 node_modules
 jspm_packages
