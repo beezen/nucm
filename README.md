@@ -71,6 +71,10 @@ For the time being, we only manage the accounts of the NPM source。We only mana
 
 > An access token is an alternative to using your username and password for authenticating to npm when using the API or the npm command-line interface (CLI). An access token is a hexadecimal string that you can use to authenticate, and which gives you the right to install and/or publish your modules.
 
+## Information
+
+- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
+
 ## LICENSE
 
 MIT

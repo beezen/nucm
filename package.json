@@ -1,6 +1,6 @@
 {
   "name": "nucm",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Npm User Change Manager",
   "main": "./bin/index.js",
   "scripts": {
