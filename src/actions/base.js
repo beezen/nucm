@@ -1,8 +1,8 @@
 const ini = require("ini");
 const fs = require("fs-extra");
 const colors = require("colors");
-const { getLangMessage, line, desensitize } = require("../utils/index");
-const config = require("../index").getConfig(); // 基础配置
+const { getLangMessage, line, desensitize, getConfig } = require("../utils/index");
+const config = getConfig(); // 基础配置
 
 /**
  * 获取用户列表

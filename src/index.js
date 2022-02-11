@@ -1,36 +1,41 @@
-const path = require("path");
-const ini = require("ini");
-const fs = require("fs-extra");
-const os = require("os");
-const colors = require("colors");
-const homedir = os.homedir(); // 用户目录
-// 配置文件地址
-const nucmrc_path = path.resolve(homedir, ".nucmrc");
-const npmrc_path = path.resolve(homedir, ".npmrc");
-const nrmrc_path = path.resolve(homedir, ".nrmrc");
+const program = require("commander");
 
-/** 获取配置信息 */
-function getConfig() {
-  fs.ensureFileSync(nucmrc_path);
-  fs.ensureFileSync(npmrc_path);
-  fs.ensureFileSync(nrmrc_path);
-  const nucmrcConfig = ini.parse(fs.readFileSync(nucmrc_path, "utf-8"));
-  const npmrcConfig = ini.parse(fs.readFileSync(npmrc_path, "utf-8"));
-  const nrmrcConfig = ini.parse(fs.readFileSync(nrmrc_path, "utf-8"));
-  const npmAccountList = nucmrcConfig.npm; // npm 账号列表
-  const baseConfig = nucmrcConfig.baseConfig; // 基础配置
-  return {
-    nucmrcConfig,
-    npmrcConfig,
-    nrmrcConfig,
-    nucmrc_path,
-    npmrc_path,
-    nrmrc_path,
-    npmAccountList,
-    baseConfig
-  };
+const { getLangMessage, getConfig } = require("./utils/index");
+const { getUserList, changeUser, addUser, removeUser, changeLang } = require("./actions/base");
+const { initInstall } = require("./actions/init");
+const { updateVersion } = require("./actions/helper");
+const pkg = require("../package.json");
+const config = getConfig();
+
+program.version(pkg.version, "-v,--version", getLangMessage("MSG_showVersion"));
+program.helpOption("-h, --help", getLangMessage("MSG_help"));
+program
+  .command("ls")
+  .option("-l,--list", getLangMessage("MSG_ls"))
+  .description(getLangMessage("MSG_accountList"))
+  .action(getUserList);
+program.command("use <name>").description(getLangMessage("MSG_switchAccount")).action(changeUser);
+program
+  .command("add <name> <access-tokens>")
+  .description(getLangMessage("MSG_addAccount"))
+  .action(addUser);
+program.command("del <name>").description(getLangMessage("MSG_removeAccount")).action(removeUser);
+program
+  .command("localize <lang>")
+  .description(getLangMessage("MSG_localizedLang"))
+  .action(changeLang);
+program.command("install").description(getLangMessage("MSG_init")).action(initInstall);
+program
+  .command("update")
+  .option("--silent", getLangMessage("MSG_updateSilent"))
+  .description(getLangMessage("MSG_update"))
+  .action(updateVersion);
+
+program.parse(process.argv);
+
+// 更新校验
+if (config?.baseConfig?.checkUpdateDate) {
+  if (Date.now() - config.baseConfig.checkUpdateDate >= 1000 * 60 * 60 * 24 * 30) {
+    updateVersion({ silent: true }); // 静默校验
+  }
 }
-
-module.exports = {
-  getConfig
-};
