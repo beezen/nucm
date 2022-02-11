@@ -1,6 +1,40 @@
+const path = require("path");
+const ini = require("ini");
+const fs = require("fs-extra");
+const os = require("os");
+const shell = require("shelljs");
+const colors = require("colors");
+const homedir = os.homedir(); // 用户目录
+// 配置文件地址
+const nucmrc_path = path.resolve(homedir, ".nucmrc");
+const npmrc_path = path.resolve(homedir, ".npmrc");
+const nrmrc_path = path.resolve(homedir, ".nrmrc");
+const config = getConfig(); // 基础配置
+
+/** 获取配置信息 */
+function getConfig() {
+  fs.ensureFileSync(nucmrc_path);
+  fs.ensureFileSync(npmrc_path);
+  fs.ensureFileSync(nrmrc_path);
+  const nucmrcConfig = ini.parse(fs.readFileSync(nucmrc_path, "utf-8"));
+  const npmrcConfig = ini.parse(fs.readFileSync(npmrc_path, "utf-8"));
+  const nrmrcConfig = ini.parse(fs.readFileSync(nrmrc_path, "utf-8"));
+  const npmAccountList = nucmrcConfig.npm; // npm 账号列表
+  const baseConfig = nucmrcConfig.baseConfig; // 基础配置
+  return {
+    nucmrcConfig,
+    npmrcConfig,
+    nrmrcConfig,
+    nucmrc_path,
+    npmrc_path,
+    nrmrc_path,
+    npmAccountList,
+    baseConfig
+  };
+}
+
 /** 获取国际化语言消息 */
 function getLangMessage(messageName) {
-  const config = require("../index").getConfig(); // 基础配置
   const langConfig = require("../lang/index");
   const lang = (config.baseConfig && config.baseConfig.lang) || "en";
   return langConfig[lang][messageName];
@@ -49,9 +83,56 @@ function compareVersion(v1, v2) {
   return 0;
 }
 
+/**
+ * 获取注册源
+ */
+function getRegistryConfig() {
+  let nrmEnabled = false;
+  let registryName = "";
+  const registry = config.npmrcConfig.registry;
+  if (registry === "https://registry.npmjs.org/") {
+    // npm 官方源
+    return {
+      registry,
+      registryName: "npm",
+      nrmEnabled
+    };
+  }
+  const nrmrcConfig = config.nrmrcConfig;
+  const nrmVersion = shell.exec("nrm --version", { silent: true }).stdout.trim();
+  if (nrmVersion) {
+    nrmEnabled = true;
+    for (var key in nrmrcConfig) {
+      if (nrmrcConfig[key].registry === registry) {
+        registryName = key;
+      }
+    }
+  }
+  return {
+    registry,
+    registryName,
+    nrmEnabled
+  };
+}
+
+/**
+ * 功能是否启用
+ * @param registryConfig 源相关信息
+ */
+function isEnabled(registryConfig) {
+  if (!registryConfig.registryName) {
+    console.log(`registry: ${registryConfig.registry}.${getLangMessage("MSG_checkRegistry")}`.red);
+    return false;
+  }
+  return true;
+}
+
 module.exports = {
+  isEnabled,
   getLangMessage,
   line,
   desensitize,
-  compareVersion
+  compareVersion,
+  getConfig,
+  getRegistryConfig
 };

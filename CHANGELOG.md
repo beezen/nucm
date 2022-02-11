@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/beezen/nucm/compare/v1.3.0...v1.4.0) (2022-02-11)
+
+
+### Features
+
+* 新增对其他源的账号管理能力 ([d12f24d](https://github.com/beezen/nucm/commit/d12f24dceacda716b13402cc33cdd7dccbef8ba3))
+
 ## [1.3.0](https://github.com/beezen/nucm/compare/v1.2.1...v1.3.0) (2022-02-07)
 
 
