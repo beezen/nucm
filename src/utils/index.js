@@ -2,6 +2,7 @@ const path = require("path");
 const ini = require("ini");
 const fs = require("fs-extra");
 const os = require("os");
+const shell = require("shelljs");
 const colors = require("colors");
 const homedir = os.homedir(); // 用户目录
 // 配置文件地址
@@ -82,10 +83,56 @@ function compareVersion(v1, v2) {
   return 0;
 }
 
+/**
+ * 获取注册源
+ */
+function getRegistryConfig() {
+  let nrmEnabled = false;
+  let registryName = "";
+  const registry = config.npmrcConfig.registry;
+  if (registry === "https://registry.npmjs.org/") {
+    // npm 官方源
+    return {
+      registry,
+      registryName: "npm",
+      nrmEnabled
+    };
+  }
+  const nrmrcConfig = config.nrmrcConfig;
+  const nrmVersion = shell.exec("nrm --version", { silent: true }).stdout.trim();
+  if (nrmVersion) {
+    nrmEnabled = true;
+    for (var key in nrmrcConfig) {
+      if (nrmrcConfig[key].registry === registry) {
+        registryName = key;
+      }
+    }
+  }
+  return {
+    registry,
+    registryName,
+    nrmEnabled
+  };
+}
+
+/**
+ * 功能是否启用
+ * @param registryConfig 源相关信息
+ */
+function isEnabled(registryConfig) {
+  if (!registryConfig.registryName) {
+    console.log(`registry: ${registryConfig.registry}.${getLangMessage("MSG_checkRegistry")}`.red);
+    return false;
+  }
+  return true;
+}
+
 module.exports = {
+  isEnabled,
   getLangMessage,
   line,
   desensitize,
   compareVersion,
-  getConfig
+  getConfig,
+  getRegistryConfig
 };

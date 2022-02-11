@@ -21,6 +21,7 @@ bower_components
 *.iws
 
 ## Visual Studio
+.vscode
 .vs
 **/[Bb]in/[Dd]ebug/
 **/[Bb]in/[Rr]elease/

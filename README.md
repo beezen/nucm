@@ -27,6 +27,16 @@ $ nucm ls -l
   beezend -- xxxxxxxxxxxxxxxx
   beezen --- xxxxxxxxxxxxxxxx
 * beeze ---- xxxxxxxxxxxxxxxx
+
+$ nucm ls -a
+
+【npm】
+  beezend -- xxxxxx......xxxx
+  beezen --- xxxxxx......xxxx
+* beeze ---- xxxxxx......xxxx
+
+【maclocal】
+* test ----- xxxxxx......xxxx
 ```
 
 ```bash

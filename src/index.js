@@ -1,9 +1,9 @@
 const program = require("commander");
 
-const { getLangMessage, getConfig } = require("./utils/index");
-const { getUserList, changeUser, addUser, removeUser, changeLang } = require("./actions/base");
+const { getLangMessage, getConfig, getRegistryConfig } = require("./utils/index");
+const { getUserList, changeUser, addUser, removeUser } = require("./actions/base");
 const { initInstall } = require("./actions/init");
-const { updateVersion } = require("./actions/helper");
+const { updateVersion, changeLang } = require("./actions/helper");
 const pkg = require("../package.json");
 const config = getConfig();
 
@@ -12,6 +12,7 @@ program.helpOption("-h, --help", getLangMessage("MSG_help"));
 program
   .command("ls")
   .option("-l,--list", getLangMessage("MSG_ls"))
+  .option("-a,--all", getLangMessage("MSG_ls_all"))
   .description(getLangMessage("MSG_accountList"))
   .action(getUserList);
 program.command("use <name>").description(getLangMessage("MSG_switchAccount")).action(changeUser);

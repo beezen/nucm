@@ -1,8 +1,10 @@
 const colors = require("colors");
+const ini = require("ini");
 const shell = require("shelljs");
 var inquirer = require("inquirer");
+const fs = require("fs-extra");
 const pkg = require("../../package.json");
-const { getLangMessage, compareVersion } = require("../utils/index");
+const { getLangMessage, compareVersion, getConfig } = require("../utils/index");
 
 /**
  * 更新版本
@@ -39,6 +41,20 @@ function updateVersion(option) {
   }
 }
 
+/** 切换语言 */
+function changeLang(language) {
+  const config = getConfig();
+  let baseConfig = config.baseConfig;
+  if (["en", "cn"].includes(language)) {
+    baseConfig.lang = language;
+    fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
+    console.log(`${getLangMessage("MSG_langChanged")} ${language}`.green);
+  } else {
+    console.log(getLangMessage("MSG_changeLang").red);
+  }
+}
+
 module.exports = {
-  updateVersion
+  updateVersion,
+  changeLang
 };
