@@ -5,6 +5,7 @@ const os = require("os");
 const shell = require("shelljs");
 const colors = require("colors");
 const homedir = os.homedir(); // 用户目录
+const REGISTRIES = require("../constants/registries.json");
 // 配置文件地址
 const nucmrc_path = path.resolve(homedir, ".nucmrc");
 const npmrc_path = path.resolve(homedir, ".npmrc");
@@ -102,8 +103,9 @@ function getRegistryConfig() {
   const nrmVersion = shell.exec("nrm --version", { silent: true }).stdout.trim();
   if (nrmVersion) {
     nrmEnabled = true;
-    for (var key in nrmrcConfig) {
-      if (nrmrcConfig[key].registry === registry) {
+    const registries = { ...REGISTRIES, ...nrmrcConfig };
+    for (let key in registries) {
+      if (registries[key].registry === registry) {
         registryName = key;
       }
     }
