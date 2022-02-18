@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/beezen/nucm/compare/v1.4.0...v1.4.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* 优化使用nrm默认源时无法切换账号信息的问题 ([81b3f62](https://github.com/beezen/nucm/commit/81b3f62afba977c313fbb7446769a7d3cfc1c6d1))
+
 ## [1.4.0](https://github.com/beezen/nucm/compare/v1.3.0...v1.4.0) (2022-02-11)
 
 

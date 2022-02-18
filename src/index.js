@@ -1,6 +1,6 @@
 const program = require("commander");
 
-const { getLangMessage, getConfig, getRegistryConfig } = require("./utils/index");
+const { getLangMessage, getConfig } = require("./utils/index");
 const { getUserList, changeUser, addUser, removeUser } = require("./actions/base");
 const { initInstall } = require("./actions/init");
 const { updateVersion, changeLang } = require("./actions/helper");

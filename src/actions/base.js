@@ -60,21 +60,17 @@ function changeUser(name) {
     console.log(getLangMessage("MSG_accountNotFound").red);
     return;
   }
-  let currentRegistryAuthentication =
-    npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`];
-  if (currentRegistryAuthentication) {
-    npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
-      accountList[name]["access-tokens"];
-    Object.keys(accountList).forEach((key) => {
-      if (accountList[key]["is-current"]) {
-        delete accountList[key]["is-current"];
-      }
-    });
-    accountList[name]["is-current"] = true;
-    fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
-    fs.writeFileSync(config.npmrc_path, ini.stringify(npmrcConfig));
-    console.log(`${getLangMessage("MSG_accountChanged")} ${name}`.green); // The account has been switched to
-  }
+  npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
+    accountList[name]["access-tokens"];
+  Object.keys(accountList).forEach((key) => {
+    if (accountList[key]["is-current"]) {
+      delete accountList[key]["is-current"];
+    }
+  });
+  accountList[name]["is-current"] = true;
+  fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
+  fs.writeFileSync(config.npmrc_path, ini.stringify(npmrcConfig));
+  console.log(`${getLangMessage("MSG_accountChanged")} ${name}`.green);
 }
 
 /** 添加用户 */
