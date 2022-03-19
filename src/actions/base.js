@@ -26,9 +26,9 @@ function getUserList(options) {
           ? accountList[key]["access-tokens"]
           : desensitize(accountList[key]["access-tokens"]); // 脱敏处理
         if (accountList[key]["is-current"]) {
-          return colors.green(`* ${key} ${line(key, 10)} ${visibleToken}`);
+          return colors.green(`* ${key} ${line(key, 20)} ${visibleToken}`);
         }
-        return `  ${key} ${line(key, 10)} ${visibleToken}`;
+        return `  ${key} ${line(key, 20)} ${visibleToken}`;
       })
       .join("\n");
   };
