@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/beezen/nucm/compare/v1.4.1...v1.5.0) (2022-03-19)
+
+
+### Features
+
+* 新增 nucm save 指令,查询当前账号信息是否存储并保存 ([0e9d5a3](https://github.com/beezen/nucm/commit/0e9d5a3caa48524f6b50ee2ee0d14998e960cb2f))
+
+
+### Bug Fixes
+
+* 优化非npm源执行卡顿问题和部分文档说明 ([ea48951](https://github.com/beezen/nucm/commit/ea4895114324ab4183ad86ed800d1571d8d9638f))
+
 ### [1.4.1](https://github.com/beezen/nucm/compare/v1.4.0...v1.4.1) (2022-02-17)
 
 
