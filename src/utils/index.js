@@ -91,12 +91,16 @@ function getRegistryConfig() {
   let nrmEnabled = false;
   let registryName = "";
   const registry = config.npmrcConfig.registry;
+  let _authtoken = registry
+    ? config.npmrcConfig[`${registry.replace(/^https?:/, "")}:_authToken`]
+    : "";
   if (registry === "https://registry.npmjs.org/") {
     // npm 官方源
     return {
       registry,
       registryName: "npm",
-      nrmEnabled
+      nrmEnabled,
+      _authtoken
     };
   }
   const nrmrcConfig = config.nrmrcConfig;
@@ -110,10 +114,12 @@ function getRegistryConfig() {
       }
     }
   }
+
   return {
     registry,
     registryName,
-    nrmEnabled
+    nrmEnabled,
+    _authtoken
   };
 }
 

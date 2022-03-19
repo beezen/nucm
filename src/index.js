@@ -3,7 +3,7 @@ const program = require("commander");
 const { getLangMessage, getConfig } = require("./utils/index");
 const { getUserList, changeUser, addUser, removeUser } = require("./actions/base");
 const { initInstall } = require("./actions/init");
-const { updateVersion, changeLang } = require("./actions/helper");
+const { updateVersion, changeLang, searchToSave } = require("./actions/helper");
 const pkg = require("../package.json");
 const config = getConfig();
 
@@ -15,22 +15,35 @@ program
   .option("-a,--all", getLangMessage("MSG_ls_all"))
   .description(getLangMessage("MSG_accountList"))
   .action(getUserList);
-program.command("use <name>").description(getLangMessage("MSG_switchAccount")).action(changeUser);
+program
+  .command("use <name>")
+  .description(getLangMessage("MSG_switchAccount"))
+  .action(changeUser);
 program
   .command("add <name> <access-tokens>")
   .description(getLangMessage("MSG_addAccount"))
   .action(addUser);
-program.command("del <name>").description(getLangMessage("MSG_removeAccount")).action(removeUser);
+program
+  .command("del <name>")
+  .description(getLangMessage("MSG_removeAccount"))
+  .action(removeUser);
 program
   .command("localize <lang>")
   .description(getLangMessage("MSG_localizedLang"))
   .action(changeLang);
-program.command("install").description(getLangMessage("MSG_init")).action(initInstall);
+program
+  .command("install")
+  .description(getLangMessage("MSG_init"))
+  .action(initInstall);
 program
   .command("update")
   .option("--silent", getLangMessage("MSG_updateSilent"))
   .description(getLangMessage("MSG_update"))
   .action(updateVersion);
+program
+  .command("save")
+  .description(getLangMessage("MSG_save"))
+  .action(searchToSave);
 
 program.parse(process.argv);
 
