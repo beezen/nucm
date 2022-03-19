@@ -11,8 +11,13 @@ const { addUser, removeUser } = require("./base");
  * @param 是否自动校验
  */
 function updateVersion(option) {
+  const config = getConfig();
+  config.baseConfig.checkUpdateDate = Date.now();
+  fs.writeFile(config.nucmrc_path, ini.stringify(config.nucmrcConfig)); // 更新校验时间
   const curVersion = pkg.version;
-  const latestVersion = shell.exec("npm view nucm version", { silent: true }).stdout.trim();
+  const latestVersion = shell
+    .exec("npm view nucm version --registry='https://registry.npmjs.org/'", { silent: true })
+    .stdout.trim();
   if (!curVersion || !latestVersion) return;
   const status = compareVersion(curVersion, latestVersion);
   if (status === -1) {

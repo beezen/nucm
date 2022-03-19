@@ -25,7 +25,7 @@ module.exports = {
     MSG_updateLatest: "当前已是最新版本",
     MSG_updateSilent: "静默的",
     MSG_updateTips: "存在可更新的版本。",
-    MSG_save: "查询当前账号是否已被存储",
+    MSG_save: "保存当前账号",
     MSG_save_01: "当前账号已存在于账号列表中，无需重复存储。是否重命名？",
     MSG_save_02: "请输入新的账号别名",
     MSG_save_03: "当前账号未被存储，建议立即存储。请输入当前账号别名",
@@ -60,7 +60,7 @@ module.exports = {
     MSG_updateLatest: "The current version is already the latest version",
     MSG_updateSilent: "silent",
     MSG_updateTips: "It can be updated to the latest version.",
-    MSG_save: "Check if the current account is stored.",
+    MSG_save: "Save the current account",
     MSG_save_01:
       "The current account already exists in the account list without repeated storage.Is it renamed?",
     MSG_save_02: "Please enter a new account alias",
