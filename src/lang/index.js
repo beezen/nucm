@@ -13,7 +13,7 @@ module.exports = {
     MSG_accountRemoveSuccess: "移除账号成功",
     MSG_accountRemoveFail: "无此账号，请正确输入账号名",
     MSG_checkRegistry:
-      "默认只管理 NPM 官方源账号信息。若要管理其他源账号信息，请使用 NRM 对其他源进行注册。NRM 文档：https://www.npmjs.com/package/nrm 。",
+      "若要管理其他源账号信息，建议使用 NRM 对其他源进行注册。NRM 文档：https://www.npmjs.com/package/nrm 。",
     MSG_changeLang: "目前国际化只支持 en 或 cn",
     MSG_langChanged: "已切换到语言",
     MSG_init: "初始化",
@@ -48,7 +48,7 @@ module.exports = {
     MSG_accountRemoveSuccess: "Remove account success",
     MSG_accountRemoveFail: "There is no such account, please enter the correct account name",
     MSG_checkRegistry:
-      "By default only manages NPM official source account information.To manage other source account information, use NRM to register other sources.NRM document: https://www.npmjs.com/package/nrm .",
+      "To manage other source account information, recommend NRM to register other sources.NRM document: https://www.npmjs.com/package/nrm .",
     MSG_changeLang: "At present, internationalization only supports en or cn",
     MSG_langChanged: "Switched to language",
     MSG_init: "initialize",
