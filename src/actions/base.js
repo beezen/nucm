@@ -10,7 +10,7 @@ const {
   isEnabled
 } = require("../utils/index");
 const config = getConfig(); // 基础配置
-const registryConfig = getRegistryConfig(); // 源信息配置
+const registryConfig = getRegistryConfig(config); // 源信息配置
 
 /**
  * 获取用户列表
@@ -19,9 +19,9 @@ function getUserList(options) {
   if (!isEnabled(registryConfig)) return;
   const defaultLog = getLangMessage("MSG_getUserListDefaultLog");
   let userList = "";
-  const getListInfo = function (accountList = {}) {
+  const getListInfo = function(accountList = {}) {
     return Object.keys(accountList)
-      .map((key) => {
+      .map(key => {
         let visibleToken = options.list
           ? accountList[key]["access-tokens"]
           : desensitize(accountList[key]["access-tokens"]); // 脱敏处理
@@ -38,7 +38,7 @@ function getUserList(options) {
     });
     delete config.nucmrcConfig.baseConfig;
     userList = Object.keys(config.nucmrcConfig)
-      .map((registryName) => {
+      .map(registryName => {
         return (
           `${colors.custom("【" + registryName + "】")}\n` +
           getListInfo(config.nucmrcConfig[registryName])
@@ -49,6 +49,7 @@ function getUserList(options) {
     userList = getListInfo(config.nucmrcConfig[registryConfig.registryName]);
   }
   console.log(userList || defaultLog.red);
+  return userList;
 }
 
 /** 变更用户 */
@@ -62,7 +63,7 @@ function changeUser(name) {
   }
   npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
     accountList[name]["access-tokens"];
-  Object.keys(accountList).forEach((key) => {
+  Object.keys(accountList).forEach(key => {
     if (accountList[key]["is-current"]) {
       delete accountList[key]["is-current"];
     }

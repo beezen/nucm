@@ -1,5 +1,7 @@
 ## 生成文件
 /_*
+coverage
+!__tests__
 
 ## lock 文件
 yarn.lock

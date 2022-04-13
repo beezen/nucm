@@ -61,12 +61,13 @@ function changeLang(language) {
 
 /** 查询当前 token 信息，并存储 */
 function searchToSave() {
-  const registryConfig = getRegistryConfig();
+  const config = getConfig();
+  const registryConfig = getRegistryConfig(config);
   if (!registryConfig._authtoken) {
     console.log(getLangMessage("MSG_save_04").red);
     return;
   }
-  const nucmrcConfig = getConfig().nucmrcConfig;
+  const nucmrcConfig = config.nucmrcConfig;
   const accountList = nucmrcConfig[registryConfig.registryName] || {};
   const account = Object.keys(accountList).filter(
     name => accountList[name] && accountList[name]["access-tokens"] === registryConfig._authtoken

@@ -5,7 +5,7 @@ const os = require("os");
 const shell = require("shelljs");
 const colors = require("colors");
 const homedir = os.homedir(); // 用户目录
-const REGISTRIES = require("../constants/registries.json");
+
 // 配置文件地址
 const nucmrc_path = path.resolve(homedir, ".nucmrc");
 const npmrc_path = path.resolve(homedir, ".npmrc");
@@ -20,8 +20,6 @@ function getConfig() {
   const nucmrcConfig = ini.parse(fs.readFileSync(nucmrc_path, "utf-8"));
   const npmrcConfig = ini.parse(fs.readFileSync(npmrc_path, "utf-8"));
   const nrmrcConfig = ini.parse(fs.readFileSync(nrmrc_path, "utf-8"));
-  const npmAccountList = nucmrcConfig.npm; // npm 账号列表
-  const baseConfig = nucmrcConfig.baseConfig; // 基础配置
   return {
     nucmrcConfig,
     npmrcConfig,
@@ -29,24 +27,36 @@ function getConfig() {
     nucmrc_path,
     npmrc_path,
     nrmrc_path,
-    npmAccountList,
-    baseConfig
+    baseConfig: nucmrcConfig.baseConfig // 基础配置
   };
 }
 
-/** 获取国际化语言消息 */
-function getLangMessage(messageName) {
+/**
+ * 获取国际化语言消息
+ * @param messageName 消息名
+ * @param lang 语言类型。默认读取配置文件
+ */
+function getLangMessage(messageName, lang) {
   const langConfig = require("../lang/index");
-  const lang = (config.baseConfig && config.baseConfig.lang) || "en";
-  return langConfig[lang][messageName];
+  const currentLang = lang || (config.baseConfig && config.baseConfig.lang) || "en";
+  return langConfig[currentLang][messageName];
 }
 
-/** 链接符号 */
+/**
+ * 链接符号
+ * @param str 字符传
+ * @param len 最大长度
+ * @return 补充符号的长度
+ */
 function line(str, len) {
   return new Array(Math.max(2, len - str.length)).join("-");
 }
 
-/** 脱敏 */
+/**
+ * 字符串脱敏
+ * @param str 字符串
+ * @return 脱敏字符串
+ */
 function desensitize(str) {
   if (str.length <= 4) return str;
   if (str.length <= 10) return `......${str.slice(-4)}`;
@@ -86,39 +96,35 @@ function compareVersion(v1, v2) {
 
 /**
  * 获取注册源
+ * @param config 配置信息
+ * @return 源相关信息 {registry,registryName,nrmEnabled,_authtoken}
  */
-function getRegistryConfig() {
-  let nrmEnabled = false;
+function getRegistryConfig(config) {
+  if (!config?.npmrcConfig) return {};
+  const registry = config.npmrcConfig.registry; // 当前启用源地址
+  let registries = require("../constants/registries.json");
   let registryName = "";
-  const registry = config.npmrcConfig.registry;
   let _authtoken = registry
     ? config.npmrcConfig[`${registry.replace(/^https?:/, "")}:_authToken`]
-    : "";
-  if (registry === "https://registry.npmjs.org/") {
-    // npm 官方源
-    return {
-      registry,
-      registryName: "npm",
-      nrmEnabled,
-      _authtoken
-    };
-  }
-  const nrmrcConfig = config.nrmrcConfig;
+    : ""; // 当前源，用户账号令牌
+
+  // 校验 nrm 是否存在
   const nrmVersion = shell.exec("nrm --version", { silent: true }).stdout.trim();
   if (nrmVersion) {
-    nrmEnabled = true;
-    const registries = { ...REGISTRIES, ...nrmrcConfig };
-    for (let key in registries) {
-      if (registries[key].registry === registry) {
-        registryName = key;
-      }
+    registries = { ...registries, ...config.nrmrcConfig };
+  }
+  // 获取当前源别名
+  for (let key in registries) {
+    if (
+      registries[key].registry &&
+      registry.indexOf(registries[key].registry.replace(/^https?:\/\/|\/*$/g, "")) > -1
+    ) {
+      registryName = key;
     }
   }
-
   return {
     registry,
     registryName,
-    nrmEnabled,
     _authtoken
   };
 }
