@@ -14,6 +14,11 @@
 $ npm install -g nucm # OR yarn global add nucm
 ```
 
+## Information
+
+- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
+- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
+
 ## Example
 
 ```bash
@@ -100,10 +105,6 @@ We manage the [Access Token](https://docs.npmjs.com/about-access-tokens) release
 Notice: If you are logged in via `npm login` or`npm adduser`, you can save the `access token of the current login account by executing the` NuCM Save` instruction, save the current login account.
 
 During the later use, various accounts can be quickly switched through the `nucm use <name>`, so that the NPM package is implemented with different accounts.
-
-## Information
-
-- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
 
 ## LICENSE
 
