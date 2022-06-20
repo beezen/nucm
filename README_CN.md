@@ -14,6 +14,11 @@
 $ npm install -g nucm # 或 yarn global add nucm
 ```
 
+## 学习资料
+
+- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
+- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
+
 ## 示例
 
 ```bash
@@ -67,7 +72,7 @@ $ nucm del <name>
 
 ```bash
 # 保存当前登录账号
-$ nucm save 
+$ nucm save
 ```
 
 ## 使用
@@ -100,9 +105,6 @@ Commands:
 注意：如果是通过 `npm login` 或者 `npm adduser` 进行登录的用户，可以通过执行 `nucm save` 指令，将当前登录账号的`访问令牌`进行保存。
 
 在后期使用过程中，可以通过 `nucm use <name>` 的方式将各种账号快速切换，从而实现用不同账号对 npm 包进行发布。
-## 学习资料
-
-- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
 
 ## 许可证
 
