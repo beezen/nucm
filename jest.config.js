@@ -4,6 +4,7 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   transform: {
+    "^.+\\.(t|j)s?$": "babel-jest",
     "^.+\\.tsx?$": "ts-jest"
   },
   testURL: "http://localhost/",

@@ -1,21 +1,21 @@
-const ini = require("ini");
-const fs = require("fs-extra");
-const colors = require("colors");
-const {
+import ini from "ini";
+import fs from "fs-extra";
+import colors from "colors";
+import {
   getLangMessage,
   line,
   desensitize,
   getConfig,
   getRegistryConfig,
   isEnabled
-} = require("../utils/index");
+} from "../utils/index";
 const config = getConfig(); // 基础配置
 const registryConfig = getRegistryConfig(config); // 源信息配置
 
 /**
  * 获取用户列表
  */
-function getUserList(options) {
+export function getUserList(options) {
   if (!isEnabled(registryConfig)) return;
   const defaultLog = getLangMessage("MSG_getUserListDefaultLog");
   let userList = "";
@@ -53,7 +53,7 @@ function getUserList(options) {
 }
 
 /** 变更用户 */
-function changeUser(name) {
+export function changeUser(name) {
   if (!isEnabled(registryConfig)) return;
   let accountList = config.nucmrcConfig[registryConfig.registryName] || {};
   let npmrcConfig = config.npmrcConfig;
@@ -75,7 +75,7 @@ function changeUser(name) {
 }
 
 /** 添加用户 */
-function addUser(name, token) {
+export function addUser(name, token) {
   if (!isEnabled(registryConfig)) return;
   let accountList = config.nucmrcConfig[registryConfig.registryName] || {};
   !accountList[name] && (accountList[name] = {});
@@ -86,7 +86,7 @@ function addUser(name, token) {
 }
 
 /** 移除用户 */
-function removeUser(name) {
+export function removeUser(name) {
   if (!isEnabled(registryConfig)) return;
   let accountList = config.nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
@@ -97,10 +97,3 @@ function removeUser(name) {
   fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
   console.log(getLangMessage("MSG_accountRemoveSuccess").green);
 }
-
-module.exports = {
-  getUserList,
-  changeUser,
-  addUser,
-  removeUser
-};

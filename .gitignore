@@ -1,4 +1,5 @@
 ## 生成文件
+dist
 /_*
 coverage
 !__tests__

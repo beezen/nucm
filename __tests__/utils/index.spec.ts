@@ -30,7 +30,7 @@ describe("utils", () => {
   });
 
   it("getLangMessage", () => {
-    const lang = require("../../src/lang/index.js");
+    const lang = require("../../src/lang/index.js").default;
     expect(getLangMessage("MSG_showVersion", "cn")).toBe(lang["cn"]["MSG_showVersion"]);
     expect(getLangMessage("MSG_showVersion", "en")).toBe(lang["en"]["MSG_showVersion"]);
   });

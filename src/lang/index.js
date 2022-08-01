@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   cn: {
     MSG_showVersion: "查看版本",
     MSG_accountList: "查看账号列表",
