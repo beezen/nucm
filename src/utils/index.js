@@ -1,11 +1,13 @@
-const path = require("path");
-const ini = require("ini");
-const fs = require("fs-extra");
-const os = require("os");
-const shell = require("shelljs");
-const colors = require("colors");
-const homedir = os.homedir(); // 用户目录
+import path from "path";
+import ini from "ini";
+import fs from "fs-extra";
+import os from "os";
+import shell from "shelljs";
+import "colors";
+import registries from "../constants/registries.json";
+import langConfig from "../lang/index";
 
+const homedir = os.homedir(); // 用户目录
 // 配置文件地址
 const nucmrc_path = path.resolve(homedir, ".nucmrc");
 const npmrc_path = path.resolve(homedir, ".npmrc");
@@ -13,7 +15,7 @@ const nrmrc_path = path.resolve(homedir, ".nrmrc");
 const config = getConfig(); // 基础配置
 
 /** 获取配置信息 */
-function getConfig() {
+export function getConfig() {
   fs.ensureFileSync(nucmrc_path);
   fs.ensureFileSync(npmrc_path);
   fs.ensureFileSync(nrmrc_path);
@@ -36,8 +38,7 @@ function getConfig() {
  * @param messageName 消息名
  * @param lang 语言类型。默认读取配置文件
  */
-function getLangMessage(messageName, lang) {
-  const langConfig = require("../lang/index");
+export function getLangMessage(messageName, lang) {
   const currentLang = lang || (config.baseConfig && config.baseConfig.lang) || "en";
   return langConfig[currentLang][messageName];
 }
@@ -48,7 +49,7 @@ function getLangMessage(messageName, lang) {
  * @param len 最大长度
  * @return 补充符号的长度
  */
-function line(str, len) {
+export function line(str, len) {
   return new Array(Math.max(2, len - str.length)).join("-");
 }
 
@@ -57,7 +58,7 @@ function line(str, len) {
  * @param str 字符串
  * @return 脱敏字符串
  */
-function desensitize(str) {
+export function desensitize(str) {
   if (str.length <= 4) return str;
   if (str.length <= 10) return `......${str.slice(-4)}`;
   return `${str.slice(0, 6)}......${str.slice(-4)}`;
@@ -69,7 +70,7 @@ function desensitize(str) {
  * @param v2 版本号2
  * @return 1(v1>v2)|-1(v1<v2)|0(v1=v2)
  */
-function compareVersion(v1, v2) {
+export function compareVersion(v1, v2) {
   v1 = v1.split(".");
   v2 = v2.split(".");
   const len = Math.max(v1.length, v2.length);
@@ -99,10 +100,10 @@ function compareVersion(v1, v2) {
  * @param config 配置信息
  * @return 源相关信息 {registry,registryName,nrmEnabled,_authtoken}
  */
-function getRegistryConfig(config) {
+export function getRegistryConfig(config) {
   if (!config?.npmrcConfig) return {};
   const registry = config.npmrcConfig.registry; // 当前启用源地址
-  let registries = require("../constants/registries.json");
+  let registriesList = registries; // 注册表
   let registryName = "";
   let _authtoken = registry
     ? config.npmrcConfig[`${registry.replace(/^https?:/, "")}:_authToken`]
@@ -111,13 +112,13 @@ function getRegistryConfig(config) {
   // 校验 nrm 是否存在
   const nrmVersion = shell.exec("nrm --version", { silent: true }).stdout.trim();
   if (nrmVersion) {
-    registries = { ...registries, ...config.nrmrcConfig };
+    registriesList = { ...registriesList, ...config.nrmrcConfig };
   }
   // 获取当前源别名
-  for (let key in registries) {
+  for (let key in registriesList) {
     if (
-      registries[key].registry &&
-      registry.indexOf(registries[key].registry.replace(/^https?:\/\/|\/*$/g, "")) > -1
+      registriesList[key].registry &&
+      registry.indexOf(registriesList[key].registry.replace(/^https?:\/\/|\/*$/g, "")) > -1
     ) {
       registryName = key;
     }
@@ -133,20 +134,10 @@ function getRegistryConfig(config) {
  * 功能是否启用
  * @param registryConfig 源相关信息
  */
-function isEnabled(registryConfig) {
+export function isEnabled(registryConfig) {
   if (!registryConfig.registryName) {
     console.log(`registry: ${registryConfig.registry}.${getLangMessage("MSG_checkRegistry")}`.red);
     return false;
   }
   return true;
 }
-
-module.exports = {
-  isEnabled,
-  getLangMessage,
-  line,
-  desensitize,
-  compareVersion,
-  getConfig,
-  getRegistryConfig
-};

@@ -1,10 +1,10 @@
-const ini = require("ini");
-const fs = require("fs-extra");
-const colors = require("colors");
-const { getLangMessage, getConfig } = require("../utils/index");
+import ini from "ini";
+import fs from "fs-extra";
+import "colors";
+import { getLangMessage, getConfig } from "../utils/index";
 
 /** 初始化 */
-function initInstall() {
+export function initInstall() {
   const config = getConfig();
   const defaultBaseConfig = {
     lang: "en",
@@ -14,7 +14,3 @@ function initInstall() {
   fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
   console.log(getLangMessage("MSG_initSuccess").green);
 }
-
-module.exports = {
-  initInstall
-};

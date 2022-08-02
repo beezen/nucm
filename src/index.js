@@ -1,12 +1,12 @@
-const program = require("commander");
-
-const { getLangMessage, getConfig } = require("./utils/index");
-const { getUserList, changeUser, addUser, removeUser } = require("./actions/base");
-const { initInstall } = require("./actions/init");
-const { updateVersion, changeLang, searchToSave } = require("./actions/helper");
-const pkg = require("../package.json");
+import { Command } from "commander";
+import { getLangMessage, getConfig } from "./utils/index";
+import { getUserList, changeUser, addUser, removeUser } from "./actions/base";
+import { initInstall } from "./actions/init";
+import { updateVersion, changeLang, searchToSave } from "./actions/helper";
+import pkg from "../package.json";
 const config = getConfig();
 
+const program = new Command();
 program.version(pkg.version, "-v,--version", getLangMessage("MSG_showVersion"));
 program.helpOption("-h, --help", getLangMessage("MSG_help"));
 program

@@ -1,16 +1,16 @@
-const colors = require("colors");
-const ini = require("ini");
-const shell = require("shelljs");
-var inquirer = require("inquirer");
-const fs = require("fs-extra");
-const pkg = require("../../package.json");
-const { getLangMessage, compareVersion, getConfig, getRegistryConfig } = require("../utils/index");
-const { addUser, removeUser } = require("./base");
+import "colors";
+import ini from "ini";
+import shell from "shelljs";
+import inquirer from "inquirer";
+import fs from "fs-extra";
+import pkg from "../../package.json";
+import { getLangMessage, compareVersion, getConfig, getRegistryConfig } from "../utils/index";
+import { addUser, removeUser } from "./base";
 /**
  * 更新版本
  * @param 是否自动校验
  */
-function updateVersion(option) {
+export function updateVersion(option) {
   const config = getConfig();
   config.baseConfig.checkUpdateDate = Date.now();
   fs.writeFile(config.nucmrc_path, ini.stringify(config.nucmrcConfig)); // 更新校验时间
@@ -47,7 +47,7 @@ function updateVersion(option) {
 }
 
 /** 切换语言 */
-function changeLang(language) {
+export function changeLang(language) {
   const config = getConfig();
   let baseConfig = config.baseConfig;
   if (["en", "cn"].includes(language)) {
@@ -60,7 +60,7 @@ function changeLang(language) {
 }
 
 /** 查询当前 token 信息，并存储 */
-function searchToSave() {
+export function searchToSave() {
   const config = getConfig();
   const registryConfig = getRegistryConfig(config);
   if (!registryConfig._authtoken) {
@@ -119,9 +119,3 @@ function searchToSave() {
       });
   }
 }
-
-module.exports = {
-  updateVersion,
-  changeLang,
-  searchToSave
-};

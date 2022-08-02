@@ -1,6 +1,6 @@
 {
   "name": "nucm",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Npm User Change Manager",
   "main": "./bin/index.js",
   "scripts": {
@@ -8,11 +8,17 @@
     "prepare": "nucm install",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "dev": "rimraf dist && rollup -c rollup.config.dev.js -w",
+    "build": "rimraf dist && rollup -c rollup.config.build.js"
   },
   "bin": {
     "nucm": "./bin/index.js"
   },
+  "files": [
+    "bin",
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:beezen/nucm.git"
@@ -41,8 +47,19 @@
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/plugin-transform-runtime": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@babel/runtime": "^7.18.9",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/jest": "^27.4.1",
+    "babel-jest": "^28.1.3",
     "jest": "^27.5.1",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
   }
