@@ -35,9 +35,9 @@ Commands:
   help [command]              display help for command
 ```
 
-## 详细参数说明
+## Detailed parameter description
 
-| 命令                                   | 参数                       | 描述                                                                                                               |
+| command                                | options                    | description                                                                                                        |
 | -------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [ls](#view-the-current-source-account) |                            | View the current source, account list                                                                              |
 | [ls](#view-the-current-source-account) | `-l`                       | View the current source, account details                                                                           |
