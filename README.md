@@ -14,67 +14,6 @@
 $ npm install -g nucm # OR yarn global add nucm
 ```
 
-## Information
-
-- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
-- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
-
-## Example
-
-```bash
-# View the current source account
-$ nucm ls
-
-  beezend -- xxxxxx......xxxx
-  beezen --- xxxxxx......xxxx
-* beeze ---- xxxxxx......xxxx
-
-# View the current source account, more information
-$ nucm ls -l
-
-  beezend -- xxxxxxxxxxxxxxxx
-  beezen --- xxxxxxxxxxxxxxxx
-* beeze ---- xxxxxxxxxxxxxxxx
-
-# View all source accounts
-$ nucm ls -a
-
-【npm】
-  beezend -- xxxxxx......xxxx
-  beezen --- xxxxxx......xxxx
-* beeze ---- xxxxxx......xxxx
-
-【maclocal】
-* test ----- xxxxxx......xxxx
-```
-
-```bash
-# Switch account
-$ nucm use beezen
-
-The account has been switched to beezen
-```
-
-```bash
-# Localization language
-$ nucm localize en
-
-Switched to language en
-```
-
-```bash
-# Add an account
-$ nucm add <name> <access-tokens>
-
-# Remove account
-$ nucm del <name>
-```
-
-```bash
-# Save the current login account
-$ nucm save
-```
-
 ## Usage
 
 ```bash
@@ -96,6 +35,117 @@ Commands:
   help [command]              display help for command
 ```
 
+## 详细参数说明
+
+| 命令                                   | 参数                       | 描述                                                                                                               |
+| -------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| [ls](#view-the-current-source-account) |                            | View the current source, account list                                                                              |
+| [ls](#view-the-current-source-account) | `-l`                       | View the current source, account details                                                                           |
+| [ls](#view-the-current-source-account) | `-a`                       | View all sources, account lists                                                                                    |
+| [ls](#view-the-current-source-account) | `-al`                      | View all sources, account details                                                                                  |
+| [use](#switch-account)                 | `<name>`                   | Switch to the specified account.`<name>`: Account alias                                                            |
+| [add](#add-account)                    | `<name>` `<access-tokens>` | Add account.`<name>`: Account alias，`<access-tokens>`：[Access Token](https://docs.npmjs.com/about-access-tokens) |
+| [del](#remove-the-account)             | `<name>`                   | Delete account.`<name>`: Account alias                                                                             |
+| [localize](#use-localized-language)    | `<lang>`                   | Use localized language. `<lang>`Support language, currently only supports: `cn`/`en`                               |
+| install                                |                            | CLI initialization                                                                                                 |
+| update                                 |                            | Update CLI version                                                                                                 |
+| [save](#save-account)                  |                            | Save the current account                                                                                           |
+
+## Information
+
+- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
+- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
+
+## Example
+
+### Save account
+
+```bash
+$ nucm save
+```
+
+### Add account
+
+```bash
+$ nucm add <name> <access-tokens>
+
+  Add account success
+```
+
+### Remove the account
+
+```bash
+$ nucm del <name>
+
+  Remove account success
+```
+
+### View the current source account
+
+1. View the current source, account list
+
+```bash
+$ nucm ls
+
+  beezend -- abcdef......mno1
+  beezen --- abcdef......mno2
+* beeze ---- abcdef......mno3
+```
+
+2. View the current source, account details
+
+```bash
+$ nucm ls -l
+
+  beezend -- abcdefghijklmno1
+  beezen --- abcdefghijklmno2
+* beeze ---- abcdefghijklmno3
+```
+
+3. View all sources, account lists
+
+```bash
+$ nucm ls -a
+
+【npm】
+  beezend -- abcdef......mno1
+  beezen --- abcdef......mno2
+* beeze ---- abcdef......mno3
+
+【maclocal】
+* test ----- abcdef......mno4
+```
+
+4. View all sources, account details
+
+```bash
+$ nucm ls -al
+
+【npm】
+  beezend -- abcdefghijklmno1
+  beezen --- abcdefghijklmno2
+* beeze ---- abcdefghijklmno3
+
+【maclocal】
+* test ----- abcdefghijklmno4
+```
+
+### Switch account
+
+```bash
+$ nucm use beezen
+
+  The account has been switched to beezen
+```
+
+### Use localized language
+
+```bash
+$ nucm localize cn
+
+  Switched to language cn
+```
+
 ## Notice
 
 We manage the [Access Token](https://docs.npmjs.com/about-access-tokens) released by NPM.
@@ -104,7 +154,7 @@ We manage the [Access Token](https://docs.npmjs.com/about-access-tokens) release
 
 Notice: If you are logged in via `npm login` or`npm adduser`, you can save the `access token of the current login account by executing the` NuCM Save` instruction, save the current login account.
 
-During the later use, various accounts can be quickly switched through the `nucm use <name>`, so that the NPM package is implemented with different accounts.
+In the later use process, you can quickly switch the `nucm use <name>` to quickly switch to the `Access Token`, so as to realize the release of the NPM package with different account numbers.
 
 ## LICENSE
 

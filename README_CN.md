@@ -14,67 +14,6 @@
 $ npm install -g nucm # 或 yarn global add nucm
 ```
 
-## 学习资料
-
-- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
-- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
-
-## 示例
-
-```bash
-# 查看当前源账号
-$ nucm ls
-
-  beezend -- xxxxxx......xxxx
-  beezen --- xxxxxx......xxxx
-* beeze ---- xxxxxx......xxxx
-
-# 查看当前源账号，详细信息
-$ nucm ls -l
-
-  beezend -- xxxxxxxxxxxxxxxx
-  beezen --- xxxxxxxxxxxxxxxx
-* beeze ---- xxxxxxxxxxxxxxxx
-
-# 查看所有源账号
-$ nucm ls -a
-
-【npm】
-  beezend -- xxxxxx......xxxx
-  beezen --- xxxxxx......xxxx
-* beeze ---- xxxxxx......xxxx
-
-【maclocal】
-* test ----- xxxxxx......xxxx
-```
-
-```bash
-# 切换账号
-$ nucm use beezen
-
-已切换到账号 beezen
-```
-
-```bash
-# 使用本地化语言
-$ nucm localize cn
-
-已切换到语言 cn
-```
-
-```bash
-# 添加账号
-$ nucm add <name> <access-tokens>
-
-# 移除账号
-$ nucm del <name>
-```
-
-```bash
-# 保存当前登录账号
-$ nucm save
-```
-
 ## 使用
 
 ```bash
@@ -96,6 +35,117 @@ Commands:
   help [command]              display help for command
 ```
 
+## 详细参数说明
+
+| 命令                        | 参数                       | 描述                                                                                                    |
+| --------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [ls](#查看当前源账号)       |                            | 查看当前源，账号列表                                                                                    |
+| [ls](#查看当前源账号)       | `-l`                       | 查看当前源，账号详细信息                                                                                |
+| [ls](#查看当前源账号)       | `-a`                       | 查看所有源，账号列表                                                                                    |
+| [ls](#查看当前源账号)       | `-al`                      | 查看所有源，账号详细信息                                                                                |
+| [use](#切换账号)            | `<name>`                   | 切换到指定账号。`<name>`：账号别名                                                                      |
+| [add](#添加账号)            | `<name>` `<access-tokens>` | 添加账号。`<name>`：账号别名，`<access-tokens>`：[访问令牌](https://docs.npmjs.com/about-access-tokens) |
+| [del](#移除账号)            | `<name>`                   | 删除账号。`<name>`：账号别名                                                                            |
+| [localize](#使用本地化语言) | `<lang>`                   | 使用本地化语言。 `<lang>`：支持语言，目前仅支持： `cn`/`en`                                             |
+| install                     |                            | cli 初始化                                                                                              |
+| update                      |                            | 更新 cli 版本                                                                                           |
+| [save](#保存账号)           |                            | 保存当前 npm 账号                                                                                       |
+
+## 相关文章
+
+- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
+- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
+
+## 示例
+
+### 保存账号
+
+```bash
+$ nucm save
+```
+
+### 添加账号
+
+```bash
+$ nucm add <name> <access-tokens>
+
+  添加账号成功
+```
+
+### 移除账号
+
+```bash
+$ nucm del <name>
+
+  移除账号成功
+```
+
+### 查看当前源账号
+
+1、查看当前源，账号列表
+
+```bash
+$ nucm ls
+
+  beezend -- abcdef......mno1
+  beezen --- abcdef......mno2
+* beeze ---- abcdef......mno3
+```
+
+2、查看当前源，账号详细信息
+
+```bash
+$ nucm ls -l
+
+  beezend -- abcdefghijklmno1
+  beezen --- abcdefghijklmno2
+* beeze ---- abcdefghijklmno3
+```
+
+3、查看所有源，账号列表
+
+```bash
+$ nucm ls -a
+
+【npm】
+  beezend -- abcdef......mno1
+  beezen --- abcdef......mno2
+* beeze ---- abcdef......mno3
+
+【maclocal】
+* test ----- abcdef......mno4
+```
+
+4、查看所有源，账号详细信息
+
+```bash
+$ nucm ls -al
+
+【npm】
+  beezend -- abcdefghijklmno1
+  beezen --- abcdefghijklmno2
+* beeze ---- abcdefghijklmno3
+
+【maclocal】
+* test ----- abcdefghijklmno4
+```
+
+### 切换账号
+
+```bash
+$ nucm use beezen
+
+  已切换到账号 beezen
+```
+
+### 使用本地化语言
+
+```bash
+$ nucm localize cn
+
+  已切换到语言 cn
+```
+
 ## 注意
 
 我们管理的是 NPM 发布的[访问令牌](https://docs.npmjs.com/about-access-tokens)。
@@ -104,7 +154,7 @@ Commands:
 
 注意：如果是通过 `npm login` 或者 `npm adduser` 进行登录的用户，可以通过执行 `nucm save` 指令，将当前登录账号的`访问令牌`进行保存。
 
-在后期使用过程中，可以通过 `nucm use <name>` 的方式将各种账号快速切换，从而实现用不同账号对 npm 包进行发布。
+在后期使用过程中，可以通过 `nucm use <name>` 的方式将各种账号的`访问令牌`快速切换，从而实现用不同账号对 npm 包进行发布。
 
 ## 许可证
 
