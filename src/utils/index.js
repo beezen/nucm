@@ -102,6 +102,7 @@ export function compareVersion(v1, v2) {
  */
 export function getRegistryConfig(config) {
   if (!config?.npmrcConfig) return {};
+  if (Object.keys(config.npmrcConfig).length === 0) return {};
   const registry = config.npmrcConfig.registry; // 当前启用源地址
   let registriesList = registries; // 注册表
   let registryName = "";
