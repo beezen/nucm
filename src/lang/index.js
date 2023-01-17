@@ -23,6 +23,8 @@ export default {
     MSG_ls_all: "显示所有账号详细",
     MSG_update: "更新版本",
     MSG_updateLatest: "当前已是最新版本",
+    MSG_update01: "更新检查中......",
+    MSG_update02: "更新检查失败",
     MSG_updateSilent: "静默的",
     MSG_updateTips: "存在可更新的版本。",
     MSG_save: "保存当前账号",
@@ -30,7 +32,9 @@ export default {
     MSG_save_02: "请输入新的账号别名",
     MSG_save_03: "当前账号未被存储，建议立即存储。请输入当前账号别名",
     MSG_save_04:
-      "未查询到相关账号信息。可参考登录或集成流程：https://docs.npmjs.com/getting-started 和 https://docs.npmjs.com/integrations"
+      "未查询到相关账号信息。可参考登录或集成流程：https://docs.npmjs.com/getting-started 和 https://docs.npmjs.com/integrations",
+    MSG_setConfig: "本地文件更新数据不能为空",
+    MSG_checkConfigInit: "根目录 .npmrc 配置文件不存在"
   },
   en: {
     MSG_showVersion: "show version",
@@ -58,6 +62,8 @@ export default {
     MSG_ls_all: "show all account details",
     MSG_update: "updated version",
     MSG_updateLatest: "The current version is already the latest version",
+    MSG_update01: "During the update check ...",
+    MSG_update02: "Update inspection failed",
     MSG_updateSilent: "silent",
     MSG_updateTips: "It can be updated to the latest version.",
     MSG_save: "Save the current account",
@@ -67,6 +73,8 @@ export default {
     MSG_save_03:
       "The current account is not stored, it is recommended to store it immediately.Please enter the current account alias",
     MSG_save_04:
-      "No account information is not queried.Refer to login or integrated flow: https://docs.npmjs.com/getting-started and https://docs.npmjs.com/integrations"
+      "No account information is not queried.Refer to login or integrated flow: https://docs.npmjs.com/getting-started and https://docs.npmjs.com/integrations",
+    MSG_setConfig: "Local file update data cannot be empty.",
+    MSG_checkConfigInit: "The root directory .npmrc configuration file does not exist"
   }
 };

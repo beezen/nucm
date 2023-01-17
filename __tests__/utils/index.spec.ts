@@ -1,32 +1,13 @@
-import {
-  getConfig,
-  getLangMessage,
-  line,
-  desensitize,
-  compareVersion,
-  getRegistryConfig,
-  isEnabled
-} from "../../src/utils";
+import { line, desensitize, compareVersion } from "../../src/utils";
+import { getConfig, getLangMessage, getRegistryConfig, isEnabled } from "../../src/common";
 
 describe("utils", () => {
   it("getConfig", () => {
-    const {
-      nucmrcConfig,
-      npmrcConfig,
-      nrmrcConfig,
-      nucmrc_path,
-      npmrc_path,
-      nrmrc_path,
-      baseConfig
-    } = getConfig();
+    const { nucm, npm, nrm } = getConfig();
 
-    expect(nucmrcConfig).toBeDefined();
-    expect(npmrcConfig).toBeDefined();
-    expect(nrmrcConfig).toBeDefined();
-    expect(nucmrc_path).toBeDefined();
-    expect(npmrc_path).toBeDefined();
-    expect(nrmrc_path).toBeDefined();
-    expect(baseConfig).toBeDefined();
+    expect(nucm).toBeDefined();
+    expect(npm).toBeDefined();
+    expect(nrm).toBeDefined();
   });
 
   it("getLangMessage", () => {
