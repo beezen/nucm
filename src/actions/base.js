@@ -1,14 +1,6 @@
-import ini from "ini";
-import fs from "fs-extra";
 import colors from "colors";
-import {
-  getLangMessage,
-  line,
-  desensitize,
-  getConfig,
-  getRegistryConfig,
-  isEnabled
-} from "../utils/index";
+import { line, desensitize } from "../utils/index";
+import { getLangMessage, getConfig, setConfig, getRegistryConfig, isEnabled } from "../common";
 const config = getConfig(); // 基础配置
 const registryConfig = getRegistryConfig(config); // 源信息配置
 
@@ -36,17 +28,16 @@ export function getUserList(options) {
     colors.setTheme({
       custom: ["black", "bgBrightGreen"]
     });
-    delete config.nucmrcConfig.baseConfig;
-    userList = Object.keys(config.nucmrcConfig)
+    delete config.nucm.baseConfig;
+    userList = Object.keys(config.nucm)
       .map(registryName => {
         return (
-          `${colors.custom("【" + registryName + "】")}\n` +
-          getListInfo(config.nucmrcConfig[registryName])
+          `${colors.custom("【" + registryName + "】")}\n` + getListInfo(config.nucm[registryName])
         );
       })
       .join("\n\n");
   } else {
-    userList = getListInfo(config.nucmrcConfig[registryConfig.registryName]);
+    userList = getListInfo(config.nucm[registryConfig.registryName]);
   }
   console.log(userList || defaultLog.red);
   return userList;
@@ -55,8 +46,8 @@ export function getUserList(options) {
 /** 变更用户 */
 export function changeUser(name) {
   if (!isEnabled(registryConfig)) return;
-  let accountList = config.nucmrcConfig[registryConfig.registryName] || {};
-  let npmrcConfig = config.npmrcConfig;
+  let accountList = config.nucm[registryConfig.registryName] || {};
+  let npmrcConfig = config.npm;
   if (!accountList[name]) {
     console.log(getLangMessage("MSG_accountNotFound").red);
     return;
@@ -69,31 +60,31 @@ export function changeUser(name) {
     }
   });
   accountList[name]["is-current"] = true;
-  fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
-  fs.writeFileSync(config.npmrc_path, ini.stringify(npmrcConfig));
+  setConfig("nucm", config.nucm);
+  setConfig("npm", npmrcConfig);
   console.log(`${getLangMessage("MSG_accountChanged")} ${name}`.green);
 }
 
 /** 添加用户 */
 export function addUser(name, token) {
   if (!isEnabled(registryConfig)) return;
-  let accountList = config.nucmrcConfig[registryConfig.registryName] || {};
+  let accountList = config.nucm[registryConfig.registryName] || {};
   !accountList[name] && (accountList[name] = {});
   accountList[name]["access-tokens"] = token;
-  config.nucmrcConfig[registryConfig.registryName] = accountList;
-  fs.writeFileSync(config.nucmrc_path, ini.stringify({ ...config.nucmrcConfig }));
+  config.nucm[registryConfig.registryName] = accountList;
+  setConfig("nucm", config.nucm);
   console.log(getLangMessage("MSG_accountAddSuccess").green);
 }
 
 /** 移除用户 */
 export function removeUser(name) {
   if (!isEnabled(registryConfig)) return;
-  let accountList = config.nucmrcConfig[registryConfig.registryName] || {};
+  let accountList = config.nucm[registryConfig.registryName] || {};
   if (!accountList[name]) {
     console.log(getLangMessage("MSG_accountRemoveFail").red);
     return;
   }
   delete accountList[name];
-  fs.writeFileSync(config.nucmrc_path, ini.stringify(config.nucmrcConfig));
+  setConfig("nucm", config.nucm);
   console.log(getLangMessage("MSG_accountRemoveSuccess").green);
 }
