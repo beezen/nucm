@@ -29,7 +29,6 @@ Commands:
   add <name> <access-tokens>  add account
   del <name>                  remove account
   localize <lang>             use localized languages
-  install                     initialize
   update [options]            updated version
   save                        Save the current account
   help [command]              display help for command
@@ -47,7 +46,6 @@ Commands:
 | [add](#add-account)                    | `<name>` `<access-tokens>` | Add account.`<name>`: Account alias，`<access-tokens>`：[Access Token](https://docs.npmjs.com/about-access-tokens) |
 | [del](#remove-the-account)             | `<name>`                   | Delete account.`<name>`: Account alias                                                                             |
 | [localize](#use-localized-language)    | `<lang>`                   | Use localized language. `<lang>`Support language, currently only supports: `cn`/`en`                               |
-| install                                |                            | CLI initialization                                                                                                 |
 | update                                 |                            | Update CLI version                                                                                                 |
 | [save](#save-account)                  |                            | Save the current account                                                                                           |
 

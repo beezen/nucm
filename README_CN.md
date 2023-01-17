@@ -29,7 +29,6 @@ Commands:
   add <name> <access-tokens>  添加账号
   del <name>                  移除账号
   localize <lang>             使用本地化语言
-  install                     初始化
   update [options]            更新版本
   save                        保存当前账号
   help [command]              display help for command
@@ -47,7 +46,6 @@ Commands:
 | [add](#添加账号)            | `<name>` `<access-tokens>` | 添加账号。`<name>`：账号别名，`<access-tokens>`：[访问令牌](https://docs.npmjs.com/about-access-tokens) |
 | [del](#移除账号)            | `<name>`                   | 删除账号。`<name>`：账号别名                                                                            |
 | [localize](#使用本地化语言) | `<lang>`                   | 使用本地化语言。 `<lang>`：支持语言，目前仅支持： `cn`/`en`                                             |
-| install                     |                            | cli 初始化                                                                                              |
 | update                      |                            | 更新 cli 版本                                                                                           |
 | [save](#保存账号)           |                            | 保存当前 npm 账号                                                                                       |
 
