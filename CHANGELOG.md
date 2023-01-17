@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/beezen/nucm/compare/v1.7.0...v1.8.0) (2023-01-17)
+
+
+### Features
+
+* 优化配置文件读取逻辑 ([8fc55c7](https://github.com/beezen/nucm/commit/8fc55c7352050fc13abca1f19f662dc35d4f0316))
+
 ## [1.7.0](https://github.com/beezen/nucm/compare/v1.6.1...v1.7.0) (2022-08-02)
 
 
