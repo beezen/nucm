@@ -54,6 +54,7 @@ export function checkConfigInit() {
         checkUpdateDate: Date.now()
       }
     };
+    fs.ensureFileSync(nucmrc_path);
     fs.writeFileSync(nucmrc_path, ini.stringify(defaultBaseConfig));
   }
   return true;

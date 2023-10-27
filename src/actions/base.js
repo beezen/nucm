@@ -1,13 +1,12 @@
 import colors from "colors";
 import { line, desensitize } from "../utils/index";
 import { getLangMessage, getConfig, setConfig, getRegistryConfig, isEnabled } from "../common";
-const config = getConfig(); // 基础配置
-const registryConfig = getRegistryConfig(config); // 源信息配置
-
 /**
  * 获取用户列表
  */
 export function getUserList(options) {
+  const config = getConfig(); // 基础配置
+  const registryConfig = getRegistryConfig(config); // 源信息配置
   if (!isEnabled(registryConfig)) return;
   const defaultLog = getLangMessage("MSG_getUserListDefaultLog");
   let userList = "";
@@ -45,6 +44,8 @@ export function getUserList(options) {
 
 /** 变更用户 */
 export function changeUser(name) {
+  const config = getConfig(); // 基础配置
+  const registryConfig = getRegistryConfig(config); // 源信息配置
   if (!isEnabled(registryConfig)) return;
   let accountList = config.nucm[registryConfig.registryName] || {};
   let npmrcConfig = config.npm;
@@ -67,6 +68,8 @@ export function changeUser(name) {
 
 /** 添加用户 */
 export function addUser(name, token) {
+  const config = getConfig(); // 基础配置
+  const registryConfig = getRegistryConfig(config); // 源信息配置
   if (!isEnabled(registryConfig)) return;
   let accountList = config.nucm[registryConfig.registryName] || {};
   !accountList[name] && (accountList[name] = {});
@@ -78,6 +81,8 @@ export function addUser(name, token) {
 
 /** 移除用户 */
 export function removeUser(name) {
+  const config = getConfig(); // 基础配置
+  const registryConfig = getRegistryConfig(config); // 源信息配置
   if (!isEnabled(registryConfig)) return;
   let accountList = config.nucm[registryConfig.registryName] || {};
   if (!accountList[name]) {
