@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/beezen/nucm/compare/v1.8.0...v1.8.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* 修复初次安装时,没有初始化默认配置问题 ([0f94b82](https://github.com/beezen/nucm/commit/0f94b823ac6a3999417cef54f10bcf53a8dfd55a))
+
 ## [1.8.0](https://github.com/beezen/nucm/compare/v1.7.0...v1.8.0) (2023-01-17)
 
 
