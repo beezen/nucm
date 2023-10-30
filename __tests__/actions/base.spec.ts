@@ -7,7 +7,15 @@ describe("action_base", () => {
   const token2 = "example_token2";
   prepareEnv(() => {
     let config = getConfig();
+    let nucmrcConfig = config.nucm;
     let registryName = getRegistryConfig(config).registryName;
+    let accountObject = nucmrcConfig[registryName];
+    let currentAccountName = ""; // 当前账号名
+    Object.keys(accountObject).forEach(name => {
+      if (accountObject[name]["is-current"]) {
+        currentAccountName = name;
+      }
+    });
     it("addUser", () => {
       addUser(name1, token1);
       addUser(name2, token2);
@@ -32,6 +40,12 @@ describe("action_base", () => {
     it("getUserList", () => {
       expect(getUserList({}).indexOf(name2) > -1).toBeTruthy();
       expect(getUserList({ all: true }).indexOf(name2) > -1).toBeTruthy();
+    });
+
+    // 还原单测前状态
+    it("backup", () => {
+      removeUser(name2);
+      changeUser(currentAccountName);
     });
   });
 });
