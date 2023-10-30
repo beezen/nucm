@@ -1,10 +1,10 @@
 import { Command } from "commander";
-import { checkConfigInit, getLangMessage } from "./common/index";
+import { getLangMessage, prepareEnv } from "./common/index";
 import { getUserList, changeUser, addUser, removeUser } from "./actions/base";
 import { updateVersion, changeLang, searchToSave } from "./actions/helper";
 import pkg from "../package.json";
 
-if (checkConfigInit()) {
+prepareEnv(() => {
   const program = new Command();
   program.version(pkg.version, "-v,--version", getLangMessage("MSG_showVersion"));
   program.helpOption("-h, --help", getLangMessage("MSG_help"));
@@ -28,6 +28,7 @@ if (checkConfigInit()) {
     .action(removeUser);
   program
     .command("localize <lang>")
+    .alias("language")
     .description(getLangMessage("MSG_localizedLang"))
     .action(changeLang);
   program
@@ -41,4 +42,4 @@ if (checkConfigInit()) {
     .action(searchToSave);
 
   program.parse(process.argv);
-}
+});

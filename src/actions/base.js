@@ -1,14 +1,12 @@
 import colors from "colors";
 import { line, desensitize } from "../utils/index";
-import { getLangMessage, getConfig, setConfig, getRegistryConfig, isEnabled } from "../common";
-const config = getConfig(); // 基础配置
-const registryConfig = getRegistryConfig(config); // 源信息配置
-
+import { getLangMessage, setConfig } from "../common";
+import { baseInitConfig } from "../common/env";
 /**
  * 获取用户列表
  */
 export function getUserList(options) {
-  if (!isEnabled(registryConfig)) return;
+  const { fileConfig, registryConfig } = baseInitConfig;
   const defaultLog = getLangMessage("MSG_getUserListDefaultLog");
   let userList = "";
   const getListInfo = function(accountList = {}) {
@@ -24,20 +22,25 @@ export function getUserList(options) {
       })
       .join("\n");
   };
+  const nucmrcConfig = fileConfig.nucm;
+  colors.setTheme({
+    custom: ["black", "bgBrightYellow"]
+  });
   if (options.all) {
-    colors.setTheme({
-      custom: ["black", "bgBrightGreen"]
-    });
-    delete config.nucm.baseConfig;
-    userList = Object.keys(config.nucm)
+    delete nucmrcConfig.baseConfig;
+    userList = Object.keys(nucmrcConfig)
       .map(registryName => {
-        return (
-          `${colors.custom("【" + registryName + "】")}\n` + getListInfo(config.nucm[registryName])
-        );
+        let registryNameStr =
+          registryName === registryConfig.registryName
+            ? colors.custom(`【${registryName}】`)
+            : `【${registryName}】`;
+        return `${registryNameStr}\n${getListInfo(nucmrcConfig[registryName])}`;
       })
       .join("\n\n");
   } else {
-    userList = getListInfo(config.nucm[registryConfig.registryName]);
+    userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${getListInfo(
+      nucmrcConfig[registryConfig.registryName]
+    )}`;
   }
   console.log(userList || defaultLog.red);
   return userList;
@@ -45,9 +48,10 @@ export function getUserList(options) {
 
 /** 变更用户 */
 export function changeUser(name) {
-  if (!isEnabled(registryConfig)) return;
-  let accountList = config.nucm[registryConfig.registryName] || {};
-  let npmrcConfig = config.npm;
+  const { fileConfig, registryConfig } = baseInitConfig;
+  let npmrcConfig = fileConfig.npm;
+  let nucmrcConfig = fileConfig.nucm;
+  let accountList = nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
     console.log(getLangMessage("MSG_accountNotFound").red);
     return;
@@ -60,31 +64,37 @@ export function changeUser(name) {
     }
   });
   accountList[name]["is-current"] = true;
-  setConfig("nucm", config.nucm);
+  setConfig("nucm", nucmrcConfig);
   setConfig("npm", npmrcConfig);
   console.log(`${getLangMessage("MSG_accountChanged")} ${name}`.green);
 }
 
 /** 添加用户 */
 export function addUser(name, token) {
-  if (!isEnabled(registryConfig)) return;
-  let accountList = config.nucm[registryConfig.registryName] || {};
+  const { fileConfig, registryConfig } = baseInitConfig;
+  const nucmrcConfig = fileConfig.nucm;
+  let accountList = nucmrcConfig[registryConfig.registryName] || {};
   !accountList[name] && (accountList[name] = {});
   accountList[name]["access-tokens"] = token;
-  config.nucm[registryConfig.registryName] = accountList;
-  setConfig("nucm", config.nucm);
+  nucmrcConfig[registryConfig.registryName] = accountList;
+  setConfig("nucm", nucmrcConfig);
   console.log(getLangMessage("MSG_accountAddSuccess").green);
+  if (Object.keys(accountList).length === 1) {
+    // 判断当前是否只有唯一账号
+    changeUser(name);
+  }
 }
 
 /** 移除用户 */
 export function removeUser(name) {
-  if (!isEnabled(registryConfig)) return;
-  let accountList = config.nucm[registryConfig.registryName] || {};
+  const { fileConfig, registryConfig } = baseInitConfig;
+  const nucmrcConfig = fileConfig.nucm;
+  let accountList = nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
     console.log(getLangMessage("MSG_accountRemoveFail").red);
     return;
   }
   delete accountList[name];
-  setConfig("nucm", config.nucm);
+  setConfig("nucm", nucmrcConfig);
   console.log(getLangMessage("MSG_accountRemoveSuccess").green);
 }

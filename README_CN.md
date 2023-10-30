@@ -1,4 +1,4 @@
-# nucm -- npm 用户切换管理
+# nucm -- npm 用户账号切换管理
 
 [![NPM version][npm-image]][npm-url]
 ![](https://img.shields.io/badge/build-passing-green)

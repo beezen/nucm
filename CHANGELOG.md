@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.5](https://github.com/beezen/nucm/compare/v1.8.4...v1.8.5) (2023-10-30)
+
+### [1.8.4](https://github.com/beezen/nucm/compare/v1.8.3...v1.8.4) (2023-10-30)
+
+
+### Bug Fixes
+
+* 调整列表展示源信息样式 ([fb14885](https://github.com/beezen/nucm/commit/fb14885cd7e214e7572f59a95d60522ced33a253))
+* 优化保存账号时的询问提示,补充了当前源信息 ([560a6f0](https://github.com/beezen/nucm/commit/560a6f049e359c0c3b20164e6704e15ceaa46a5c))
+
+### [1.8.3](https://github.com/beezen/nucm/compare/v1.8.2...v1.8.3) (2023-10-30)
+
+
+### Bug Fixes
+
+* 修复静默更新 ([df5b784](https://github.com/beezen/nucm/commit/df5b784d34e320b3a6c1f93934b9a5cc2b0ae5a6))
+* 优化初次保存和添加时,添加为默认账号 ([7aadffb](https://github.com/beezen/nucm/commit/7aadffb6d5ab3b00541a45f6231ec96ea26cc59d))
+
+### [1.8.2](https://github.com/beezen/nucm/compare/v1.8.1...v1.8.2) (2023-10-30)
+
+### [1.8.1](https://github.com/beezen/nucm/compare/v1.8.0...v1.8.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* 修复初次安装时,没有初始化默认配置问题 ([0f94b82](https://github.com/beezen/nucm/commit/0f94b823ac6a3999417cef54f10bcf53a8dfd55a))
+
 ## [1.8.0](https://github.com/beezen/nucm/compare/v1.7.0...v1.8.0) (2023-01-17)
 
 
