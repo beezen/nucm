@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.3](https://github.com/beezen/nucm/compare/v1.8.2...v1.8.3) (2023-10-30)
+
+
+### Bug Fixes
+
+* 修复静默更新 ([df5b784](https://github.com/beezen/nucm/commit/df5b784d34e320b3a6c1f93934b9a5cc2b0ae5a6))
+* 优化初次保存和添加时,添加为默认账号 ([7aadffb](https://github.com/beezen/nucm/commit/7aadffb6d5ab3b00541a45f6231ec96ea26cc59d))
+
 ### [1.8.2](https://github.com/beezen/nucm/compare/v1.8.1...v1.8.2) (2023-10-30)
 
 ### [1.8.1](https://github.com/beezen/nucm/compare/v1.8.0...v1.8.1) (2023-10-27)
