@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.4](https://github.com/beezen/nucm/compare/v1.8.3...v1.8.4) (2023-10-30)
+
+
+### Bug Fixes
+
+* 调整列表展示源信息样式 ([fb14885](https://github.com/beezen/nucm/commit/fb14885cd7e214e7572f59a95d60522ced33a253))
+* 优化保存账号时的询问提示,补充了当前源信息 ([560a6f0](https://github.com/beezen/nucm/commit/560a6f049e359c0c3b20164e6704e15ceaa46a5c))
+
 ### [1.8.3](https://github.com/beezen/nucm/compare/v1.8.2...v1.8.3) (2023-10-30)
 
 
