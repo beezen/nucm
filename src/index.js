@@ -2,9 +2,9 @@ import { Command } from "commander";
 import { getLangMessage, prepareEnv } from "./common/index";
 import { getUserList, changeUser, addUser, removeUser } from "./actions/base";
 import { updateVersion, changeLang, searchToSave } from "./actions/helper";
-import pkg from "../package.json";
 
 prepareEnv(() => {
+  const pkg = require("../package.json");
   const program = new Command();
   program.version(pkg.version, "-v,--version", getLangMessage("MSG_showVersion"));
   program.helpOption("-h, --help", getLangMessage("MSG_help"));
@@ -35,7 +35,7 @@ prepareEnv(() => {
     .command("update")
     .option("--silent", getLangMessage("MSG_updateSilent"))
     .description(getLangMessage("MSG_update"))
-    .action(updateVersion);
+    .action(options => updateVersion(options, pkg.version));
   program
     .command("save")
     .description(getLangMessage("MSG_save"))

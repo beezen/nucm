@@ -1,16 +1,16 @@
 import "colors";
 import shell from "shelljs";
 import inquirer from "inquirer";
-import pkg from "../../package.json";
 import { getLangMessage, setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
 import { compareVersion } from "../utils/index";
 import { addUser, removeUser } from "./base";
 /**
  * 更新版本
- * @param 是否自动校验
+ * @param option 配置
+ * @param curVersion 当前版本号
  */
-export function updateVersion(option) {
+export function updateVersion(option, curVersion) {
   const { fileConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let baseConfig = nucmrcConfig?.baseConfig;
@@ -18,7 +18,6 @@ export function updateVersion(option) {
   baseConfig.checkUpdateDate = Date.now();
   setConfig("nucm", nucmrcConfig); // 更新校验时间记录
 
-  const curVersion = pkg.version;
   console.log(getLangMessage("MSG_update01").green);
   const latestVersion = shell.exec("npm view nucm version", { silent: true }).stdout.trim();
   if (!curVersion || !latestVersion) {
