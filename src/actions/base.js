@@ -75,6 +75,10 @@ export function addUser(name, token) {
   nucmrcConfig[registryConfig.registryName] = accountList;
   setConfig("nucm", nucmrcConfig);
   console.log(getLangMessage("MSG_accountAddSuccess").green);
+  if (Object.keys(accountList).length === 1) {
+    // 判断当前是否只有唯一账号
+    changeUser(name);
+  }
 }
 
 /** 移除用户 */
