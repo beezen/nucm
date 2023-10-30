@@ -29,6 +29,7 @@ export function updateVersion(option) {
   if (status === -1) {
     if (option.silent) {
       console.log(getLangMessage("MSG_updateTips").red);
+      shell.exec("npm install -g nucm@latest"); // 更新最新版本
       return;
     }
     // 存在新版本
