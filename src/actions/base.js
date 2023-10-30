@@ -23,20 +23,24 @@ export function getUserList(options) {
       .join("\n");
   };
   const nucmrcConfig = fileConfig.nucm;
+  colors.setTheme({
+    custom: ["black", "bgBrightYellow"]
+  });
   if (options.all) {
-    colors.setTheme({
-      custom: ["black", "bgBrightGreen"]
-    });
     delete nucmrcConfig.baseConfig;
     userList = Object.keys(nucmrcConfig)
       .map(registryName => {
-        return (
-          `${colors.custom("【" + registryName + "】")}\n` + getListInfo(nucmrcConfig[registryName])
-        );
+        let registryNameStr =
+          registryName === registryConfig.registryName
+            ? colors.custom(`【${registryName}】`)
+            : `【${registryName}】`;
+        return `${registryNameStr}\n${getListInfo(nucmrcConfig[registryName])}`;
       })
       .join("\n\n");
   } else {
-    userList = getListInfo(nucmrcConfig[registryConfig.registryName]);
+    userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${getListInfo(
+      nucmrcConfig[registryConfig.registryName]
+    )}`;
   }
   console.log(userList || defaultLog.red);
   return userList;
