@@ -90,7 +90,7 @@ export function searchToSave() {
       .prompt([
         {
           type: "confirm",
-          message: getLangMessage("MSG_save_01"),
+          message: `【${registryConfig.registryName}】${getLangMessage("MSG_save_01")}`,
           name: "check"
         }
       ])
@@ -118,7 +118,7 @@ export function searchToSave() {
       .prompt([
         {
           type: "input",
-          message: getLangMessage("MSG_save_03"),
+          message: `【${registryConfig.registryName}】${getLangMessage("MSG_save_03")}`,
           name: "name",
           default: tokenTag
         }
