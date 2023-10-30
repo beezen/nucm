@@ -1,6 +1,6 @@
 {
   "name": "nucm",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "Npm User Change Manager（npm 用户账号切换管理）",
   "main": "./bin/index.js",
   "scripts": {
