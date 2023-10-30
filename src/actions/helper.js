@@ -2,7 +2,8 @@ import "colors";
 import shell from "shelljs";
 import inquirer from "inquirer";
 import pkg from "../../package.json";
-import { getLangMessage, getConfig, setConfig, getRegistryConfig, isEnabled } from "../common";
+import { getLangMessage, setConfig } from "../common";
+import { baseInitConfig } from "../common/env";
 import { compareVersion } from "../utils/index";
 import { addUser, removeUser } from "./base";
 /**
@@ -10,17 +11,16 @@ import { addUser, removeUser } from "./base";
  * @param 是否自动校验
  */
 export function updateVersion(option) {
-  const config = getConfig();
-  let baseConfig = config.nucm?.baseConfig;
-  !baseConfig && (baseConfig = config.nucm.baseConfig = {});
+  const { fileConfig } = baseInitConfig;
+  const nucmrcConfig = fileConfig.nucm;
+  let baseConfig = nucmrcConfig?.baseConfig;
+  !baseConfig && (baseConfig = nucmrcConfig.baseConfig = {});
   baseConfig.checkUpdateDate = Date.now();
-  setConfig("nucm", config.nucm); // 更新校验时间记录
+  setConfig("nucm", nucmrcConfig); // 更新校验时间记录
 
   const curVersion = pkg.version;
   console.log(getLangMessage("MSG_update01").green);
-  const latestVersion = shell
-    .exec("npm view nucm version --registry='https://registry.npmjs.org/'", { silent: true })
-    .stdout.trim();
+  const latestVersion = shell.exec("npm view nucm version", { silent: true }).stdout.trim();
   if (!curVersion || !latestVersion) {
     console.log(getLangMessage("MSG_update02").red);
     return;
@@ -58,12 +58,13 @@ export function updateVersion(option) {
 
 /** 切换语言 */
 export function changeLang(language) {
-  const config = getConfig();
-  let baseConfig = config.nucm?.baseConfig;
-  !baseConfig && (baseConfig = config.nucm.baseConfig = {});
+  const { fileConfig } = baseInitConfig;
+  const nucmrcConfig = fileConfig.nucm;
+  let baseConfig = nucmrcConfig?.baseConfig;
+  !baseConfig && (baseConfig = nucmrcConfig.baseConfig = {});
   if (["en", "cn"].includes(language)) {
     baseConfig.lang = language;
-    setConfig("nucm", config.nucm);
+    setConfig("nucm", nucmrcConfig);
     console.log(`${getLangMessage("MSG_langChanged")} ${language}`.green);
   } else {
     console.log(getLangMessage("MSG_changeLang").red);
@@ -72,14 +73,12 @@ export function changeLang(language) {
 
 /** 查询当前 token 信息，并存储 */
 export function searchToSave() {
-  const config = getConfig();
-  const registryConfig = getRegistryConfig(config);
-  if (!isEnabled(registryConfig)) return;
+  const { fileConfig, registryConfig } = baseInitConfig;
   if (!registryConfig._authtoken) {
     console.log(getLangMessage("MSG_save_04").red);
     return;
   }
-  const accountList = config.nucm[registryConfig.registryName] || {};
+  const accountList = fileConfig.nucm[registryConfig.registryName] || {};
   const account = Object.keys(accountList).filter(
     name => accountList[name] && accountList[name]["access-tokens"] === registryConfig._authtoken
   );

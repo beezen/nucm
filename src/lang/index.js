@@ -24,7 +24,7 @@ export default {
     MSG_update: "更新版本",
     MSG_updateLatest: "当前已是最新版本",
     MSG_update01: "更新检查中......",
-    MSG_update02: "更新检查失败",
+    MSG_update02: "更新检查失败。请执行 'npm install nucm@latest -g' 手动更新",
     MSG_updateSilent: "静默的",
     MSG_updateTips: "存在可更新的版本。",
     MSG_save: "保存当前账号",
@@ -63,7 +63,8 @@ export default {
     MSG_update: "updated version",
     MSG_updateLatest: "The current version is already the latest version",
     MSG_update01: "During the update check ...",
-    MSG_update02: "Update inspection failed",
+    MSG_update02:
+      "Update inspection failed.Please execute 'npm install nucm@latest -g' Manual Update",
     MSG_updateSilent: "silent",
     MSG_updateTips: "It can be updated to the latest version.",
     MSG_save: "Save the current account",

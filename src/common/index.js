@@ -6,21 +6,26 @@ import shell from "shelljs";
 import "colors";
 import registries from "../constants/registries.json";
 import langConfig from "../lang/index";
+import { baseInitConfig } from "./env";
 
 const homedir = os.homedir(); // 用户目录
 const nucmrc_path = path.resolve(homedir, ".nucmrc"); // .nucmrc 配置文件地址
 const npmrc_path = path.resolve(homedir, ".npmrc"); // .npmrc 配置文件地址
 const nrmrc_path = path.resolve(homedir, ".nrmrc"); // .nrmrc 配置文件地址
 
-/** 设置本地配置文件信息 */
+/**
+ * 设置本地配置文件信息
+ * @param key 文件名
+ * @param value 文件信息
+ */
 export function setConfig(key, value) {
   if (!key || !value) return console.log(getLangMessage("MSG_setConfig").red);
-  const obj = {
+  const pathList = {
     nucm: nucmrc_path,
     npm: npmrc_path,
     nrm: nrmrc_path
   };
-  fs.writeFileSync(obj[key], ini.stringify(value));
+  fs.writeFileSync(pathList[key], ini.stringify(value));
 }
 
 /** 获取本地配置文件信息 */
@@ -39,8 +44,8 @@ export function getConfig() {
 }
 
 /**
- * 校验初始配置文件是否完整
- * @return true-完整，false-不完整
+ * 校验 .npmrc 配置文件是否存在，并初始化配置文件
+ * @return true-初始化，false-未能初始化
  */
 export function checkConfigInit() {
   if (!fs.existsSync(npmrc_path)) {
@@ -66,9 +71,7 @@ export function checkConfigInit() {
  * @param lang 语言类型。默认读取配置文件
  */
 export function getLangMessage(messageName, lang) {
-  const config = getConfig(); // 基础配置
-  const baseConfig = config?.nucm?.baseConfig;
-  const currentLang = lang || baseConfig?.lang || "en";
+  let currentLang = lang || baseInitConfig?.lang || "en";
   return langConfig[currentLang][messageName];
 }
 
@@ -80,7 +83,7 @@ export function getLangMessage(messageName, lang) {
 export function getRegistryConfig(config) {
   const registry = config?.npm?.registry; // 当前启用源地址
   if (!registry) return {};
-  let registriesList = registries; // 注册表
+  let registriesList = registries; // 源注册表
   let registryName = "";
   let _authtoken = config.npm[`${registry.replace(/^https?:/, "")}:_authToken`]; // 当前源的用户账号令牌
 
@@ -92,10 +95,8 @@ export function getRegistryConfig(config) {
   }
   // 获取当前源别名
   for (let key in registriesList) {
-    if (
-      registriesList[key].registry &&
-      registry.indexOf(registriesList[key].registry.replace(/^https?:\/\/|\/*$/g, "")) > -1
-    ) {
+    let currentRegistry = registriesList[key]?.registry?.replace(/^https?:\/\/|\/*$/g, "");
+    if (registry.indexOf(currentRegistry) > -1) {
       registryName = key;
     }
   }
@@ -116,4 +117,22 @@ export function isEnabled(registryConfig) {
     return false;
   }
   return true;
+}
+
+/**
+ * 环境准备
+ * @param callback 回调函数
+ */
+export function prepareEnv(callback) {
+  if (!checkConfigInit()) return; // 配置初始化
+  const fileConfig = getConfig(); // 基础配置
+  const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
+  if (!isEnabled(registryConfig)) return;
+  // global 全局存储
+  Object.assign(baseInitConfig, {
+    fileConfig, // 配置文件
+    registryConfig, // 源配置
+    lang: fileConfig?.nucm?.baseConfig?.lang || "en" // 语言
+  });
+  callback && callback(baseInitConfig);
 }
