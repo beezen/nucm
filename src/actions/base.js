@@ -37,12 +37,12 @@ export function getUserList(options) {
         return `${registryNameStr}\n${getListInfo(nucmrcConfig[registryName])}`;
       })
       .join("\n\n");
+    console.log(userList);
   } else {
-    userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${getListInfo(
-      nucmrcConfig[registryConfig.registryName]
-    )}`;
+    const listStr = getListInfo(nucmrcConfig[registryConfig.registryName]);
+    userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${listStr}`;
+    console.log(listStr ? userList : defaultLog.red);
   }
-  console.log(userList || defaultLog.red);
   return userList;
 }
 
