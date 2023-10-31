@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.7](https://github.com/beezen/nucm/compare/v1.8.6...v1.8.7) (2023-10-31)
+
+
+### Bug Fixes
+
+* 兼容老版本淘宝镜像 ([0e8ad73](https://github.com/beezen/nucm/commit/0e8ad7346215d8a633227651b590f7bb2aa0a937))
+
 ### [1.8.6](https://github.com/beezen/nucm/compare/v1.8.5...v1.8.6) (2023-10-30)
 
 
