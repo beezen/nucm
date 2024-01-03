@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 ![](https://img.shields.io/badge/build-passing-green)
+[![Coverage Status](https://coveralls.io/repos/github/beezen/nucm/badge.svg?branch=feature-action)](https://coveralls.io/github/beezen/nucm?branch=feature-action)
 
 `nucm` 能帮你快速轻松地管理 NPM 账户信息。
 

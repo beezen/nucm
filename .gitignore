@@ -1,7 +1,6 @@
 ## 生成文件
 dist
 /_*
-coverage
 !__tests__
 
 ## lock 文件
