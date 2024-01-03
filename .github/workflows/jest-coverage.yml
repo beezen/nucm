@@ -1,0 +1,18 @@
+name: jest-coverage
+run-name: ${{ github.actor }} update coverage data
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  upload-coverage:
+    name: upload-coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
