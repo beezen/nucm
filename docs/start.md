@@ -6,7 +6,7 @@ title: 快速开始
 
 ## 安装
 
-用你喜欢的包管理器安装 `nucm`：
+使用您喜欢的包管理器安装 `nucm`：
 
 ```bash
 $ npm install -g nucm
@@ -19,7 +19,7 @@ $ yarn global add nucm
 
 ### 1、添加账号
 
-执行 `nucm add <name> <access-tokens>` 添加账号, `name` 为自定义的账号别名，`access-tokens` 为 NPM 账号令牌，例如：
+执行 `nucm add <name> <access-tokens>` 添加账号, `name` 为自定义的账号别名，`access-tokens` 为 NPM 账号令牌。例如：
 
 ```bash
 $ nucm add beezen xxxxxxxxxxxxxxxx
@@ -31,7 +31,7 @@ $ nucm add beezen xxxxxxxxxxxxxxxx
 
 ### 2、查看账号列表
 
-执行 `nucm ls` 可查看刚添加的账号是否出现在账号列表中，例如：
+执行 `nucm ls` 可查看刚添加的账号是否出现在账号列表中。例如：
 
 ```bash
 # 默认显示脱敏的
@@ -51,7 +51,7 @@ $ nucm ls -l # 或 nucm ls --list
 
 ### 3、切换账号
 
-执行 `nucm use <name>` 命令切换当前使用账号，例如：
+执行 `nucm use <name>` 命令切换当前使用账号。例如：
 
 ```bash
 $ nucm use beezen
@@ -61,7 +61,7 @@ $ nucm use beezen
 
 ### 4、发布 NPM 包
 
-到对应的 NPM 包根目录下执行 `npm publish`，则会使用第 3 步中账号的 Access Tokens 进行 NPM 包发布。
+在对应的 NPM 包根目录下执行 `npm publish`，则会使用第 3 步中账号的 Access Tokens 进行 NPM 包发布。
 
 ```bash
 $ npm publish # 用切换的当前账号进行发布

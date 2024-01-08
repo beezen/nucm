@@ -4,7 +4,7 @@ title: nucm save 保存账号
 
 # 保存账号
 
-保存用户当前正在使用的 Access Tokens 账号
+方便地保存用户当前正在使用的 Access Tokens 账号。
 
 ## 命令
 

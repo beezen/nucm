@@ -4,7 +4,7 @@ title: nucm del 移除账号
 
 # 移除账号
 
-根据别名移除本地账号
+通过别名，轻松移除本地账号（Access Tokens）。
 
 ## 命令
 

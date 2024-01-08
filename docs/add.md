@@ -4,7 +4,7 @@ title: nucm add 添加账号
 
 # 添加账号
 
-添加本地账号（Access Tokens），并设置别名。
+通过添加本地账号（Access Tokens）并设置别名，轻松管理 NPM 账号切换。
 
 ## 命令
 
@@ -19,7 +19,7 @@ $ nucm add <name> <access-tokens>
 - Default: null
 - Required: true
 
-账号别名。给 Access Tokens 账号设置一个对应的别名，方便后续账号查找和切换。
+账号别名。为 Access Tokens 账号设置一个易于识别的别名，方便后续账号查找和切换。
 
 `access-tokens`
 

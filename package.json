@@ -1,7 +1,7 @@
 {
   "name": "nucm",
   "version": "1.8.7",
-  "description": "Npm User Change Manager（npm 用户账号切换管理）",
+  "description": "NPM User Change Manager（NPM 用户账号切换管理）",
   "main": "./bin/index.js",
   "scripts": {
     "release": "npm run test:coverage && npm run build && standard-version",
@@ -20,6 +20,7 @@
     "bin",
     "dist"
   ],
+  "homepage": "https://beezen.github.io/nucm/",
   "repository": {
     "type": "git",
     "url": "git@github.com:beezen/nucm.git"
