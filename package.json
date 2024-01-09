@@ -4,7 +4,7 @@
   "description": "Npm User Change Manager（npm 用户账号切换管理）",
   "main": "./bin/index.js",
   "scripts": {
-    "release": "npm run build && npm run push:coverage ",
+    "release": "npm run build && npm run push:coverage && standard-version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "test": "jest",
     "test:coverage": "jest --coverage",
