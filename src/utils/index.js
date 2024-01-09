@@ -1,3 +1,4 @@
+import shell from "shelljs";
 /**
  * 链接符号
  * @param str 字符传
@@ -48,4 +49,14 @@ export function compareVersion(v1, v2) {
     }
   }
   return 0;
+}
+
+/** 获取包管理器 */
+export function getPackageManager() {
+  // 校验 yarn 是否存在
+  const yarnVersion = shell.exec("yarn --version", { silent: true }).stdout.trim();
+  if (yarnVersion) {
+    return "yarn";
+  }
+  return "npm";
 }
