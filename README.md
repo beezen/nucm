@@ -1,87 +1,72 @@
-# nucm -- Npm User Change Manager
+# NUCM -- NPM 用户账号切换管理
 
 [![NPM version][npm-image]][npm-url]
 ![](https://img.shields.io/badge/build-passing-green)
 [![Coverage Status](https://coveralls.io/repos/github/beezen/nucm/badge.svg?branch=feature-action)](https://coveralls.io/github/beezen/nucm?branch=feature-action)
 
-`nucm` can help you manage NPM account information quickly and easily.
+NUCM 的全称为 NPM User Change Manager，是一款高效而直观的 NPM 账号切换管理工具，为开发者提供了简便的方法来轻松切换和管理不同的 NPM 用户账号。无论是在开发多个项目，协作开发，还是在不同的工作环境中切换，该工具都能帮助用户保持无缝的 NPM 包管理体验。
 
-[English](./README.md) | [简体中文](./README_CN.md)
+[简体中文](./README.md) | [English](./README_EN.md)
 
-## Install
+## 目录
+
+1. [详细文档](https://beezen.github.io/nucm/)
+2. [学习资料](#学习资料)
+3. [快速开始](#快速开始)
+4. [简单示例](#简单示例)
+5. [注意事项](#注意事项)
+
+## 学习资料
+
+- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
+- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
+
+## 快速开始
+
+### 安装
 
 ```bash
-# Global installation
-$ npm install -g nucm # OR yarn global add nucm
+# 全局安装
+$ npm install -g nucm # 或 yarn global add nucm
 ```
 
-## Usage
+### 可用命令
 
 ```bash
 Usage: nucm [options] [command]
 
 Options:
-  -v,--version                show version
-  -h, --help                  display help for command
+  -v,--version                查看版本
+  -h, --help                  显示命令帮助
 
 Commands:
-  ls [options]                show account list
-  use <name>                  switch account
-  add <name> <access-tokens>  add account
-  del <name>                  remove account
-  localize <lang>             use localized languages
-  update [options]            updated version
-  save                        Save the current account
+  ls [options]                查看账号列表
+  use <name>                  切换账号
+  add <name> <access-tokens>  添加账号
+  del <name>                  移除账号
+  localize <lang>             使用本地化语言
+  update [options]            更新版本
+  save                        保存当前账号
   help [command]              display help for command
 ```
 
-## Detailed parameter description
+## 简单示例
 
-| command                                | options                    | description                                                                                                        |
-| -------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [ls](#view-the-current-source-account) |                            | View the current source, account list                                                                              |
-| [ls](#view-the-current-source-account) | `-l`                       | View the current source, account details                                                                           |
-| [ls](#view-the-current-source-account) | `-a`                       | View all sources, account lists                                                                                    |
-| [ls](#view-the-current-source-account) | `-al`                      | View all sources, account details                                                                                  |
-| [use](#switch-account)                 | `<name>`                   | Switch to the specified account.`<name>`: Account alias                                                            |
-| [add](#add-account)                    | `<name>` `<access-tokens>` | Add account.`<name>`: Account alias，`<access-tokens>`：[Access Token](https://docs.npmjs.com/about-access-tokens) |
-| [del](#remove-the-account)             | `<name>`                   | Delete account.`<name>`: Account alias                                                                             |
-| [localize](#use-localized-language)    | `<lang>`                   | Use localized language. `<lang>`Support language, currently only supports: `cn`/`en`                               |
-| update                                 |                            | Update CLI version                                                                                                 |
-| [save](#save-account)                  |                            | Save the current account                                                                                           |
-
-## Information
-
-- [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
-- [【教程】NUCM（NPM 账号管理工具）新发布的这两个功能，你值得拥有](https://juejin.cn/post/7079411183408644104)
-
-## Example
-
-### Save account
+### 保存账号
 
 ```bash
 $ nucm save
 ```
 
-### Add account
+### 添加账号
 
 ```bash
-$ nucm add <name> <access-tokens>
+$ nucm add beezen abcdefXXXXXXXXmno2
 
-  Add account success
+  添加账号成功
 ```
 
-### Remove the account
-
-```bash
-$ nucm del <name>
-
-  Remove account success
-```
-
-### View the current source account
-
-1. View the current source, account list
+### 查看当前源账号
 
 ```bash
 $ nucm ls
@@ -91,71 +76,25 @@ $ nucm ls
 * beeze ---- abcdef......mno3
 ```
 
-2. View the current source, account details
-
-```bash
-$ nucm ls -l
-
-  beezend -- abcdefghijklmno1
-  beezen --- abcdefghijklmno2
-* beeze ---- abcdefghijklmno3
-```
-
-3. View all sources, account lists
-
-```bash
-$ nucm ls -a
-
-【npm】
-  beezend -- abcdef......mno1
-  beezen --- abcdef......mno2
-* beeze ---- abcdef......mno3
-
-【maclocal】
-* test ----- abcdef......mno4
-```
-
-4. View all sources, account details
-
-```bash
-$ nucm ls -al
-
-【npm】
-  beezend -- abcdefghijklmno1
-  beezen --- abcdefghijklmno2
-* beeze ---- abcdefghijklmno3
-
-【maclocal】
-* test ----- abcdefghijklmno4
-```
-
-### Switch account
+### 切换账号
 
 ```bash
 $ nucm use beezen
 
-  The account has been switched to beezen
+  已切换到账号 beezen
 ```
 
-### Use localized language
+## 注意事项
 
-```bash
-$ nucm localize cn
+我们管理的是 NPM 发布的[访问令牌](https://docs.npmjs.com/about-access-tokens)。
 
-  Switched to language cn
-```
+> 访问令牌是使用 API 或 npm CLI (CLI) 时，对 npm 进行身份验证的另一种选择。它是一个十六进制字符串，可用于身份验证，并授予您安装和/或发布模块的权限。
 
-## Notice
+请注意：如果您是通过 `npm login` 或者 `npm adduser` 进行登录的用户，可以使用 nucm save 命令将当前登录账号的访问令牌保存起来。
 
-We manage the [Access Token](https://docs.npmjs.com/about-access-tokens) released by NPM.
+在后续的使用过程中，您可以通过 `nucm use <name>` 的方式快速切换各种账号的访问令牌，从而实现对 npm 包使用不同账号进行发布。
 
-> An access token is an alternative to using your username and password for authenticating to npm when using the API or the npm command-line interface (CLI). An access token is a hexadecimal string that you can use to authenticate, and which gives you the right to install and/or publish your modules.
-
-Notice: If you are logged in via `npm login` or`npm adduser`, you can save the `access token of the current login account by executing the` NuCM Save` instruction, save the current login account.
-
-In the later use process, you can quickly switch the `nucm use <name>` to quickly switch to the `Access Token`, so as to realize the release of the NPM package with different account numbers.
-
-## LICENSE
+## 许可证
 
 MIT
 

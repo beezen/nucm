@@ -1,7 +1,7 @@
 {
   "name": "nucm",
   "version": "1.8.8",
-  "description": "Npm User Change Manager（npm 用户账号切换管理）",
+  "description": "NPM User Change Manager（NPM 用户账号切换管理）",
   "main": "./bin/index.js",
   "scripts": {
     "release": "npm run build && npm run push:coverage && standard-version",
@@ -10,7 +10,9 @@
     "test:coverage": "jest --coverage",
     "push:coverage": "npm run test:coverage && git add . && git commit -m 'chroe: test coverage ci'",
     "dev": "rimraf dist && rollup -c rollup.config.dev.js -w",
-    "build": "rimraf dist && rollup -c rollup.config.build.js"
+    "build": "rimraf dist && rollup -c rollup.config.build.js",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "bin": {
     "nucm": "./bin/index.js"
@@ -19,6 +21,7 @@
     "bin",
     "dist"
   ],
+  "homepage": "https://beezen.github.io/nucm/",
   "repository": {
     "type": "git",
     "url": "git@github.com:beezen/nucm.git"
@@ -61,6 +64,7 @@
     "rimraf": "^3.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^29.1.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vuepress": "^1.9.10"
   }
 }
