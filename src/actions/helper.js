@@ -3,7 +3,7 @@ import shell from "shelljs";
 import inquirer from "inquirer";
 import { getLangMessage, setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
-import { compareVersion } from "../utils/index";
+import { compareVersion, getPackageManager } from "../utils/index";
 import { addUser, removeUser } from "./base";
 /**
  * 更新版本
@@ -26,9 +26,12 @@ export function updateVersion(option, curVersion) {
   }
   const status = compareVersion(curVersion, latestVersion);
   if (status === -1) {
+    const packageManager = getPackageManager();
+    const updateCmd =
+      packageManager === "yarn" ? "yarn global add nucm@latest" : "npm install -g nucm@latest";
     if (option.silent) {
       console.log(getLangMessage("MSG_updateTips").red);
-      shell.exec("npm install -g nucm@latest"); // 更新最新版本
+      shell.exec(updateCmd); // 更新最新版本
       return;
     }
     // 存在新版本
@@ -44,9 +47,9 @@ export function updateVersion(option, curVersion) {
           name: "result"
         }
       ])
-      .then(answers => {
+      .then((answers) => {
         if (answers.result) {
-          shell.exec("npm install -g nucm@latest"); // 更新最新版本
+          shell.exec(updateCmd); // 更新最新版本
         }
       });
   } else {
@@ -80,7 +83,7 @@ export function searchToSave() {
   }
   const accountList = fileConfig.nucm[registryConfig.registryName] || {};
   const account = Object.keys(accountList).filter(
-    name => accountList[name] && accountList[name]["access-tokens"] === registryConfig._authtoken
+    (name) => accountList[name] && accountList[name]["access-tokens"] === registryConfig._authtoken
   );
   const tokenTag = `nucm_${Date.now()}`;
 
@@ -93,7 +96,7 @@ export function searchToSave() {
           name: "check"
         }
       ])
-      .then(answers => {
+      .then((answers) => {
         if (answers.check) {
           inquirer
             .prompt([
@@ -104,7 +107,7 @@ export function searchToSave() {
                 default: tokenTag
               }
             ])
-            .then(a => {
+            .then((a) => {
               if (a.name) {
                 removeUser(account[0]);
                 addUser(a.name, registryConfig._authtoken);
@@ -122,7 +125,7 @@ export function searchToSave() {
           default: tokenTag
         }
       ])
-      .then(answers => {
+      .then((answers) => {
         if (answers.name) {
           addUser(answers.name, registryConfig._authtoken);
         }

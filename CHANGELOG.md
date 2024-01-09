@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.8](https://github.com/beezen/nucm/compare/v1.8.7...v1.8.8) (2024-01-09)
+
+
+### Bug Fixes
+
+* 优化 update 安装时包管理器调用逻辑 ([648ca44](https://github.com/beezen/nucm/commit/648ca4432a2f94ae7d690fc32f861279e82637ce))
+
 ### [1.8.7](https://github.com/beezen/nucm/compare/v1.8.6...v1.8.7) (2023-10-31)
 
 

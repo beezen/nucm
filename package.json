@@ -1,13 +1,14 @@
 {
   "name": "nucm",
-  "version": "1.8.7",
+  "version": "1.8.8",
   "description": "NPM User Change Manager（NPM 用户账号切换管理）",
   "main": "./bin/index.js",
   "scripts": {
-    "release": "npm run test:coverage && npm run build && standard-version",
+    "release": "npm run build && npm run push:coverage && standard-version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "test": "jest",
     "test:coverage": "jest --coverage",
+    "push:coverage": "npm run test:coverage && git add . && git commit -m 'chroe: test coverage ci'",
     "dev": "rimraf dist && rollup -c rollup.config.dev.js -w",
     "build": "rimraf dist && rollup -c rollup.config.build.js",
     "docs:dev": "vuepress dev docs",
