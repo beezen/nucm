@@ -175,15 +175,15 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,10 +196,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -264,19 +264,19 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import colors from "colors";
-import { line, desensitize } from "../utils/index";
-import { getLangMessage, setConfig } from "../common";
+import { line, desensitize, printLog } from "../utils/index";
+import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
 /**
  * 获取用户列表
  */
 export function getUserList(options) {
   const { fileConfig, registryConfig } = baseInitConfig;
-  const defaultLog = getLangMessage("MSG_getUserListDefaultLog");
+  const defaultLog = printLog("MSG_getUserListDefaultLog", { isPrint: false, type: "error" });
   let userList = "";
-  const getListInfo = function(accountList = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
+  const getListInfo = function (accountList = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> {
     return Object.keys(accountList)
-      .map(key =&gt; {
+      .map((key) =&gt; {
         let visibleToken = options.list
           ? <span class="branch-0 cbranch-no" title="branch not covered" >accountList[key]["access-tokens"]</span>
           : desensitize(accountList[key]["access-tokens"]); // 脱敏处理
@@ -294,7 +294,7 @@ export function getUserList(options) {
   if (options.all) {
     delete nucmrcConfig.baseConfig;
     userList = Object.keys(nucmrcConfig)
-      .map(registryName =&gt; {
+      .map((registryName) =&gt; {
         let registryNameStr =
           registryName === registryConfig.registryName
             ? colors.custom(`【${registryName}】`)
@@ -302,11 +302,11 @@ export function getUserList(options) {
         return `${registryNameStr}\n${getListInfo(nucmrcConfig[registryName])}`;
       })
       .join("\n\n");
-    console.log(userList);
+    printLog(userList);
   } else {
     const listStr = getListInfo(nucmrcConfig[registryConfig.registryName]);
     userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${listStr}`;
-    console.log(listStr ? userList : <span class="branch-1 cbranch-no" title="branch not covered" >defaultLog.red)</span>;
+    printLog(listStr ? userList : <span class="branch-1 cbranch-no" title="branch not covered" >defaultLog)</span>;
   }
   return userList;
 }
@@ -318,12 +318,12 @@ export function changeUser(name) {
   let nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!accountList[name]) {
-<span class="cstat-no" title="statement not covered" >    console.log(getLangMessage("MSG_accountNotFound").red);</span>
+<span class="cstat-no" title="statement not covered" >    printLog("MSG_accountNotFound", { type: "error" });</span>
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
   npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
     accountList[name]["access-tokens"];
-  Object.keys(accountList).forEach(key =&gt; {
+  Object.keys(accountList).forEach((key) =&gt; {
     if (accountList[key]["is-current"]) {
       delete accountList[key]["is-current"];
     }
@@ -331,7 +331,7 @@ export function changeUser(name) {
   accountList[name]["is-current"] = true;
   setConfig("nucm", nucmrcConfig);
   setConfig("npm", npmrcConfig);
-  console.log(`${getLangMessage("MSG_accountChanged")} ${name}`.green);
+  printLog("MSG_accountChanged", { type: "info", data: { name } });
 }
 &nbsp;
 /** 添加用户 */
@@ -343,7 +343,7 @@ export function addUser(name, token) {
   accountList[name]["access-tokens"] = token;
   nucmrcConfig[registryConfig.registryName] = accountList;
   setConfig("nucm", nucmrcConfig);
-  console.log(getLangMessage("MSG_accountAddSuccess").green);
+  printLog("MSG_accountAddSuccess", { type: "info" });
   <span class="missing-if-branch" title="if path not taken" >I</span>if (Object.keys(accountList).length === 1) {
     // 判断当前是否只有唯一账号
 <span class="cstat-no" title="statement not covered" >    changeUser(name);</span>
@@ -356,12 +356,12 @@ export function removeUser(name) {
   const nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!accountList[name]) {
-<span class="cstat-no" title="statement not covered" >    console.log(getLangMessage("MSG_accountRemoveFail").red);</span>
+<span class="cstat-no" title="statement not covered" >    printLog("MSG_accountRemoveFail", { type: "error" });</span>
 <span class="cstat-no" title="statement not covered" >    return;</span>
   }
   delete accountList[name];
   setConfig("nucm", nucmrcConfig);
-  console.log(getLangMessage("MSG_accountRemoveSuccess").green);
+  printLog("MSG_accountRemoveSuccess", { type: "info" });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -370,7 +370,7 @@ export function removeUser(name) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-09T01:58:00.177Z
+                at 2024-01-11T01:02:51.957Z
             </div>
         <script src="../prettify.js"></script>
         <script>

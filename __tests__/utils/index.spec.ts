@@ -1,19 +1,34 @@
-import { line, desensitize, compareVersion } from "../../src/utils";
-import { getConfig, getLangMessage, getRegistryConfig, isEnabled } from "../../src/common";
+import {
+  line,
+  desensitize,
+  compareVersion,
+  printLog,
+  getPackageManager
+} from "../../src/utils/index";
+import { getConfig, getRegistryConfig, isEnabled, initLanguage } from "../../src/common";
 
 describe("utils", () => {
   it("getConfig", () => {
     const { nucm, npm, nrm } = getConfig();
-
     expect(nucm).toBeDefined();
     expect(npm).toBeDefined();
     expect(nrm).toBeDefined();
   });
 
-  it("getLangMessage", () => {
-    const lang = require("../../src/lang/index.js").default;
-    expect(getLangMessage("MSG_showVersion", "cn")).toBe(lang["cn"]["MSG_showVersion"]);
-    expect(getLangMessage("MSG_showVersion", "en")).toBe(lang["en"]["MSG_showVersion"]);
+  it("printLog", () => {
+    initLanguage(); // 初始化 i18next
+    const langCn = require("../../src/lang/default/zh/base.json");
+    const langEn = require("../../src/lang/default/en/base.json");
+    expect(printLog("MSG_showVersion", { isPrint: false, lng: "cn" })).toBe(
+      langCn["MSG_showVersion"]
+    );
+    expect(printLog("MSG_showVersion", { isPrint: false, lng: "en" })).toBe(
+      langEn["MSG_showVersion"]
+    );
+  });
+
+  it("getPackageManager", () => {
+    expect(getPackageManager()).toBe("yarn");
   });
 
   it("line", () => {

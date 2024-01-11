@@ -1,17 +1,17 @@
 import colors from "colors";
-import { line, desensitize } from "../utils/index";
-import { getLangMessage, setConfig } from "../common";
+import { line, desensitize, printLog } from "../utils/index";
+import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
 /**
  * 获取用户列表
  */
 export function getUserList(options) {
   const { fileConfig, registryConfig } = baseInitConfig;
-  const defaultLog = getLangMessage("MSG_getUserListDefaultLog");
+  const defaultLog = printLog("MSG_getUserListDefaultLog", { isPrint: false, type: "error" });
   let userList = "";
-  const getListInfo = function(accountList = {}) {
+  const getListInfo = function (accountList = {}) {
     return Object.keys(accountList)
-      .map(key => {
+      .map((key) => {
         let visibleToken = options.list
           ? accountList[key]["access-tokens"]
           : desensitize(accountList[key]["access-tokens"]); // 脱敏处理
@@ -29,7 +29,7 @@ export function getUserList(options) {
   if (options.all) {
     delete nucmrcConfig.baseConfig;
     userList = Object.keys(nucmrcConfig)
-      .map(registryName => {
+      .map((registryName) => {
         let registryNameStr =
           registryName === registryConfig.registryName
             ? colors.custom(`【${registryName}】`)
@@ -37,11 +37,11 @@ export function getUserList(options) {
         return `${registryNameStr}\n${getListInfo(nucmrcConfig[registryName])}`;
       })
       .join("\n\n");
-    console.log(userList);
+    printLog(userList);
   } else {
     const listStr = getListInfo(nucmrcConfig[registryConfig.registryName]);
     userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${listStr}`;
-    console.log(listStr ? userList : defaultLog.red);
+    printLog(listStr ? userList : defaultLog);
   }
   return userList;
 }
@@ -53,12 +53,12 @@ export function changeUser(name) {
   let nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
-    console.log(getLangMessage("MSG_accountNotFound").red);
+    printLog("MSG_accountNotFound", { type: "error" });
     return;
   }
   npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
     accountList[name]["access-tokens"];
-  Object.keys(accountList).forEach(key => {
+  Object.keys(accountList).forEach((key) => {
     if (accountList[key]["is-current"]) {
       delete accountList[key]["is-current"];
     }
@@ -66,7 +66,7 @@ export function changeUser(name) {
   accountList[name]["is-current"] = true;
   setConfig("nucm", nucmrcConfig);
   setConfig("npm", npmrcConfig);
-  console.log(`${getLangMessage("MSG_accountChanged")} ${name}`.green);
+  printLog("MSG_accountChanged", { type: "info", data: { name } });
 }
 
 /** 添加用户 */
@@ -78,7 +78,7 @@ export function addUser(name, token) {
   accountList[name]["access-tokens"] = token;
   nucmrcConfig[registryConfig.registryName] = accountList;
   setConfig("nucm", nucmrcConfig);
-  console.log(getLangMessage("MSG_accountAddSuccess").green);
+  printLog("MSG_accountAddSuccess", { type: "info" });
   if (Object.keys(accountList).length === 1) {
     // 判断当前是否只有唯一账号
     changeUser(name);
@@ -91,10 +91,10 @@ export function removeUser(name) {
   const nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
-    console.log(getLangMessage("MSG_accountRemoveFail").red);
+    printLog("MSG_accountRemoveFail", { type: "error" });
     return;
   }
   delete accountList[name];
   setConfig("nucm", nucmrcConfig);
-  console.log(getLangMessage("MSG_accountRemoveSuccess").green);
+  printLog("MSG_accountRemoveSuccess", { type: "info" });
 }

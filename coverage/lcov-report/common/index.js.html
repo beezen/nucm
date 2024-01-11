@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">84.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/50</span>
+                <span class='fraction'>43/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.41% </span>
+                <span class="strong">75.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>24/31</span>
+                <span class='fraction'>22/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.13% </span>
+                <span class="strong">89.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/46</span>
+                <span class='fraction'>42/47</span>
             </div>
         
             
@@ -201,7 +201,18 @@
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,16 +277,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,6 +318,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -331,6 +335,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,6 +343,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import path from "path";
 import ini from "ini";
@@ -345,8 +363,10 @@ import fs from "fs-extra";
 import os from "os";
 import shell from "shelljs";
 import "colors";
+import { init, changeLanguage } from "i18next";
+import { printLog } from "../utils/index";
 import registries from "../constants/registries.json";
-import langConfig from "../lang/index";
+import { resourcesAll } from "../lang/default/index";
 import { baseInitConfig } from "./env";
 &nbsp;
 const homedir = os.homedir(); // 用户目录
@@ -360,7 +380,7 @@ const nrmrc_path = path.resolve(homedir, ".nrmrc"); // .nrmrc 配置文件地址
  * @param value 文件信息
  */
 export function setConfig(key, value) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!key || !value) <span class="cstat-no" title="statement not covered" >return console.log(getLangMessage("MSG_setConfig").red);</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!key || !value) <span class="cstat-no" title="statement not covered" >return printLog("MSG_setConfig", { type: "error" });</span>
   const pathList = {
     nucm: nucmrc_path,
     npm: npmrc_path,
@@ -390,7 +410,7 @@ export function getConfig() {
  */
 export function checkConfigInit() {
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!fs.existsSync(npmrc_path)) {
-<span class="cstat-no" title="statement not covered" >    console.log(getLangMessage("MSG_checkConfigInit").red);</span>
+<span class="cstat-no" title="statement not covered" >    printLog("MSG_checkConfigInit", { type: "error" });</span>
 <span class="cstat-no" title="statement not covered" >    return false;</span>
   }
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!fs.existsSync(nucmrc_path)) {
@@ -404,16 +424,6 @@ export function checkConfigInit() {
 <span class="cstat-no" title="statement not covered" >    fs.writeFileSync(nucmrc_path, ini.stringify(defaultBaseConfig));</span>
   }
   return true;
-}
-&nbsp;
-/**
- * 获取国际化语言消息
- * @param messageName 消息名
- * @param lang 语言类型。默认读取配置文件
- */
-export function getLangMessage(messageName, lang) {
-  let currentLang = lang || baseInitConfig?.lang || "en";
-  return langConfig[currentLang][messageName];
 }
 &nbsp;
 /**
@@ -454,7 +464,10 @@ export function getRegistryConfig(config) {
  */
 export function isEnabled(registryConfig) {
   if (!registryConfig.registryName) {
-    console.log(`registry: ${registryConfig.registry}.${getLangMessage("MSG_checkRegistry")}`.red);
+    printLog(
+      `registry: ${registryConfig.registry}.${printLog("MSG_checkRegistry", { isPrint: false })}`,
+      { type: "error" }
+    );
     return false;
   }
   return true;
@@ -465,6 +478,7 @@ export function isEnabled(registryConfig) {
  * @param callback 回调函数
  */
 export function prepareEnv(callback) {
+  initLanguage(); // 初始化语言配置
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!checkConfigInit()) <span class="cstat-no" title="statement not covered" >return; </span>// 配置初始化
   const fileConfig = getConfig(); // 基础配置
   const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
@@ -475,7 +489,20 @@ export function prepareEnv(callback) {
     registryConfig, // 源配置
     lang: fileConfig?.nucm?.baseConfig?.lang || "en" // 语言
   });
+  changeLanguage(baseInitConfig.lang);
   callback &amp;&amp; callback(baseInitConfig);
+}
+&nbsp;
+/**
+ * 初始化本地语言
+ * @param {string} lng 语言类型 en|zh
+ */
+export function initLanguage(lng = "en") {
+  init({
+    resources: resourcesAll,
+    lng,
+    defaultNS: "base"
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -484,7 +511,7 @@ export function prepareEnv(callback) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-09T01:58:00.177Z
+                at 2024-01-11T01:02:51.957Z
             </div>
         <script src="../prettify.js"></script>
         <script>
