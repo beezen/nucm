@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.9](https://github.com/beezen/nucm/compare/v1.8.8...v1.8.9) (2024-01-12)
+
+
+### Bug Fixes
+
+* 调整国际化配置 ([831a836](https://github.com/beezen/nucm/commit/831a836479fe338d7abadd3485134abf43e87bab))
+* 优化国际化语言配置 ([cf0796e](https://github.com/beezen/nucm/commit/cf0796ed42a76ae96bd611ec7809ad2df2e5b6f8))
+
 ### [1.8.8](https://github.com/beezen/nucm/compare/v1.8.7...v1.8.8) (2024-01-09)
 
 

@@ -4,8 +4,10 @@ import fs from "fs-extra";
 import os from "os";
 import shell from "shelljs";
 import "colors";
+import { init, changeLanguage } from "i18next";
+import { printLog } from "../utils/index";
 import registries from "../constants/registries.json";
-import langConfig from "../lang/index";
+import { resourcesAll } from "../lang/default/index";
 import { baseInitConfig } from "./env";
 
 const homedir = os.homedir(); // 用户目录
@@ -19,7 +21,7 @@ const nrmrc_path = path.resolve(homedir, ".nrmrc"); // .nrmrc 配置文件地址
  * @param value 文件信息
  */
 export function setConfig(key, value) {
-  if (!key || !value) return console.log(getLangMessage("MSG_setConfig").red);
+  if (!key || !value) return printLog("config.valueEmpty", { type: "error" });
   const pathList = {
     nucm: nucmrc_path,
     npm: npmrc_path,
@@ -49,7 +51,7 @@ export function getConfig() {
  */
 export function checkConfigInit() {
   if (!fs.existsSync(npmrc_path)) {
-    console.log(getLangMessage("MSG_checkConfigInit").red);
+    printLog("config.notFound", { type: "error" });
     return false;
   }
   if (!fs.existsSync(nucmrc_path)) {
@@ -63,16 +65,6 @@ export function checkConfigInit() {
     fs.writeFileSync(nucmrc_path, ini.stringify(defaultBaseConfig));
   }
   return true;
-}
-
-/**
- * 获取国际化语言消息
- * @param messageName 消息名
- * @param lang 语言类型。默认读取配置文件
- */
-export function getLangMessage(messageName, lang) {
-  let currentLang = lang || baseInitConfig?.lang || "en";
-  return langConfig[currentLang][messageName];
 }
 
 /**
@@ -113,7 +105,10 @@ export function getRegistryConfig(config) {
  */
 export function isEnabled(registryConfig) {
   if (!registryConfig.registryName) {
-    console.log(`registry: ${registryConfig.registry}.${getLangMessage("MSG_checkRegistry")}`.red);
+    printLog(
+      `registry: ${registryConfig.registry}.${printLog("registry.manage", { isPrint: false })}`,
+      { type: "error" }
+    );
     return false;
   }
   return true;
@@ -124,6 +119,7 @@ export function isEnabled(registryConfig) {
  * @param callback 回调函数
  */
 export function prepareEnv(callback) {
+  initLanguage(); // 初始化语言配置
   if (!checkConfigInit()) return; // 配置初始化
   const fileConfig = getConfig(); // 基础配置
   const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
@@ -134,5 +130,18 @@ export function prepareEnv(callback) {
     registryConfig, // 源配置
     lang: fileConfig?.nucm?.baseConfig?.lang || "en" // 语言
   });
+  changeLanguage(baseInitConfig.lang);
   callback && callback(baseInitConfig);
+}
+
+/**
+ * 初始化本地语言
+ * @param {string} lng 语言类型 en|zh
+ */
+export function initLanguage(lng = "en") {
+  init({
+    resources: resourcesAll,
+    lng,
+    defaultNS: "base"
+  });
 }

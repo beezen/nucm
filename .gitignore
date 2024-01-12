@@ -2,6 +2,7 @@
 dist
 /_*
 !__tests__
+coverage/lcov-report/
 
 ## lock 文件
 yarn.lock

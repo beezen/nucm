@@ -1,0 +1,47 @@
+{
+  "command": {
+    "version": "show version",
+    "help": "display help for command",
+    "list": "show account list",
+    "listLs": "show detail",
+    "listAll": "show all account details",
+    "switchAccount": "switch account",
+    "addAccount": "add account",
+    "removeAccount": "remove account",
+    "localizedLang": "use localized languages",
+    "update": "updated version",
+    "updateSilent": "silent",
+    "saveAccount": "Save the current account"
+  },
+  "account": {
+    "noData": "No account information at present; Please enter 'nucm add <name> <access-tokens>' to add",
+    "notFound": "The current account does not exist. Please enter 'nucm ls' to view the list of switchable accounts",
+    "changed": "The account has been switched to {{name}}",
+    "addSuccess": "Add account success",
+    "removeSuccess": "Remove account success",
+    "removeFail": "There is no such account, please enter the correct account name"
+  },
+  "update": {
+    "latest": "The current version is already the latest version",
+    "checking": "During the update check ...",
+    "fail": "Update inspection failed.Please execute 'npm install nucm@latest -g' Manual Update",
+    "existVersion": "It can be updated to the latest version."
+  },
+  "language": {
+    "changeError": "At present, internationalization only supports en or cn",
+    "changed": "Switched to language {{language}}"
+  },
+  "registry": {
+    "manage": "To manage other source account information, recommend NRM to register other sources.NRM document: https://www.npmjs.com/package/nrm ."
+  },
+  "save": {
+    "fail": "No account information is not queried.Refer to login or integrated flow: https://docs.npmjs.com/getting-started and https://docs.npmjs.com/integrations",
+    "repeat": "The current account already exists in the account list without repeated storage.Is it renamed?",
+    "rename": "Please enter a new account alias",
+    "newName": "The current account is not stored, it is recommended to store it immediately.Please enter the current account alias"
+  },
+  "config": {
+    "valueEmpty": "Local file update data cannot be empty.",
+    "notFound": "The root directory .npmrc configuration file does not exist"
+  }
+}

@@ -1,4 +1,6 @@
 import shell from "shelljs";
+import { t } from "i18next";
+import colors from "colors";
 /**
  * 链接符号
  * @param str 字符传
@@ -59,4 +61,29 @@ export function getPackageManager() {
     return "yarn";
   }
   return "npm";
+}
+
+/**
+ * 打印日志
+ * @param message 消息体
+ * @param options 配置
+ * @param options.type 日志类型 info|warn|error
+ * @param options.data 数据。注意不能使用隐藏字段，查看 i18next 的 options。
+ * @param options.isPrint 是否打印。默认 true
+ * @param options.lng 语言类型 en|cn
+ */
+export function printLog(message, options = {}) {
+  let { type, data = {}, isPrint = true, lng } = options;
+  const colorsFnMap = {
+    info: colors.green,
+    warn: colors.yellow,
+    error: colors.red
+  };
+  lng && (data = { ...data, lng });
+  let tMessage = t(message, data);
+  colorsFnMap[type] && (tMessage = colorsFnMap[type](tMessage));
+  if (!isPrint) {
+    return tMessage;
+  }
+  console.log(tMessage);
 }

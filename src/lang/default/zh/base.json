@@ -1,0 +1,47 @@
+{
+  "command": {
+    "version": "查看版本",
+    "help": "显示命令帮助",
+    "list": "查看账号列表",
+    "listLs": "显示详细",
+    "listAll": "显示所有账号详细",
+    "switchAccount": "切换账号",
+    "addAccount": "添加账号",
+    "removeAccount": "移除账号",
+    "localizedLang": "使用本地化语言",
+    "update": "更新版本",
+    "updateSilent": "静默的",
+    "saveAccount": "保存当前账号"
+  },
+  "account": {
+    "noData": "暂无账号信息；请输入 nucm add <name> <access-tokens> 进行添加",
+    "notFound": "当前账号不存在; 请输入 nucm ls 查看可切换账号列表",
+    "changed": "已切换到账号 {{name}}",
+    "addSuccess": "添加账号成功",
+    "removeSuccess": "移除账号成功",
+    "removeFail": "无此账号，请正确输入账号名"
+  },
+  "update": {
+    "latest": "当前已是最新版本",
+    "checking": "更新检查中......",
+    "fail": "更新检查失败。请执行 'npm install nucm@latest -g' 手动更新",
+    "existVersion": "存在可更新的版本。"
+  },
+  "language": {
+    "changeError": "目前国际化只支持 en 或 cn",
+    "changed": "已切换到语言 {{language}}"
+  },
+  "registry": {
+    "manage": "若要管理其他源账号信息，建议使用 NRM 对其他源进行注册。NRM 文档：https://www.npmjs.com/package/nrm 。"
+  },
+  "save": {
+    "fail": "未查询到相关账号信息。可参考登录或集成流程：https://docs.npmjs.com/getting-started 和 https://docs.npmjs.com/integrations",
+    "repeat": "当前账号已存在于账号列表中，无需重复存储。是否重命名？",
+    "rename": "请输入新的账号别名",
+    "newName": "当前账号未被存储，建议立即存储。请输入当前账号别名"
+  },
+  "config": {
+    "valueEmpty": "本地文件更新数据不能为空",
+    "notFound": "根目录 .npmrc 配置文件不存在"
+  }
+}

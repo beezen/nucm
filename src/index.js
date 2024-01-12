@@ -1,44 +1,44 @@
 import { Command } from "commander";
-import { getLangMessage, prepareEnv } from "./common/index";
+import { prepareEnv } from "./common/index";
 import { getUserList, changeUser, addUser, removeUser } from "./actions/base";
 import { updateVersion, changeLang, searchToSave } from "./actions/helper";
-
+import { printLog } from "./utils/index";
 prepareEnv(() => {
   const pkg = require("../package.json");
   const program = new Command();
-  program.version(pkg.version, "-v,--version", getLangMessage("MSG_showVersion"));
-  program.helpOption("-h, --help", getLangMessage("MSG_help"));
+  program.version(pkg.version, "-v,--version", printLog("command.version", { isPrint: false }));
+  program.helpOption("-h, --help", printLog("command.help", { isPrint: false }));
   program
     .command("ls")
-    .option("-l,--list", getLangMessage("MSG_ls"))
-    .option("-a,--all", getLangMessage("MSG_ls_all"))
-    .description(getLangMessage("MSG_accountList"))
+    .option("-l,--list", printLog("command.listLs", { isPrint: false }))
+    .option("-a,--all", printLog("command.listAll", { isPrint: false }))
+    .description(printLog("command.list", { isPrint: false }))
     .action(getUserList);
   program
     .command("use <name>")
-    .description(getLangMessage("MSG_switchAccount"))
+    .description(printLog("command.switchAccount", { isPrint: false }))
     .action(changeUser);
   program
     .command("add <name> <access-tokens>")
-    .description(getLangMessage("MSG_addAccount"))
+    .description(printLog("command.addAccount", { isPrint: false }))
     .action(addUser);
   program
     .command("del <name>")
-    .description(getLangMessage("MSG_removeAccount"))
+    .description(printLog("command.removeAccount", { isPrint: false }))
     .action(removeUser);
   program
     .command("localize <lang>")
     .alias("language")
-    .description(getLangMessage("MSG_localizedLang"))
+    .description(printLog("command.localizedLang", { isPrint: false }))
     .action(changeLang);
   program
     .command("update")
-    .option("--silent", getLangMessage("MSG_updateSilent"))
-    .description(getLangMessage("MSG_update"))
-    .action(options => updateVersion(options, pkg.version));
+    .option("--silent", printLog("command.updateSilent", { isPrint: false }))
+    .description(printLog("command.update", { isPrint: false }))
+    .action((options) => updateVersion(options, pkg.version));
   program
     .command("save")
-    .description(getLangMessage("MSG_save"))
+    .description(printLog("command.saveAccount", { isPrint: false }))
     .action(searchToSave);
 
   program.parse(process.argv);

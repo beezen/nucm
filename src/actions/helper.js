@@ -1,9 +1,10 @@
 import "colors";
 import shell from "shelljs";
 import inquirer from "inquirer";
-import { getLangMessage, setConfig } from "../common";
+import { changeLanguage } from "i18next";
+import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
-import { compareVersion, getPackageManager } from "../utils/index";
+import { compareVersion, getPackageManager, printLog } from "../utils/index";
 import { addUser, removeUser } from "./base";
 /**
  * 更新版本
@@ -17,11 +18,10 @@ export function updateVersion(option, curVersion) {
   !baseConfig && (baseConfig = nucmrcConfig.baseConfig = {});
   baseConfig.checkUpdateDate = Date.now();
   setConfig("nucm", nucmrcConfig); // 更新校验时间记录
-
-  console.log(getLangMessage("MSG_update01").green);
+  printLog("update.checking", { type: "info" });
   const latestVersion = shell.exec("npm view nucm version", { silent: true }).stdout.trim();
   if (!curVersion || !latestVersion) {
-    console.log(getLangMessage("MSG_update02").red);
+    printLog("update.fail", { type: "error" });
     return;
   }
   const status = compareVersion(curVersion, latestVersion);
@@ -30,14 +30,14 @@ export function updateVersion(option, curVersion) {
     const updateCmd =
       packageManager === "yarn" ? "yarn global add nucm@latest" : "npm install -g nucm@latest";
     if (option.silent) {
-      console.log(getLangMessage("MSG_updateTips").red);
+      printLog("update.existVersion", { type: "error" });
       shell.exec(updateCmd); // 更新最新版本
       return;
     }
     // 存在新版本
-    let message = `${getLangMessage("MSG_updateTips")}\n🌟 nucm  ${curVersion.green}  →  ${
-      latestVersion.red
-    }`;
+    let message = `${printLog("update.existVersion", { type: "error", isPrint: false })}\n🌟 nucm  ${
+      curVersion.green
+    }  →  ${latestVersion.red}`;
 
     inquirer
       .prompt([
@@ -55,7 +55,7 @@ export function updateVersion(option, curVersion) {
   } else {
     // 当前已是最新版本
     if (option.silent) return;
-    console.log(getLangMessage("MSG_updateLatest").green);
+    printLog("update.latest", { type: "info" });
   }
 }
 
@@ -68,9 +68,10 @@ export function changeLang(language) {
   if (["en", "cn"].includes(language)) {
     baseConfig.lang = language;
     setConfig("nucm", nucmrcConfig);
-    console.log(`${getLangMessage("MSG_langChanged")} ${language}`.green);
+    changeLanguage(language);
+    printLog("language.changed", { type: "info", data: { language } });
   } else {
-    console.log(getLangMessage("MSG_changeLang").red);
+    printLog("language.changeError", { type: "error" });
   }
 }
 
@@ -78,7 +79,7 @@ export function changeLang(language) {
 export function searchToSave() {
   const { fileConfig, registryConfig } = baseInitConfig;
   if (!registryConfig._authtoken) {
-    console.log(getLangMessage("MSG_save_04").red);
+    printLog("save.fail", { type: "error" });
     return;
   }
   const accountList = fileConfig.nucm[registryConfig.registryName] || {};
@@ -92,7 +93,9 @@ export function searchToSave() {
       .prompt([
         {
           type: "confirm",
-          message: `【${registryConfig.registryName}】${getLangMessage("MSG_save_01")}`,
+          message: `【${registryConfig.registryName}】${printLog("save.repeat", {
+            isPrint: false
+          })}`,
           name: "check"
         }
       ])
@@ -102,7 +105,9 @@ export function searchToSave() {
             .prompt([
               {
                 type: "input",
-                message: getLangMessage("MSG_save_02"),
+                message: printLog("save.rename", {
+                  isPrint: false
+                }),
                 name: "name",
                 default: tokenTag
               }
@@ -120,7 +125,9 @@ export function searchToSave() {
       .prompt([
         {
           type: "input",
-          message: `【${registryConfig.registryName}】${getLangMessage("MSG_save_03")}`,
+          message: `【${registryConfig.registryName}】${printLog("save.newName", {
+            isPrint: false
+          })}`,
           name: "name",
           default: tokenTag
         }
