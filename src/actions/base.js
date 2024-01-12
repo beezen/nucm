@@ -7,7 +7,7 @@ import { baseInitConfig } from "../common/env";
  */
 export function getUserList(options) {
   const { fileConfig, registryConfig } = baseInitConfig;
-  const defaultLog = printLog("MSG_getUserListDefaultLog", { isPrint: false, type: "error" });
+  const defaultLog = printLog("account.noData", { isPrint: false, type: "error" });
   let userList = "";
   const getListInfo = function (accountList = {}) {
     return Object.keys(accountList)
@@ -53,7 +53,7 @@ export function changeUser(name) {
   let nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
-    printLog("MSG_accountNotFound", { type: "error" });
+    printLog("account.notFound", { type: "error" });
     return;
   }
   npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
@@ -66,7 +66,7 @@ export function changeUser(name) {
   accountList[name]["is-current"] = true;
   setConfig("nucm", nucmrcConfig);
   setConfig("npm", npmrcConfig);
-  printLog("MSG_accountChanged", { type: "info", data: { name } });
+  printLog("account.changed", { type: "info", data: { name } });
 }
 
 /** 添加用户 */
@@ -78,7 +78,7 @@ export function addUser(name, token) {
   accountList[name]["access-tokens"] = token;
   nucmrcConfig[registryConfig.registryName] = accountList;
   setConfig("nucm", nucmrcConfig);
-  printLog("MSG_accountAddSuccess", { type: "info" });
+  printLog("account.addSuccess", { type: "info" });
   if (Object.keys(accountList).length === 1) {
     // 判断当前是否只有唯一账号
     changeUser(name);
@@ -91,10 +91,10 @@ export function removeUser(name) {
   const nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || {};
   if (!accountList[name]) {
-    printLog("MSG_accountRemoveFail", { type: "error" });
+    printLog("account.removeFail", { type: "error" });
     return;
   }
   delete accountList[name];
   setConfig("nucm", nucmrcConfig);
-  printLog("MSG_accountRemoveSuccess", { type: "info" });
+  printLog("account.removeSuccess", { type: "info" });
 }

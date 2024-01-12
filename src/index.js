@@ -6,39 +6,39 @@ import { printLog } from "./utils/index";
 prepareEnv(() => {
   const pkg = require("../package.json");
   const program = new Command();
-  program.version(pkg.version, "-v,--version", printLog("MSG_showVersion", { isPrint: false }));
-  program.helpOption("-h, --help", printLog("MSG_help", { isPrint: false }));
+  program.version(pkg.version, "-v,--version", printLog("command.version", { isPrint: false }));
+  program.helpOption("-h, --help", printLog("command.help", { isPrint: false }));
   program
     .command("ls")
-    .option("-l,--list", printLog("MSG_ls", { isPrint: false }))
-    .option("-a,--all", printLog("MSG_ls_all", { isPrint: false }))
-    .description(printLog("MSG_accountList", { isPrint: false }))
+    .option("-l,--list", printLog("command.listLs", { isPrint: false }))
+    .option("-a,--all", printLog("command.listAll", { isPrint: false }))
+    .description(printLog("command.list", { isPrint: false }))
     .action(getUserList);
   program
     .command("use <name>")
-    .description(printLog("MSG_switchAccount", { isPrint: false }))
+    .description(printLog("command.switchAccount", { isPrint: false }))
     .action(changeUser);
   program
     .command("add <name> <access-tokens>")
-    .description(printLog("MSG_addAccount", { isPrint: false }))
+    .description(printLog("command.addAccount", { isPrint: false }))
     .action(addUser);
   program
     .command("del <name>")
-    .description(printLog("MSG_removeAccount", { isPrint: false }))
+    .description(printLog("command.removeAccount", { isPrint: false }))
     .action(removeUser);
   program
     .command("localize <lang>")
     .alias("language")
-    .description(printLog("MSG_localizedLang", { isPrint: false }))
+    .description(printLog("command.localizedLang", { isPrint: false }))
     .action(changeLang);
   program
     .command("update")
-    .option("--silent", printLog("MSG_updateSilent", { isPrint: false }))
-    .description(printLog("MSG_update", { isPrint: false }))
+    .option("--silent", printLog("command.updateSilent", { isPrint: false }))
+    .description(printLog("command.update", { isPrint: false }))
     .action((options) => updateVersion(options, pkg.version));
   program
     .command("save")
-    .description(printLog("MSG_save", { isPrint: false }))
+    .description(printLog("command.saveAccount", { isPrint: false }))
     .action(searchToSave);
 
   program.parse(process.argv);

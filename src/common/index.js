@@ -21,7 +21,7 @@ const nrmrc_path = path.resolve(homedir, ".nrmrc"); // .nrmrc 配置文件地址
  * @param value 文件信息
  */
 export function setConfig(key, value) {
-  if (!key || !value) return printLog("MSG_setConfig", { type: "error" });
+  if (!key || !value) return printLog("config.valueEmpty", { type: "error" });
   const pathList = {
     nucm: nucmrc_path,
     npm: npmrc_path,
@@ -51,7 +51,7 @@ export function getConfig() {
  */
 export function checkConfigInit() {
   if (!fs.existsSync(npmrc_path)) {
-    printLog("MSG_checkConfigInit", { type: "error" });
+    printLog("config.notFound", { type: "error" });
     return false;
   }
   if (!fs.existsSync(nucmrc_path)) {
@@ -106,7 +106,7 @@ export function getRegistryConfig(config) {
 export function isEnabled(registryConfig) {
   if (!registryConfig.registryName) {
     printLog(
-      `registry: ${registryConfig.registry}.${printLog("MSG_checkRegistry", { isPrint: false })}`,
+      `registry: ${registryConfig.registry}.${printLog("registry.manage", { isPrint: false })}`,
       { type: "error" }
     );
     return false;

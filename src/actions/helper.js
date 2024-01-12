@@ -18,10 +18,10 @@ export function updateVersion(option, curVersion) {
   !baseConfig && (baseConfig = nucmrcConfig.baseConfig = {});
   baseConfig.checkUpdateDate = Date.now();
   setConfig("nucm", nucmrcConfig); // 更新校验时间记录
-  printLog("MSG_update01", { type: "info" });
+  printLog("update.checking", { type: "info" });
   const latestVersion = shell.exec("npm view nucm version", { silent: true }).stdout.trim();
   if (!curVersion || !latestVersion) {
-    printLog("MSG_update02", { type: "error" });
+    printLog("update.fail", { type: "error" });
     return;
   }
   const status = compareVersion(curVersion, latestVersion);
@@ -30,12 +30,12 @@ export function updateVersion(option, curVersion) {
     const updateCmd =
       packageManager === "yarn" ? "yarn global add nucm@latest" : "npm install -g nucm@latest";
     if (option.silent) {
-      printLog("MSG_updateTips", { type: "error" });
+      printLog("update.existVersion", { type: "error" });
       shell.exec(updateCmd); // 更新最新版本
       return;
     }
     // 存在新版本
-    let message = `${printLog("MSG_updateTips", { type: "error", isPrint: false })}\n🌟 nucm  ${
+    let message = `${printLog("update.existVersion", { type: "error", isPrint: false })}\n🌟 nucm  ${
       curVersion.green
     }  →  ${latestVersion.red}`;
 
@@ -55,7 +55,7 @@ export function updateVersion(option, curVersion) {
   } else {
     // 当前已是最新版本
     if (option.silent) return;
-    printLog("MSG_updateLatest", { type: "info" });
+    printLog("update.latest", { type: "info" });
   }
 }
 
@@ -69,9 +69,9 @@ export function changeLang(language) {
     baseConfig.lang = language;
     setConfig("nucm", nucmrcConfig);
     changeLanguage(language);
-    printLog("MSG_langChanged", { type: "info", data: { language } });
+    printLog("language.changed", { type: "info", data: { language } });
   } else {
-    printLog("MSG_changeLang", { type: "error" });
+    printLog("language.changeError", { type: "error" });
   }
 }
 
@@ -79,7 +79,7 @@ export function changeLang(language) {
 export function searchToSave() {
   const { fileConfig, registryConfig } = baseInitConfig;
   if (!registryConfig._authtoken) {
-    printLog("MSG_save_04", { type: "error" });
+    printLog("save.fail", { type: "error" });
     return;
   }
   const accountList = fileConfig.nucm[registryConfig.registryName] || {};
@@ -93,7 +93,7 @@ export function searchToSave() {
       .prompt([
         {
           type: "confirm",
-          message: `【${registryConfig.registryName}】${printLog("MSG_save_01", {
+          message: `【${registryConfig.registryName}】${printLog("save.repeat", {
             isPrint: false
           })}`,
           name: "check"
@@ -105,7 +105,7 @@ export function searchToSave() {
             .prompt([
               {
                 type: "input",
-                message: printLog("MSG_save_02", {
+                message: printLog("save.rename", {
                   isPrint: false
                 }),
                 name: "name",
@@ -125,7 +125,7 @@ export function searchToSave() {
       .prompt([
         {
           type: "input",
-          message: `【${registryConfig.registryName}】${printLog("MSG_save_03", {
+          message: `【${registryConfig.registryName}】${printLog("save.newName", {
             isPrint: false
           })}`,
           name: "name",
