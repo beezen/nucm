@@ -6,7 +6,18 @@ module.exports = {
   themeConfig: {
     repo: "https://github.com/beezen/nucm",
     repoLabel: "查看源码",
-    sidebar: ["/", "/start", "/add", "/del", "/save", "/list", "/use", "/localize", "/update"],
+    sidebar: [
+      "/",
+      "/start",
+      "/add",
+      "/del",
+      "/save",
+      "/list",
+      "/use",
+      "/localize",
+      "/update",
+      "/registry"
+    ],
     nav: [
       {
         text: "更新记录",

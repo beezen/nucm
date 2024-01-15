@@ -23,13 +23,13 @@ $ nucm localize <lang>
 
 ## 详细
 
-切换英文版本
+1、切换英文版本
 
 ```bash
 $ nucm localize en
 ```
 
-切换中文版本
+2、切换中文版本
 
 ```bash
 $ nucm localize cn

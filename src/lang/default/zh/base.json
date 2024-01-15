@@ -11,7 +11,8 @@
     "localizedLang": "使用本地化语言",
     "update": "更新版本",
     "updateSilent": "静默的",
-    "saveAccount": "保存当前账号"
+    "saveAccount": "保存当前账号",
+    "registry": "注册源配置"
   },
   "account": {
     "noData": "暂无账号信息；请输入 nucm add <name> <access-tokens> 进行添加",
@@ -32,7 +33,10 @@
     "changed": "已切换到语言 {{language}}"
   },
   "registry": {
-    "manage": "若要管理其他源账号信息，建议使用 NRM 对其他源进行注册。NRM 文档：https://www.npmjs.com/package/nrm 。"
+    "setAlias": "当前源还未被管理，请设置别名",
+    "fail": "注册源操作异常",
+    "noNrm": "注册源操作异常，请重新安装 nucm 工具",
+    "manage": "注册源操作异常，若要管理其他源账号信息，建议使用 NRM 对其他源进行注册。NRM 文档：https://www.npmjs.com/package/nrm 。"
   },
   "save": {
     "fail": "未查询到相关账号信息。可参考登录或集成流程：https://docs.npmjs.com/getting-started 和 https://docs.npmjs.com/integrations",

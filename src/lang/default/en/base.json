@@ -11,7 +11,8 @@
     "localizedLang": "use localized languages",
     "update": "updated version",
     "updateSilent": "silent",
-    "saveAccount": "Save the current account"
+    "saveAccount": "Save the current account",
+    "registry": "Registration source configuration"
   },
   "account": {
     "noData": "No account information at present; Please enter 'nucm add <name> <access-tokens>' to add",
@@ -32,7 +33,10 @@
     "changed": "Switched to language {{language}}"
   },
   "registry": {
-    "manage": "To manage other source account information, recommend NRM to register other sources.NRM document: https://www.npmjs.com/package/nrm ."
+    "setAlias": "The current source has not been managed, please set the aliases.",
+    "fail": "The registered source operation is abnormal.",
+    "noNrm": "The registered source operation is abnormal, please reinstall the nucm tool",
+    "manage": "The registered source operation is abnormal. If you want to manage other source account information, it is recommended to register with other sources with NRM.NRM document: https://www.npmjs.com/package/nrm ."
   },
   "save": {
     "fail": "No account information is not queried.Refer to login or integrated flow: https://docs.npmjs.com/getting-started and https://docs.npmjs.com/integrations",

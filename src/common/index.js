@@ -2,10 +2,11 @@ import path from "path";
 import ini from "ini";
 import fs from "fs-extra";
 import os from "os";
+import inquirer from "inquirer";
 import shell from "shelljs";
 import "colors";
 import { init, changeLanguage } from "i18next";
-import { printLog } from "../utils/index";
+import { printLog, getNrmModule } from "../utils/index";
 import registries from "../constants/registries.json";
 import { resourcesAll } from "../lang/default/index";
 import { baseInitConfig } from "./env";
@@ -75,16 +76,9 @@ export function checkConfigInit() {
 export function getRegistryConfig(config) {
   const registry = config?.npm?.registry; // 当前启用源地址
   if (!registry) return {};
-  let registriesList = registries; // 源注册表
+  let registriesList = { ...registries, ...config.nrm }; // 源注册表
   let registryName = "";
   let _authtoken = config.npm[`${registry.replace(/^https?:/, "")}:_authToken`]; // 当前源的用户账号令牌
-
-  // 校验 nrm 是否存在
-  const nrmVersion = shell.exec("nrm --version", { silent: true }).stdout.trim();
-  if (nrmVersion && config?.nrm) {
-    // 判断配置文件是否存在
-    registriesList = { ...registriesList, ...config.nrm };
-  }
   // 获取当前源别名
   for (let key in registriesList) {
     let currentRegistry = registriesList[key]?.registry?.replace(/^https?:\/\/|\/*$/g, "");
@@ -105,13 +99,39 @@ export function getRegistryConfig(config) {
  */
 export function isEnabled(registryConfig) {
   if (!registryConfig.registryName) {
-    printLog(
-      `registry: ${registryConfig.registry}.${printLog("registry.manage", { isPrint: false })}`,
-      { type: "error" }
-    );
+    setRegistryAlias(registryConfig);
     return false;
   }
   return true;
+}
+
+/**
+ * 设置注册源别名
+ * @param {*} registryConfig 注册源配置
+ */
+export function setRegistryAlias(registryConfig) {
+  let registryRandomName = `registry_${Date.now()}`;
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: `【${registryConfig.registry}】${printLog("registry.setAlias", {
+          isPrint: false
+        })}`,
+        name: "registryName",
+        default: registryRandomName
+      }
+    ])
+    .then((answers) => {
+      if (answers.registryName) {
+        const nrmCli = getNrmModule();
+        if (!nrmCli) {
+          printLog("registry.manage", { type: "error" });
+          return;
+        }
+        shell.exec(`node ${nrmCli} add ${answers.registryName} ${registryConfig.registry}`);
+      }
+    });
 }
 
 /**

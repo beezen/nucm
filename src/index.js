@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { prepareEnv } from "./common/index";
 import { getUserList, changeUser, addUser, removeUser } from "./actions/base";
 import { updateVersion, changeLang, searchToSave } from "./actions/helper";
+import { proxyNrm } from "./actions/registry";
 import { printLog } from "./utils/index";
 prepareEnv(() => {
   const pkg = require("../package.json");
@@ -40,6 +41,11 @@ prepareEnv(() => {
     .command("save")
     .description(printLog("command.saveAccount", { isPrint: false }))
     .action(searchToSave);
+  program
+    .command("registry <cmd...>")
+    .alias("nrm")
+    .description(printLog("command.registry", { isPrint: false }))
+    .action(proxyNrm);
 
   program.parse(process.argv);
 });
