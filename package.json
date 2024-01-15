@@ -1,6 +1,6 @@
 {
   "name": "nucm",
-  "version": "1.8.9",
+  "version": "1.9.0",
   "description": "NPM User Change Manager（NPM 用户账号切换管理）",
   "main": "./bin/index.js",
   "scripts": {
@@ -47,6 +47,7 @@
     "i18next": "^23.7.16",
     "ini": "^2.0.0",
     "inquirer": "^8.2.0",
+    "nrm": "^1.2.6",
     "os": "^0.1.2",
     "shelljs": "^0.8.5"
   },

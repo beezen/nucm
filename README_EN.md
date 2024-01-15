@@ -16,6 +16,10 @@ The full name of NUCM is NPM User Change Manager, an efficient and intuitive too
 4. [Simple Examples](#simple-examples)
 5. [Considerations](#considerations)
 
+## Document
+
+Document address:[https://beezen.github.io/nucm/](https://beezen.github.io/nucm/)
+
 ## Learning Resources
 
 - [【教程】优秀前端人必须知道的 NPM 账号管理工具 - nucm](https://juejin.cn/post/7059224326674841636)
@@ -46,6 +50,7 @@ Commands:
   localize|language <lang>    use localized languages
   update [options]            updated version
   save                        Save the current account
+  registry|nrm <cmd...>       Registration source configuration
   help [command]              display help for command
 ```
 

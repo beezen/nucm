@@ -1,6 +1,8 @@
 import shell from "shelljs";
 import { t } from "i18next";
 import colors from "colors";
+import path from "path";
+import fs from "fs-extra";
 /**
  * 链接符号
  * @param str 字符传
@@ -86,4 +88,12 @@ export function printLog(message, options = {}) {
     return tMessage;
   }
   console.log(tMessage);
+}
+
+/** 获取 nrm 模块 */
+export function getNrmModule() {
+  const npmBinPath = shell.exec("npm bin", { silent: true }).stdout.trim();
+  const nrmCli = path.join(npmBinPath, "nrm");
+  if (fs.existsSync(nrmCli)) return nrmCli;
+  return "";
 }
