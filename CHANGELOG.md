@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/beezen/nucm/compare/v1.8.9...v1.9.0) (2024-01-15)
+
+
+### Features
+
+* 新增 registry 命令管理本地镜像源 ([2accb87](https://github.com/beezen/nucm/commit/2accb873083e5e815d462dffbd2ada6d5fbf5227))
+
 ### [1.8.9](https://github.com/beezen/nucm/compare/v1.8.8...v1.8.9) (2024-01-12)
 
 
