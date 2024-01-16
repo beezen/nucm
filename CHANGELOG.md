@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.1](https://github.com/beezen/nucm/compare/v1.9.0...v1.9.1) (2024-01-16)
+
+
+### Bug Fixes
+
+* 优化项目级存在.npmrc文件时,账号信息不准确问题 ([6e3a4f5](https://github.com/beezen/nucm/commit/6e3a4f5d571f21292b547a2144448876d635f5d5))
+
 ## [1.9.0](https://github.com/beezen/nucm/compare/v1.8.9...v1.9.0) (2024-01-15)
 
 
