@@ -75,7 +75,7 @@ export function checkConfigInit() {
  */
 export function getRegistryConfig(config) {
   const registry = getRegistryUrl() || config?.npm?.registry; // 当前启用源地址
-  if (!registry) return {};
+  if (!registry || !config) return {};
   let registriesList = { ...registries, ...config.nrm }; // 源注册表
   let registryName = "";
   let _authtoken = config.npm[`${registry.replace(/^https?:/, "")}:_authToken`]; // 当前源的用户账号令牌

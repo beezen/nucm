@@ -3,7 +3,9 @@ import {
   desensitize,
   compareVersion,
   printLog,
-  getPackageManager
+  getPackageManager,
+  getNrmModule,
+  getRegistryUrl
 } from "../../src/utils/index";
 import { getConfig, getRegistryConfig, isEnabled, initLanguage } from "../../src/common";
 
@@ -60,5 +62,14 @@ describe("utils", () => {
   it("isEnabled", () => {
     expect(isEnabled(getRegistryConfig(getConfig()))).toBeTruthy();
     expect(isEnabled({})).not.toBeTruthy();
+  });
+
+  it("getNrmModule", () => {
+    expect(getNrmModule()).not.toBe("");
+    expect(getNrmModule()).not.toBeUndefined();
+  });
+
+  it("getRegistryUrl", () => {
+    expect(getRegistryUrl()).toBeDefined();
   });
 });
