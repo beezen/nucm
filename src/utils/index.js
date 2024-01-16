@@ -97,3 +97,12 @@ export function getNrmModule() {
   if (fs.existsSync(nrmCli)) return nrmCli;
   return "";
 }
+
+/**
+ * 获取 npm 的 registry
+ * @return registry 镜像源地址
+ */
+export function getRegistryUrl() {
+  const registryUrl = shell.exec("npm config get registry", { silent: true }).stdout.trim();
+  return registryUrl;
+}

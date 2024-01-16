@@ -6,7 +6,7 @@ import inquirer from "inquirer";
 import shell from "shelljs";
 import "colors";
 import { init, changeLanguage } from "i18next";
-import { printLog, getNrmModule } from "../utils/index";
+import { printLog, getNrmModule, getRegistryUrl } from "../utils/index";
 import registries from "../constants/registries.json";
 import { resourcesAll } from "../lang/default/index";
 import { baseInitConfig } from "./env";
@@ -74,8 +74,8 @@ export function checkConfigInit() {
  * @return 当前源相关信息 {registry,registryName,_authtoken}
  */
 export function getRegistryConfig(config) {
-  const registry = config?.npm?.registry; // 当前启用源地址
-  if (!registry) return {};
+  const registry = getRegistryUrl() || config?.npm?.registry; // 当前启用源地址
+  if (!registry || !config) return {};
   let registriesList = { ...registries, ...config.nrm }; // 源注册表
   let registryName = "";
   let _authtoken = config.npm[`${registry.replace(/^https?:/, "")}:_authToken`]; // 当前源的用户账号令牌
