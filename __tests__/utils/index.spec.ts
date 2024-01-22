@@ -21,8 +21,8 @@ describe("utils", () => {
     initLanguage(); // 初始化 i18next
     const langCn = require("../../src/lang/default/zh/base.json");
     const langEn = require("../../src/lang/default/en/base.json");
-    expect(printLog("command.version", { isPrint: false, lng: "cn" })).toBe(langCn.command.version);
     expect(printLog("command.version", { isPrint: false, lng: "en" })).toBe(langEn.command.version);
+    expect(printLog("command.version", { isPrint: false, lng: "cn" })).toBe(langCn.command.version);
   });
 
   it("getPackageManager", () => {

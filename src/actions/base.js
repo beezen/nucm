@@ -27,14 +27,14 @@ export function getUserList(options) {
     custom: ["black", "bgBrightYellow"]
   });
   if (options.all) {
-    delete nucmrcConfig.baseConfig;
-    userList = Object.keys(nucmrcConfig)
+    const { baseConfig, ...accountConfig } = nucmrcConfig;
+    userList = Object.keys(accountConfig)
       .map((registryName) => {
         let registryNameStr =
           registryName === registryConfig.registryName
             ? colors.custom(`【${registryName}】`)
             : `【${registryName}】`;
-        return `${registryNameStr}\n${getListInfo(nucmrcConfig[registryName])}`;
+        return `${registryNameStr}\n${getListInfo(accountConfig[registryName])}`;
       })
       .join("\n\n");
     printLog(userList);
