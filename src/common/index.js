@@ -58,7 +58,7 @@ export function checkConfigInit() {
   if (!fs.existsSync(nucmrc_path)) {
     const defaultBaseConfig = {
       baseConfig: {
-        lang: "en",
+        lang: "cn",
         checkUpdateDate: Date.now()
       }
     };
@@ -148,7 +148,7 @@ export function prepareEnv(callback) {
   Object.assign(baseInitConfig, {
     fileConfig, // 配置文件
     registryConfig, // 源配置
-    lang: fileConfig?.nucm?.baseConfig?.lang || "en" // 语言
+    lang: fileConfig?.nucm?.baseConfig?.lang || "cn" // 语言
   });
   changeLanguage(baseInitConfig.lang);
   callback && callback(baseInitConfig);
@@ -156,9 +156,9 @@ export function prepareEnv(callback) {
 
 /**
  * 初始化本地语言
- * @param {string} lng 语言类型 en|zh
+ * @param {string} lng 语言类型 en|cn
  */
-export function initLanguage(lng = "en") {
+export function initLanguage(lng = "cn") {
   init({
     resources: resourcesAll,
     lng,

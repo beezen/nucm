@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.2](https://github.com/beezen/nucm/compare/v1.9.1...v1.9.2) (2024-01-22)
+
+
+### Bug Fixes
+
+* 优化nrm获取异常问题和补充单测 ([7ce629a](https://github.com/beezen/nucm/commit/7ce629a1fe6c1df59cb010a8ccf5dc292d04d539))
+
 ### [1.9.1](https://github.com/beezen/nucm/compare/v1.9.0...v1.9.1) (2024-01-16)
 
 

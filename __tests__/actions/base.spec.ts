@@ -11,7 +11,7 @@ describe("action_base", () => {
     let registryName = getRegistryConfig(config).registryName;
     let accountObject = nucmrcConfig[registryName];
     let currentAccountName = ""; // 当前账号名
-    Object.keys(accountObject).forEach(name => {
+    Object.keys(accountObject).forEach((name) => {
       if (accountObject[name]["is-current"]) {
         currentAccountName = name;
       }
@@ -41,7 +41,6 @@ describe("action_base", () => {
       expect(getUserList({}).indexOf(name2) > -1).toBeTruthy();
       expect(getUserList({ all: true }).indexOf(name2) > -1).toBeTruthy();
     });
-
     // 还原单测前状态
     it("backup", () => {
       removeUser(name2);

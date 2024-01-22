@@ -92,9 +92,10 @@ export function printLog(message, options = {}) {
 
 /** 获取 nrm 模块 */
 export function getNrmModule() {
-  const npmBinPath = shell.exec("npm bin", { silent: true }).stdout.trim();
-  const nrmCli = path.join(npmBinPath, "nrm");
-  if (fs.existsSync(nrmCli)) return nrmCli;
+  try {
+    const nrmCli = require.resolve("nrm/cli.js");
+    if (fs.existsSync(nrmCli)) return nrmCli;
+  } catch (_err) {}
   return "";
 }
 
