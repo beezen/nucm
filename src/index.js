@@ -44,7 +44,18 @@ prepareEnv(() => {
   program
     .command("registry <cmd...>")
     .alias("nrm")
-    .description(printLog("command.registry", { isPrint: false }))
+    .summary(printLog("command.registry", { isPrint: false }))
+    .description(
+      `
+    subcommands:
+      ls  // List all the registries
+      add <name> <url>  // Add custom registry
+      use <name>  // Change current registry
+      del <name>  // Delete custom registry
+    examples:
+      $ nucm registry use taobao // Change taobao registry
+      `
+    )
     .action(proxyNrm);
 
   program.parse(process.argv);

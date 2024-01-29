@@ -41,7 +41,7 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
-    "commander": "^8.3.0",
+    "commander": "^11.1.0",
     "conventional-changelog-cli": "^2.2.2",
     "fs-extra": "^10.0.0",
     "i18next": "^23.7.16",
