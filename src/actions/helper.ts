@@ -11,7 +11,7 @@ import { addUser, removeUser } from "./base";
  * @param option 配置
  * @param curVersion 当前版本号
  */
-export function updateVersion(option, curVersion) {
+export function updateVersion(option: { silent?: boolean }, curVersion: string) {
   const { fileConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let baseConfig = nucmrcConfig?.baseConfig;
@@ -35,9 +35,10 @@ export function updateVersion(option, curVersion) {
       return;
     }
     // 存在新版本
-    let message = `${printLog("update.existVersion", { type: "error", isPrint: false })}\n🌟 nucm  ${
-      curVersion.green
-    }  →  ${latestVersion.red}`;
+    let message = `${printLog("update.existVersion", {
+      type: "error",
+      isPrint: false
+    })}\n🌟 nucm  ${curVersion.green}  →  ${latestVersion.red}`;
 
     inquirer
       .prompt([
@@ -60,7 +61,7 @@ export function updateVersion(option, curVersion) {
 }
 
 /** 切换语言 */
-export function changeLang(language) {
+export function changeLang(language: "cn" | "en") {
   const { fileConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let baseConfig = nucmrcConfig?.baseConfig;

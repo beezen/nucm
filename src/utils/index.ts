@@ -1,15 +1,24 @@
 import shell from "shelljs";
 import { t } from "i18next";
 import colors from "colors";
-import path from "path";
 import fs from "fs-extra";
+
+interface LogOptions {
+  type?: "info" | "warn" | "error"; // 日志类型
+  data?: {
+    [key: string]: any;
+  }; // 数据。注意不能使用隐藏字段，查看 i18next 的 options。
+  isPrint?: boolean; // 是否打印。默认 true
+  lng?: "en" | "cn"; // 语言类型
+}
+
 /**
  * 链接符号
  * @param str 字符传
  * @param len 最大长度
  * @return 补充符号的长度
  */
-export function line(str, len) {
+export function line(str: string, len: number): string {
   return new Array(Math.max(2, len - str.length)).join("-");
 }
 
@@ -18,7 +27,7 @@ export function line(str, len) {
  * @param str 字符串
  * @return 脱敏字符串
  */
-export function desensitize(str) {
+export function desensitize(str: string): string {
   if (str.length <= 4) return str;
   if (str.length <= 10) return `......${str.slice(-4)}`;
   return `${str.slice(0, 6)}......${str.slice(-4)}`;
@@ -30,9 +39,9 @@ export function desensitize(str) {
  * @param v2 版本号2
  * @return 1(v1>v2)|-1(v1<v2)|0(v1=v2)
  */
-export function compareVersion(v1, v2) {
-  v1 = v1.split(".");
-  v2 = v2.split(".");
+export function compareVersion(v1: string | string[], v2: string | string[]): number {
+  v1 = typeof v1 === "string" ? v1.split(".") : v1;
+  v2 = typeof v2 === "string" ? v2.split(".") : v2;
   const len = Math.max(v1.length, v2.length);
 
   while (v1.length < len) {
@@ -56,7 +65,7 @@ export function compareVersion(v1, v2) {
 }
 
 /** 获取包管理器 */
-export function getPackageManager() {
+export function getPackageManager(): "yarn" | "npm" {
   // 校验 yarn 是否存在
   const yarnVersion = shell.exec("yarn --version", { silent: true }).stdout.trim();
   if (yarnVersion) {
@@ -74,7 +83,7 @@ export function getPackageManager() {
  * @param options.isPrint 是否打印。默认 true
  * @param options.lng 语言类型 en|cn
  */
-export function printLog(message, options = {}) {
+export function printLog(message: string, options: LogOptions = {}): string {
   let { type, data = {}, isPrint = true, lng } = options;
   const colorsFnMap = {
     info: colors.green,
@@ -82,16 +91,17 @@ export function printLog(message, options = {}) {
     error: colors.red
   };
   lng && (data = { ...data, lng });
-  let tMessage = t(message, data);
+  let tMessage = t(message, data) as string;
   colorsFnMap[type] && (tMessage = colorsFnMap[type](tMessage));
   if (!isPrint) {
     return tMessage;
   }
   console.log(tMessage);
+  return "";
 }
 
 /** 获取 nrm 模块 */
-export function getNrmModule() {
+export function getNrmModule(): string {
   try {
     const nrmCli = require.resolve("nrm/cli.js");
     if (fs.existsSync(nrmCli)) return nrmCli;
@@ -103,7 +113,7 @@ export function getNrmModule() {
  * 获取 npm 的 registry
  * @return registry 镜像源地址
  */
-export function getRegistryUrl() {
+export function getRegistryUrl(): string {
   const registryUrl = shell.exec("npm config get registry", { silent: true }).stdout.trim();
   return registryUrl;
 }

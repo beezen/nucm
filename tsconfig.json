@@ -1,14 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "noImplicitAny": false,
-    "strictNullChecks": true,
+    "target": "ES5",
+    "baseUrl": ".",
+    "allowJs": true,
+    "noEmitOnError": true,
+    "declaration": true,
+    "experimentalDecorators": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "removeComments": false
-  }
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "sourceMap": false,
+    "types": [
+      "jest",
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
