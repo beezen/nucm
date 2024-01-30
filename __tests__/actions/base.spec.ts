@@ -1,10 +1,11 @@
 import { addUser, getUserList, removeUser, changeUser } from "../../src/actions/base.js";
-import { getConfig, getRegistryConfig, prepareEnv } from "../../src/common";
+import { getConfig, getRegistryConfig, prepareEnv, initLanguage } from "../../src/common";
 describe("action_base", () => {
   const name1 = "example1";
   const name2 = "example2";
   const token1 = "example_token1";
   const token2 = "example_token2";
+  initLanguage();
   prepareEnv(() => {
     let config = getConfig();
     let nucmrcConfig = config.nucm;
@@ -46,5 +47,5 @@ describe("action_base", () => {
       removeUser(name2);
       changeUser(currentAccountName);
     });
-  });
+  })();
 });

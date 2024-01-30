@@ -2,18 +2,20 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 import json from "@rollup/plugin-json";
-import path from "path";
+import nodeExternals from "rollup-plugin-node-externals";
 
-export default {
-  input: path.join(__dirname, "src/index.js"),
+const baseConfig = {
+  input: "src/index.js",
   output: {
-    file: path.join(__dirname, "dist/index.js"),
+    dir: "dist",
+    preserveModules: true,
+    preserveModulesRoot: "src",
     format: "cjs",
     sourcemap: true,
     exports: "named"
   },
-  external: ["colors", "commander", "fs-extra", "ini", "inquirer", "os", "shelljs"],
   plugins: [
+    nodeExternals(),
     resolve({ preferBuiltins: true }),
     json(),
     babel({
@@ -23,3 +25,5 @@ export default {
     commonjs({})
   ]
 };
+
+export { baseConfig };

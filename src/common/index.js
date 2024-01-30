@@ -136,22 +136,23 @@ export function setRegistryAlias(registryConfig) {
 
 /**
  * 环境准备
- * @param callback 回调函数
+ * @param handler action监听函数
  */
-export function prepareEnv(callback) {
-  initLanguage(); // 初始化语言配置
-  if (!checkConfigInit()) return; // 配置初始化
-  const fileConfig = getConfig(); // 基础配置
-  const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
-  if (!isEnabled(registryConfig)) return;
-  // global 全局存储
-  Object.assign(baseInitConfig, {
-    fileConfig, // 配置文件
-    registryConfig, // 源配置
-    lang: fileConfig?.nucm?.baseConfig?.lang || "cn" // 语言
-  });
-  changeLanguage(baseInitConfig.lang);
-  callback && callback(baseInitConfig);
+export function prepareEnv(handler) {
+  return function (options) {
+    if (!checkConfigInit()) return false; // 配置初始化
+    const fileConfig = getConfig(); // 基础配置
+    const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
+    if (!isEnabled(registryConfig)) return false;
+    // global 全局存储
+    Object.assign(baseInitConfig, {
+      fileConfig, // 配置文件
+      registryConfig, // 源配置
+      lang: fileConfig?.nucm?.baseConfig?.lang || "cn" // 语言
+    });
+    changeLanguage(baseInitConfig.lang);
+    handler && handler(options);
+  };
 }
 
 /**
