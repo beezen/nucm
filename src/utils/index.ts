@@ -1,7 +1,8 @@
 import * as shell from "shelljs";
 import { t } from "i18next";
-import * as colors from "colors";
 import * as fs from "fs-extra";
+
+const colors = require("colors");
 
 interface LogOptions {
   type?: "info" | "warn" | "error"; // 日志类型

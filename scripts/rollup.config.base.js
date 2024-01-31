@@ -18,14 +18,14 @@ const baseConfig = {
   plugins: [
     nodeExternals(),
     resolve({ preferBuiltins: true, extensions: [".ts", ".js"] }),
+    commonjs({ extensions: [".ts", ".js"] }),
     json(),
     typescript(),
     babel({
       exclude: "node_modules/**",
       babelHelpers: "runtime",
       extensions: [".ts", ".js"]
-    }),
-    commonjs({ extensions: [".ts", ".js"] })
+    })
   ]
 };
 

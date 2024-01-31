@@ -1,8 +1,8 @@
-import * as colors from "colors";
 import { line, desensitize, printLog } from "../utils/index";
 import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
 
+const colors = require("colors");
 interface LOptions {
   list?: boolean;
   all?: boolean;

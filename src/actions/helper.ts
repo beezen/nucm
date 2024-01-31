@@ -1,4 +1,3 @@
-import * as color from "colors";
 import * as shell from "shelljs";
 import * as inquirer from "inquirer";
 import { changeLanguage } from "i18next";
@@ -6,6 +5,9 @@ import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
 import { compareVersion, getPackageManager, printLog } from "../utils/index";
 import { addUser, removeUser } from "./base";
+
+const colors = require("colors");
+
 /**
  * 更新版本
  * @param option 配置
@@ -38,7 +40,7 @@ export function updateVersion(option: { silent?: boolean }, curVersion: string) 
     let message = `${printLog("update.existVersion", {
       type: "error",
       isPrint: false
-    })}\n🌟 nucm  ${curVersion.green}  →  ${color.red(latestVersion)}`;
+    })}\n🌟 nucm  ${colors.green(curVersion)}  →  ${colors.red(latestVersion)}`;
 
     inquirer
       .prompt([
