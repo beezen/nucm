@@ -1,7 +1,7 @@
-import shell from "shelljs";
+import * as shell from "shelljs";
 import { t } from "i18next";
-import colors from "colors";
-import fs from "fs-extra";
+import * as colors from "colors";
+import * as fs from "fs-extra";
 
 interface LogOptions {
   type?: "info" | "warn" | "error"; // 日志类型

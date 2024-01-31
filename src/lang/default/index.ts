@@ -1,5 +1,5 @@
-import baseEn from "./en/base.json";
-import baseZh from "./zh/base.json";
+import * as baseEn from "./en/base.json";
+import * as baseZh from "./zh/base.json";
 
 export const resourcesAll = {
   en: { base: baseEn },

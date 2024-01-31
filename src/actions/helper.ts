@@ -1,6 +1,6 @@
-import "colors";
-import shell from "shelljs";
-import inquirer from "inquirer";
+import * as color from "colors";
+import * as shell from "shelljs";
+import * as inquirer from "inquirer";
 import { changeLanguage } from "i18next";
 import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
@@ -38,7 +38,7 @@ export function updateVersion(option: { silent?: boolean }, curVersion: string) 
     let message = `${printLog("update.existVersion", {
       type: "error",
       isPrint: false
-    })}\n🌟 nucm  ${curVersion.green}  →  ${latestVersion.red}`;
+    })}\n🌟 nucm  ${curVersion.green}  →  ${color.red(latestVersion)}`;
 
     inquirer
       .prompt([

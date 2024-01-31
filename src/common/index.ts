@@ -1,13 +1,12 @@
-import path from "path";
-import ini from "ini";
-import fs from "fs-extra";
-import os from "os";
-import inquirer from "inquirer";
-import shell from "shelljs";
-import "colors";
+import * as path from "path";
+import * as ini from "ini";
+import * as fs from "fs-extra";
+import * as os from "os";
+import * as inquirer from "inquirer";
+import * as shell from "shelljs";
 import { init, changeLanguage } from "i18next";
 import { printLog, getNrmModule, getRegistryUrl } from "../utils/index";
-import registries from "../constants/registries.json";
+import * as registries from "../constants/registries.json";
 import { resourcesAll } from "../lang/default/index";
 import { baseInitConfig } from "./env";
 
@@ -161,7 +160,7 @@ export function setRegistryAlias(registryConfig: RegistryConfig): void {
  * 环境准备
  * @param handler action监听函数
  */
-export function prepareEnv(handler: (...args: any[]) => any) {
+export function prepareEnv(handler?: (...args: any[]) => any) {
   return function (...args: any[]): void {
     if (!checkConfigInit()) return; // 配置初始化
     const fileConfig = getConfig(); // 基础配置

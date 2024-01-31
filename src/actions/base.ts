@@ -1,4 +1,4 @@
-import colors from "colors";
+import * as colors from "colors";
 import { line, desensitize, printLog } from "../utils/index";
 import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
