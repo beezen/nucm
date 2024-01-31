@@ -1,15 +1,37 @@
-import path from "path";
-import ini from "ini";
-import fs from "fs-extra";
-import os from "os";
-import inquirer from "inquirer";
-import shell from "shelljs";
-import "colors";
+import * as path from "path";
+import * as ini from "ini";
+import * as fs from "fs-extra";
+import * as os from "os";
+import * as inquirer from "inquirer";
+import * as shell from "shelljs";
 import { init, changeLanguage } from "i18next";
 import { printLog, getNrmModule, getRegistryUrl } from "../utils/index";
-import registries from "../constants/registries.json";
+import * as registries from "../constants/registries.json";
 import { resourcesAll } from "../lang/default/index";
 import { baseInitConfig } from "./env";
+
+export interface BaseConfig {
+  nucm?: {
+    baseConfig: {
+      lang: "cn" | "en";
+      checkUpdateDate?: string;
+      [key: string]: any;
+    };
+    [key: string]: any;
+  };
+  npm?: {
+    [key: string]: any;
+  };
+  nrm?: {
+    [key: string]: any;
+  };
+}
+
+export interface RegistryConfig {
+  registry: string; // 镜像源地址
+  registryName: string; // 镜像源别名
+  _authtoken: string; // 用户账号秘钥
+}
 
 const homedir = os.homedir(); // 用户目录
 const nucmrc_path = path.resolve(homedir, ".nucmrc"); // .nucmrc 配置文件地址
@@ -21,7 +43,7 @@ const nrmrc_path = path.resolve(homedir, ".nrmrc"); // .nrmrc 配置文件地址
  * @param key 文件名
  * @param value 文件信息
  */
-export function setConfig(key, value) {
+export function setConfig(key: string, value: string): string | void {
   if (!key || !value) return printLog("config.valueEmpty", { type: "error" });
   const pathList = {
     nucm: nucmrc_path,
@@ -32,7 +54,7 @@ export function setConfig(key, value) {
 }
 
 /** 获取本地配置文件信息 */
-export function getConfig() {
+export function getConfig(): BaseConfig {
   const nucm = ini.parse(fs.readFileSync(nucmrc_path, "utf-8"));
   const npm = ini.parse(fs.readFileSync(npmrc_path, "utf-8"));
   let nrm = null;
@@ -50,7 +72,7 @@ export function getConfig() {
  * 校验 .npmrc 配置文件是否存在，并初始化配置文件
  * @return true-初始化，false-未能初始化
  */
-export function checkConfigInit() {
+export function checkConfigInit(): boolean {
   if (!fs.existsSync(npmrc_path)) {
     printLog("config.notFound", { type: "error" });
     return false;
@@ -73,7 +95,7 @@ export function checkConfigInit() {
  * @param config 配置信息
  * @return 当前源相关信息 {registry,registryName,_authtoken}
  */
-export function getRegistryConfig(config) {
+export function getRegistryConfig(config: BaseConfig): RegistryConfig | {} {
   const registry = getRegistryUrl() || config?.npm?.registry; // 当前启用源地址
   if (!registry || !config) return {};
   let registriesList = { ...registries, ...config.nrm }; // 源注册表
@@ -97,9 +119,9 @@ export function getRegistryConfig(config) {
  * 功能是否启用
  * @param registryConfig 源相关信息
  */
-export function isEnabled(registryConfig) {
-  if (!registryConfig.registryName) {
-    setRegistryAlias(registryConfig);
+export function isEnabled(registryConfig: RegistryConfig | {}): boolean {
+  if (!(registryConfig as RegistryConfig).registryName) {
+    setRegistryAlias(registryConfig as RegistryConfig);
     return false;
   }
   return true;
@@ -109,7 +131,7 @@ export function isEnabled(registryConfig) {
  * 设置注册源别名
  * @param {*} registryConfig 注册源配置
  */
-export function setRegistryAlias(registryConfig) {
+export function setRegistryAlias(registryConfig: RegistryConfig): void {
   let registryRandomName = `registry_${Date.now()}`;
   inquirer
     .prompt([
@@ -136,22 +158,23 @@ export function setRegistryAlias(registryConfig) {
 
 /**
  * 环境准备
- * @param callback 回调函数
+ * @param handler action监听函数
  */
-export function prepareEnv(callback) {
-  initLanguage(); // 初始化语言配置
-  if (!checkConfigInit()) return; // 配置初始化
-  const fileConfig = getConfig(); // 基础配置
-  const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
-  if (!isEnabled(registryConfig)) return;
-  // global 全局存储
-  Object.assign(baseInitConfig, {
-    fileConfig, // 配置文件
-    registryConfig, // 源配置
-    lang: fileConfig?.nucm?.baseConfig?.lang || "cn" // 语言
-  });
-  changeLanguage(baseInitConfig.lang);
-  callback && callback(baseInitConfig);
+export function prepareEnv(handler?: (...args: any[]) => any) {
+  return function (...args: any[]): void {
+    if (!checkConfigInit()) return; // 配置初始化
+    const fileConfig = getConfig(); // 基础配置
+    const registryConfig = getRegistryConfig(fileConfig); // 源信息配置
+    if (!isEnabled(registryConfig)) return;
+    // global 全局存储
+    Object.assign(baseInitConfig, {
+      fileConfig, // 配置文件
+      registryConfig, // 源配置
+      lang: fileConfig?.nucm?.baseConfig?.lang || "cn" // 语言
+    });
+    changeLanguage(baseInitConfig.lang);
+    handler && handler(...args);
+  };
 }
 
 /**

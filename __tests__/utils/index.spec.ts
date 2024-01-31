@@ -9,6 +9,8 @@ import {
 } from "../../src/utils/index";
 import { getConfig, getRegistryConfig, isEnabled, initLanguage } from "../../src/common";
 
+import type { RegistryConfig } from "../../src/common";
+initLanguage(); // 初始化 i18next
 describe("utils", () => {
   it("getConfig", () => {
     const { nucm, npm, nrm } = getConfig();
@@ -18,7 +20,6 @@ describe("utils", () => {
   });
 
   it("printLog", () => {
-    initLanguage(); // 初始化 i18next
     const langCn = require("../../src/lang/default/zh/base.json");
     const langEn = require("../../src/lang/default/en/base.json");
     expect(printLog("command.version", { isPrint: false, lng: "en" })).toBe(langEn.command.version);
@@ -37,8 +38,8 @@ describe("utils", () => {
 
   it("desensitize", () => {
     expect(desensitize("ce")).toBe("ce");
-    expect(desensitize("ceshi", 10)).toBe("......eshi");
-    expect(desensitize("ceshi1ceshi2ceshi3", 10)).toBe("ceshi1......shi3");
+    expect(desensitize("ceshi")).toBe("......eshi");
+    expect(desensitize("ceshi1ceshi2ceshi3")).toBe("ceshi1......shi3");
   });
 
   it("compareVersion", () => {
@@ -52,8 +53,7 @@ describe("utils", () => {
   });
 
   it("getRegistryConfig", () => {
-    expect(getRegistryConfig()).toEqual({});
-    const { registry, registryName, _authtoken } = getRegistryConfig(getConfig());
+    const { registry, registryName, _authtoken } = getRegistryConfig(getConfig()) as RegistryConfig;
     expect(registry).toBeDefined();
     expect(registryName).toBeDefined();
     expect(_authtoken).toBeDefined();

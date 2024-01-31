@@ -1,11 +1,17 @@
-import colors from "colors";
 import { line, desensitize, printLog } from "../utils/index";
 import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
+
+const colors = require("colors");
+interface LOptions {
+  list?: boolean;
+  all?: boolean;
+}
+
 /**
  * 获取用户列表
  */
-export function getUserList(options) {
+export function getUserList(options: LOptions) {
   const { fileConfig, registryConfig } = baseInitConfig;
   const defaultLog = printLog("account.noData", { isPrint: false, type: "error" });
   let userList = "";
@@ -32,7 +38,8 @@ export function getUserList(options) {
       .map((registryName) => {
         let registryNameStr =
           registryName === registryConfig.registryName
-            ? colors.custom(`【${registryName}】`)
+            ? // @ts-ignore
+              colors.custom(`【${registryName}】`)
             : `【${registryName}】`;
         return `${registryNameStr}\n${getListInfo(accountConfig[registryName])}`;
       })
@@ -40,6 +47,7 @@ export function getUserList(options) {
     printLog(userList);
   } else {
     const listStr = getListInfo(nucmrcConfig[registryConfig.registryName]);
+    // @ts-ignore
     userList = `${colors.custom(`【${registryConfig.registryName}】`)}\n${listStr}`;
     printLog(listStr ? userList : defaultLog);
   }
@@ -47,7 +55,7 @@ export function getUserList(options) {
 }
 
 /** 变更用户 */
-export function changeUser(name) {
+export function changeUser(name: string) {
   const { fileConfig, registryConfig } = baseInitConfig;
   let npmrcConfig = fileConfig.npm;
   let nucmrcConfig = fileConfig.nucm;
@@ -70,7 +78,7 @@ export function changeUser(name) {
 }
 
 /** 添加用户 */
-export function addUser(name, token) {
+export function addUser(name: string, token: string) {
   const { fileConfig, registryConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || {};
@@ -86,7 +94,7 @@ export function addUser(name, token) {
 }
 
 /** 移除用户 */
-export function removeUser(name) {
+export function removeUser(name: string) {
   const { fileConfig, registryConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let accountList = nucmrcConfig[registryConfig.registryName] || {};

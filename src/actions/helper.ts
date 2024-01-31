@@ -1,17 +1,19 @@
-import "colors";
-import shell from "shelljs";
-import inquirer from "inquirer";
+import * as shell from "shelljs";
+import * as inquirer from "inquirer";
 import { changeLanguage } from "i18next";
 import { setConfig } from "../common";
 import { baseInitConfig } from "../common/env";
 import { compareVersion, getPackageManager, printLog } from "../utils/index";
 import { addUser, removeUser } from "./base";
+
+const colors = require("colors");
+
 /**
  * 更新版本
  * @param option 配置
  * @param curVersion 当前版本号
  */
-export function updateVersion(option, curVersion) {
+export function updateVersion(option: { silent?: boolean }, curVersion: string) {
   const { fileConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let baseConfig = nucmrcConfig?.baseConfig;
@@ -35,9 +37,10 @@ export function updateVersion(option, curVersion) {
       return;
     }
     // 存在新版本
-    let message = `${printLog("update.existVersion", { type: "error", isPrint: false })}\n🌟 nucm  ${
-      curVersion.green
-    }  →  ${latestVersion.red}`;
+    let message = `${printLog("update.existVersion", {
+      type: "error",
+      isPrint: false
+    })}\n🌟 nucm  ${colors.green(curVersion)}  →  ${colors.red(latestVersion)}`;
 
     inquirer
       .prompt([
@@ -60,7 +63,7 @@ export function updateVersion(option, curVersion) {
 }
 
 /** 切换语言 */
-export function changeLang(language) {
+export function changeLang(language: "cn" | "en") {
   const { fileConfig } = baseInitConfig;
   const nucmrcConfig = fileConfig.nucm;
   let baseConfig = nucmrcConfig?.baseConfig;

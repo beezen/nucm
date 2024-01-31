@@ -1,14 +1,15 @@
-const path = require("path");
-
 module.exports = {
   preset: "ts-jest",
-  testEnvironment: "node",
   transform: {
-    "^.+\\.(t|j)s?$": "babel-jest",
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.ts$": "ts-jest",
+    "^.+\\.js$": "babel-jest"
   },
-  testURL: "http://localhost/",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  testEnvironment: "node",
+  testEnvironmentOptions: {
+    url: "http://localhost/"
+  },
+  moduleFileExtensions: ["ts", "js", "json"],
+  moduleDirectories: ["node_modules"],
   testPathIgnorePatterns: ["node_modules"],
   testMatch: ["**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)"]
 };
