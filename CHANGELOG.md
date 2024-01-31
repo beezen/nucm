@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/beezen/nucm/compare/v1.10.0...v1.10.1) (2024-01-31)
+
+
+### Bug Fixes
+
+* 优化 colors 模块的引入规则 ([8122ed5](https://github.com/beezen/nucm/commit/8122ed5d4f1df8cb101407c92051bfdc904e218e))
+
 ## [1.10.0](https://github.com/beezen/nucm/compare/v1.9.3...v1.10.0) (2024-01-31)
 
 
