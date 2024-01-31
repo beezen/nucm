@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/beezen/nucm/compare/v1.9.3...v1.10.0) (2024-01-31)
+
+
+### Features
+
+* 项目调整为TS语法 ([0b34ad4](https://github.com/beezen/nucm/commit/0b34ad42b43bc5b61ff1e34abb01df0bb146b466))
+
+
+### Bug Fixes
+
+* 优化环境异常时help日志不打印问题 ([29d4945](https://github.com/beezen/nucm/commit/29d4945db37e4015bb80c1f902f2ba89bb1802f5))
+* 优化文件导入方式 ([f05c988](https://github.com/beezen/nucm/commit/f05c988a5f9d574bc79a5c3ce95ae96f4a51aaeb))
+
 ### [1.9.3](https://github.com/beezen/nucm/compare/v1.9.2...v1.9.3) (2024-01-29)
 
 ### [1.9.2](https://github.com/beezen/nucm/compare/v1.9.1...v1.9.2) (2024-01-22)
