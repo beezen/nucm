@@ -6,6 +6,7 @@
     "listLs": "显示详细",
     "listAll": "显示所有账号详细",
     "switchAccount": "切换账号",
+    "switchAccountUseType": "切换账号用某种类型",
     "addAccount": "添加账号",
     "removeAccount": "移除账号",
     "localizedLang": "使用本地化语言",

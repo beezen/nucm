@@ -18,6 +18,7 @@ program
   .action(prepareEnv(getUserList));
 program
   .command("use <name>")
+  .option("-t,--type <type>", printLog("command.switchAccountUseType", { isPrint: false }))
   .description(printLog("command.switchAccount", { isPrint: false }))
   .action(prepareEnv(changeUser));
 program

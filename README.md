@@ -99,6 +99,8 @@ $ nucm use beezen
 
 在后续的使用过程中，您可以通过 `nucm use <name>` 的方式快速切换各种账号的访问令牌，从而实现对 npm 包使用不同账号进行发布。
 
+如果想进一步了解 NPM 登录相关的配置，可以参考[.npmrc 配置说明](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc#auth-related-configuration)。
+
 ## 许可证
 
 MIT
