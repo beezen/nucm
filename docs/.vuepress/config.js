@@ -16,7 +16,8 @@ module.exports = {
       "/use",
       "/localize",
       "/update",
-      "/registry"
+      "/registry",
+      "/more"
     ],
     nav: [
       {

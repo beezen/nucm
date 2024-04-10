@@ -6,6 +6,7 @@
     "listLs": "show detail",
     "listAll": "show all account details",
     "switchAccount": "switch account",
+    "switchAccountUseType": "switch account use a type",
     "addAccount": "add account",
     "removeAccount": "remove account",
     "localizedLang": "use localized languages",

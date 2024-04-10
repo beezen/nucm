@@ -101,6 +101,7 @@ export function getRegistryConfig(config: BaseConfig): RegistryConfig | {} {
   let registriesList = { ...registries, ...config.nrm }; // 源注册表
   let registryName = "";
   let _authtoken = config.npm[`${registry.replace(/^https?:/, "")}:_authToken`]; // 当前源的用户账号令牌
+  let _auth = config.npm[`${registry.replace(/^https?:/, "")}:_auth`]; // 当前源的用户账号
   // 获取当前源别名
   for (let key in registriesList) {
     let currentRegistry = registriesList[key]?.registry?.replace(/^https?:\/\/|\/*$/g, "");
@@ -111,7 +112,8 @@ export function getRegistryConfig(config: BaseConfig): RegistryConfig | {} {
   return {
     registry,
     registryName,
-    _authtoken
+    _authtoken,
+    _auth
   };
 }
 

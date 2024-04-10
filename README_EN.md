@@ -98,6 +98,8 @@ Note: If you have logged in through npm login or npm adduser, you can preserve t
 
 During subsequent use, you can swiftly switch between accounts using the nucm use <name> command, enabling quick switching of the associated Access Token. This allows seamless release of NPM packages with different account credentials.
 
+If you want to learn more about the configuration of NPM login, you can refer to the [.npmrc configuration instructions](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc#auth-related-configuration).
+
 ## LICENSE
 
 MIT

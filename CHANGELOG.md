@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/beezen/nucm/compare/v1.10.1...v1.11.0) (2024-04-10)
+
+
+### Features
+
+* 新增NPM账号管理的_auth字段支持 ([95a02f6](https://github.com/beezen/nucm/commit/95a02f6adbdfc6f24f1ebaf4c98e110a779d535c))
+
 ### [1.10.1](https://github.com/beezen/nucm/compare/v1.10.0...v1.10.1) (2024-01-31)
 
 

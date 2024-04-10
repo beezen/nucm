@@ -8,6 +8,11 @@ interface LOptions {
   all?: boolean;
 }
 
+// 账号类型配置 _authToken|_auth|_password
+interface AuthOptions {
+  type?: "auth";
+}
+
 /**
  * 获取用户列表
  */
@@ -55,7 +60,7 @@ export function getUserList(options: LOptions) {
 }
 
 /** 变更用户 */
-export function changeUser(name: string) {
+export function changeUser(name: string, options?: AuthOptions) {
   const { fileConfig, registryConfig } = baseInitConfig;
   let npmrcConfig = fileConfig.npm;
   let nucmrcConfig = fileConfig.nucm;
@@ -64,7 +69,11 @@ export function changeUser(name: string) {
     printLog("account.notFound", { type: "error" });
     return;
   }
-  npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:_authToken`] =
+  let authStr = "_authToken";
+  if (["auth", "authToken"].includes(options?.type)) {
+    authStr = `_${options.type}`;
+  }
+  npmrcConfig[`${registryConfig.registry.replace(/^https?:/, "")}:${authStr}`] =
     accountList[name]["access-tokens"];
   Object.keys(accountList).forEach((key) => {
     if (accountList[key]["is-current"]) {
