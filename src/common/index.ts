@@ -163,7 +163,7 @@ export function setRegistryAlias(registryConfig: RegistryConfig): void {
  * @param handler action监听函数
  */
 export function prepareEnv(handler?: (...args: any[]) => any) {
-  return function (...args: any[]): void {
+  return function (...args: any[]): any {
     if (!checkConfigInit()) return; // 配置初始化
     const fileConfig = getConfig(); // 基础配置
     const registryConfig = getRegistryConfig(fileConfig); // 源信息配置

@@ -9,10 +9,17 @@ title: nucm use 切换账号
 ## 命令
 
 ```bash
-$ nucm use <name>
+$ nucm use [options] <name>
 ```
 
-## 配置
+## 参数
+
+`options`
+
+- Default: null, 可选参数：`'-t'`
+- Required: false
+
+配置参数，`-t` 用于标识切换账号的方式，可选值为 `authToken`(默认) | `auth`。
 
 `name`
 

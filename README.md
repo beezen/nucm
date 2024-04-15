@@ -45,7 +45,7 @@ Options:
 
 Commands:
   ls [options]                查看账号列表
-  use <name>                  切换账号
+  use [options] <name>        切换账号
   add <name> <access-tokens>  添加账号
   del <name>                  移除账号
   localize <lang>             使用本地化语言

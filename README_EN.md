@@ -44,7 +44,7 @@ Options:
 
 Commands:
   ls [options]                show account list
-  use <name>                  switch account
+  use [options] <name>        switch account
   add <name> <access-tokens>  add account
   del <name>                  remove account
   localize|language <lang>    use localized languages
