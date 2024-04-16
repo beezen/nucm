@@ -14,16 +14,31 @@ $ nucm use [options] <name>
 
 ## 参数
 
-`options`
+- `name`：账号别名。根据账号别名进行 Access Tokens 账号的切换。
+- `options`：可选参数
 
-- Default: null, 可选参数：`'-t'`
-- Required: false
+| 选项                         | 描述                                                                                                                                                                                               |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-t <type>`, `--type <type>` | 用于标识切换账号的方式：`authToken` or `auth`，默认值为 `authToken` 。<br/>`authToken`，代表 `//registry.xx.com/:_authToken=xxx` 形式。<br/>`auth` 代表 `//registry.xx.com/:_auth=xxx` 形式。<br/> |
 
-配置参数，`-t` 用于标识切换账号的方式，可选值为 `authToken`(默认) | `auth`。
+## 示例
 
-`name`
+1、切换账号
 
-- Default: null
-- Required: true
+```bash
+$ nucm use test01
 
-账号别名。根据账号别名进行 Access Tokens 账号的切换。
+已切换到账号 test01
+
+# .npmrc 文件中显示如下 //registry.npmmirror.com/:_authToken=123456789
+```
+
+2、以 `_auth` 形式切换账号
+
+```bash
+$ nucm use test01 --type=auth
+
+已切换到账号 test01
+
+# .npmrc 文件中显示如下 //registry.npmmirror.com/:_auth=123456789
+```

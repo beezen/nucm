@@ -12,53 +12,18 @@ title: nucm registry 镜像源操作
 $ nucm registry <cmd...>
 ```
 
-## `cmd...` 变长参数
+## 参数
 
-### `ls`
+- `cmd...`：变长参数，代表子命令集合。
 
-查看镜像源列表。
+| 子命令             | 描述                                                         |
+| ------------------ | ------------------------------------------------------------ |
+| `ls`               | 查看镜像源列表。                                             |
+| `add <name> <url>` | 添加镜像源和别名。`name`：镜像源的别名， `url`：镜像源的地址 |
+| `use <name>`       | 切换当前镜像源。`name`：镜像源的别名。                       |
+| `del <name>`       | 删除指定镜像源。`name`：镜像源的别名。                       |
 
-### `add <name> <url>`
-
-添加镜像源和别名。
-
-`name`
-
-- Default: null
-- Required: true
-
-镜像源的别名
-
-`url`
-
-- Default: null
-- Required: true
-
-镜像源的地址
-
-### `use <name>`
-
-切换当前镜像源。
-
-`name`
-
-- Default: null
-- Required: true
-
-镜像源的别名
-
-### `del <name>`
-
-删除指定镜像源。
-
-`name`
-
-- Default: null
-- Required: true
-
-镜像源的别名
-
-## 详细
+## 示例
 
 1、查看当前镜像源列表
 
