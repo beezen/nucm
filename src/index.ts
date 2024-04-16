@@ -5,6 +5,7 @@ import { updateVersion, changeLang, searchToSave } from "./actions/helper";
 import { proxyNrm } from "./actions/registry";
 import { printLog } from "./utils/index";
 initLanguage();
+prepareEnv()(); // 初始化环境
 
 const pkg = require("../package.json");
 const program = new Command();
@@ -15,34 +16,34 @@ program
   .option("-l,--list", printLog("command.listLs", { isPrint: false }))
   .option("-a,--all", printLog("command.listAll", { isPrint: false }))
   .description(printLog("command.list", { isPrint: false }))
-  .action(prepareEnv(getUserList));
+  .action(getUserList);
 program
   .command("use <name>")
   .option("-t,--type <type>", printLog("command.switchAccountUseType", { isPrint: false }))
   .description(printLog("command.switchAccount", { isPrint: false }))
-  .action(prepareEnv(changeUser));
+  .action(changeUser);
 program
   .command("add <name> <access-tokens>")
   .description(printLog("command.addAccount", { isPrint: false }))
-  .action(prepareEnv(addUser));
+  .action(addUser);
 program
   .command("del <name>")
   .description(printLog("command.removeAccount", { isPrint: false }))
-  .action(prepareEnv(removeUser));
+  .action(removeUser);
 program
   .command("localize <lang>")
   .alias("language")
   .description(printLog("command.localizedLang", { isPrint: false }))
-  .action(prepareEnv(changeLang));
+  .action(changeLang);
 program
   .command("update")
   .option("--silent", printLog("command.updateSilent", { isPrint: false }))
   .description(printLog("command.update", { isPrint: false }))
-  .action(prepareEnv((options) => updateVersion(options, pkg.version)));
+  .action((options) => updateVersion(options, pkg.version));
 program
   .command("save")
   .description(printLog("command.saveAccount", { isPrint: false }))
-  .action(prepareEnv(searchToSave));
+  .action(searchToSave);
 program
   .command("registry <cmd...>")
   .alias("nrm")
@@ -58,5 +59,5 @@ program
       $ nucm registry use taobao // Change taobao registry
       `
   )
-  .action(prepareEnv(proxyNrm));
+  .action(proxyNrm);
 program.parse(process.argv);

@@ -12,11 +12,6 @@ title: nucm del 移除账号
 $ nucm del <name>
 ```
 
-## 配置
+## 参数
 
-`name`
-
-- Default: null
-- Required: true
-
-账号别名。工具会根据账号别名删除对应的 Access Tokens 账号。
+- `name`：账号别名。工具会根据账号别名删除对应的 Access Tokens 账号。

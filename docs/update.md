@@ -12,16 +12,15 @@ title: nucm update 更新版本
 $ nucm update [options]
 ```
 
-## 配置
+## 参数
 
-`options`
+- `options`：可选参数
 
-- Default: null。可选参数：`'--silent'`
-- Required: false
+| 选项       | 描述             |
+| ---------- | ---------------- |
+| `--silent` | 表示静默更新方式 |
 
-`options` 表示更新版本的详细配置参数。它为空时，表示询问式更新方式；它为 '--silent' 时，表示静默更新方式。
-
-## 详细
+## 示例
 
 1、询问式更新。检查最新的工具版本，并询问是否需要更新。
 

@@ -16,7 +16,7 @@ interface AuthOptions {
 /**
  * 获取用户列表
  */
-export function getUserList(options: LOptions) {
+export function getUserList(options: LOptions): any {
   const { fileConfig, registryConfig } = baseInitConfig;
   const defaultLog = printLog("account.noData", { isPrint: false, type: "error" });
   let userList = "";

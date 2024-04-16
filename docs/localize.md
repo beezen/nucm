@@ -12,16 +12,11 @@ title: nucm localize 切换语言
 $ nucm localize <lang>
 ```
 
-## 配置
+## 参数
 
-`lang`
+- `lang`：工具显示语言 `en` or `cn`，默认 `cn`。`en` 表示英文，`cn` 表示中文。
 
-- Default: null。可选参数：`'en'` | `'cn'`
-- Required: true
-
-工具语言。`en` 表示英文，`cn` 表示中文。
-
-## 详细
+## 示例
 
 1、切换英文版本
 
